@@ -2,7 +2,7 @@
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title">{{ $route.name }}</h3>
+        <h3 class="md-title">Galería de Productos</h3>
       </div>
       <div class="md-toolbar-section-end">
         <md-button
@@ -19,10 +19,10 @@
           <div class="md-autocomplete">
             <md-autocomplete
               class="search"
-              v-model="selectedEmployee"
-              :md-options="employees"
+              v-model="selectedProducts"
+              :md-options="products"
             >
-              <label>Search...</label>
+              <label>Productos...</label>
             </md-autocomplete>
           </div>
           <md-list>
@@ -91,16 +91,17 @@
 export default {
   data() {
     return {
-      selectedEmployee: null,
-      employees: [
-        "Jim Halpert",
-        "Dwight Schrute",
-        "Michael Scott",
-        "Pam Beesly",
-        "Angela Martin",
-        "Kelly Kapoor",
-        "Ryan Howard",
-        "Kevin Malone"
+      selectedProducts: null,
+      products: [
+        "Taza ceramica",
+        "Set de Jardín",
+        "Set de Mate 1",
+        "Portacosmeticos",
+        "Portacosmeticos con fuelle",
+        "Portacosmeticos recto",
+        "Cartuchera",
+        "Mousepad",
+        "Termo autocebante 500ml"
       ]
     };
   },
