@@ -1,7 +1,6 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      
     </div>
   </div>
 </template>
@@ -17,11 +16,11 @@ import {
 
 export default {
   components: {
-    /* StatsCard,
-    ChartCard,
-    NavTabsCard,
-    NavTabsTable,
-    OrderedTable */
+    // StatsCard,
+    // ChartCard,
+    // NavTabsCard,
+    // NavTabsTable,
+    // OrderedTable
   },
   data() {
     return {
