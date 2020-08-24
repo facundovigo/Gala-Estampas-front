@@ -4,30 +4,33 @@
       <nav>
         <ul>
           <li>
-            <a href="https://www.creative-tim.com">Creative Tim</a>
-          </li>
-          <li>
-            <a href="https://creative-tim.com/presentation">
-              About Us
+            <a href="https://github.com/facundovigo/Gala-Estampas-front">
+              Tip 2020-2s
             </a>
           </li>
           <li>
-            <a href="http://blog.creative-tim.com">
-              Blog
+            <a href="https://github.com/facundovigo">
+              Facu Vigo
             </a>
           </li>
           <li>
-            <a href="https://www.creative-tim.com/license">
-              Licenses
+            <a href="https://github.com/sirdemian">
+              sir Demian
             </a>
           </li>
         </ul>
       </nav>
       <div class="copyright text-center">
+        <a href="https://www.instagram.com/galaestampas/">
+          <i class="fab fa-instagram"></i>
+        </a>
+        -
+        <a href="https://www.facebook.com/galaestampas/">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        - Gala Estampas
+        <i class="fa fa-heart heart"></i> Regalos pensados
         &copy; {{ new Date().getFullYear() }}
-        <a href="https://www.creative-tim.com/?ref=mdf-vuejs" target="_blank"
-          >Creative Tim</a
-        >, made with <i class="fa fa-heart heart"></i> for a better web
       </div>
     </div>
   </footer>
