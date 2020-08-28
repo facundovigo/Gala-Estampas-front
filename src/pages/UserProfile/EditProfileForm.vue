@@ -62,7 +62,7 @@
               <md-input v-model="code" type="number"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-size-100">
+          <div v-if="exp == 'true'" class="md-layout-item md-size-100">
             <md-field maxlength="5">
               <label>About Me</label>
               <md-textarea v-model="aboutme"></md-textarea>
@@ -71,6 +71,14 @@
           <div class="md-layout-item md-size-100 text-right">
             <md-button class="md-raised md-success">Update Profile</md-button>
           </div>
+        <div class="radio">
+              <label class="radio-inline">
+                <input type="radio" v-model="exp" value="true"> Si  
+              </label>
+              <label class="radio-inline">
+                <input type="radio" v-model="exp" value="false"> No 
+              </label>
+        </div>
         </div>
       </md-card-content>
     </md-card>
@@ -86,6 +94,7 @@ export default {
     }
   },
   data() {
+  
     return {
       username: null,
       disabled: null,
@@ -96,8 +105,9 @@ export default {
       city: null,
       country: null,
       code: null,
+      exp: null,
       aboutme:
-        "Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+        "Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.", 
     };
   }
 };
