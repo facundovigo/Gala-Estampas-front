@@ -5,12 +5,10 @@
         <i class="fas fa-share-alt" @click="toggleDropDown"> </i>
       </a>
       <ul class="dropdown-menu" :class="{ show: isOpen }">
-        <li class="header-title">Sidebar Filters</li>
-
+        <li class="header-title"> Gala Estampas</li>
         <li class="header-title d-flex justify-content-center">
-          Thank you for sharing!
+          Gracias Por Elegirnos!
         </li>
-
         <li class="button-container">
           <social-sharing
             :url="shareUrl"
@@ -43,32 +41,15 @@
 import Vue from "vue";
 import SocialSharing from "vue-social-sharing";
 import VueGitHubButtons from "vue-github-buttons";
-import "vue-github-buttons/dist/vue-github-buttons.css";
 
 Vue.use(SocialSharing);
 Vue.use(VueGitHubButtons, { useCache: true });
 export default {
   data() {
     return {
-      documentationLink:
-        "https://creativetimofficial.github.io/vue-material-dashboard/documentation",
       shareUrl: "https://www.creative-tim.com/product/vue-material-dashboard",
-      buyUrl: "",
       freeUrl: "https://www.creative-tim.com/product/vue-material-dashboard",
       isOpen: false,
-      sidebarColors: [
-        { color: "purple", active: false },
-        { color: "blue", active: false },
-        { color: "green", active: true },
-        { color: "orange", active: false },
-        { color: "red", active: false }
-      ],
-      sidebarImages: [
-        { image: require("@/assets/img/sidebar-1.jpg"), active: false },
-        { image: require("@/assets/img/sidebar-2.jpg"), active: true },
-        { image: require("@/assets/img/sidebar-3.jpg"), active: false },
-        { image: require("@/assets/img/sidebar-4.jpg"), active: false }
-      ]
     };
   },
   methods: {
@@ -99,6 +80,9 @@ export default {
 };
 </script>
 <style>
+.fixed-plugin{
+  margin-top: -2%;
+}
 .centered-row {
   display: flex;
   height: 100%;
@@ -106,7 +90,7 @@ export default {
 }
 
 .button-container .btn {
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 .centered-buttons {

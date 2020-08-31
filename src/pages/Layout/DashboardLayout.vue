@@ -32,16 +32,11 @@
     <div class="main-panel">
       <top-navbar></top-navbar>
 
-      <fixed-plugin
-        :color.sync="sidebarBackground"
-        :image.sync="sidebarBackgroundImage"
-      >
-      </fixed-plugin>
+      <fixed-plugin :color.sync="sidebarBackground" :image.sync="sidebarBackgroundImage"></fixed-plugin>
 
-      <dashboard-content> </dashboard-content>
+      <dashboard-content></dashboard-content>
 
       <content-footer></content-footer>
-
     </div>
   </div>
 </template>
@@ -63,10 +58,12 @@ export default {
   },
   data() {
     return {
-      sidebarBackground: "green",
-      sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg")
+      sidebarBackground: "red",
+      sidebarBackgroundImage: require("@/assets/img/portada2.jpg")
     };
   }
 };
 </script>
+
+
 

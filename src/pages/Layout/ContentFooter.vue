@@ -43,8 +43,11 @@ export default {
 <style>
 .footer{
 
-  margin-top: 30%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
 }
+
 
 </style>
 

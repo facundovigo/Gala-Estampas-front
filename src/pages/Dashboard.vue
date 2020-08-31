@@ -1,5 +1,9 @@
 <template>
-      <div class="container flex-column">           
+      <div class="contenedor">           
+        <CardProduct></CardProduct>
+        <CardProduct></CardProduct>
+        <CardProduct></CardProduct>
+        <CardProduct></CardProduct>
         <CardProduct></CardProduct>
         <CardProduct></CardProduct>
         <CardProduct></CardProduct>
@@ -17,16 +21,17 @@ import {
 
 export default {
   components: {
-   // ChartCard,
      CardProduct
-
   },
 }
 </script>
 
 <style scoped>
-.card{
- max-width: 30%;
- max-height: 30%; 
+.contenedor{
+
+display: row;
+/* grid-template-columns: repeat(4);   */
+margin-top: 4rem;
 }
+
 </style>
