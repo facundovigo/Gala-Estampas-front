@@ -31,7 +31,8 @@ export default {
 
 display: row;
 /* grid-template-columns: repeat(4);   */
-margin-top: 4rem;
+margin-top: 3rem;
+margin-left: 1rem;
 }
 
 </style>
