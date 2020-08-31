@@ -2,9 +2,6 @@
     "name": "vue-gala-estampas",
     "version": "1.4.0",
     "private": true,
-    "engines": {
-        "node": "12.18.0"
-    },
     "scripts": {
         "serve": "vue-cli-service serve --open",
         "dev": "npm run serve",
@@ -26,6 +23,12 @@
         "@vue/cli-plugin-babel": "4.2.3",
         "@vue/cli-plugin-router": "4.2.3",
         "@vue/cli-service": "4.2.3",
+        "@vue/cli-plugin-eslint": "4.2.3",
+        "@vue/eslint-config-prettier": "6.0.0",
+        "babel-eslint": "10.1.0",
+        "eslint": "6.8.0",
+        "eslint-plugin-prettier": "3.1.2",
+        "eslint-plugin-vue": "6.2.2",
         "es6-promise": "4.2.8",
         "prettier": "1.19.1",
         "sass": "1.26.2",
