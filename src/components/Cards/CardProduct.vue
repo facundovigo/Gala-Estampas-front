@@ -6,6 +6,7 @@
         </md-card-media>
 
         <md-card-actions>
+
           <md-button class="md-icon-button">
             <md-icon>favorite</md-icon>
           </md-button>
@@ -17,6 +18,7 @@
           <md-button class="md-icon-button">
             <md-icon>share</md-icon>
           </md-button>
+
         </md-card-actions>
       </md-card-media-actions>
     </md-card>
