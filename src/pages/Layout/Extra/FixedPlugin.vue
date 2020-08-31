@@ -2,54 +2,10 @@
   <div class="fixed-plugin" v-click-outside="closeDropDown">
     <div class="dropdown show-dropdown" :class="{ show: isOpen }">
       <a data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x" @click="toggleDropDown"> </i>
+        <i class="fas fa-share-alt" @click="toggleDropDown"> </i>
       </a>
       <ul class="dropdown-menu" :class="{ show: isOpen }">
         <li class="header-title">Sidebar Filters</li>
-        <li class="adjustments-line text-center">
-          <span
-            v-for="item in sidebarColors"
-            :key="item.color"
-            class="badge filter"
-            :class="[`badge-${item.color}`, { active: item.active }]"
-            :data-color="item.color"
-            @click="changeSidebarBackground(item)"
-          >
-          </span>
-        </li>
-        <li class="header-title">Images</li>
-        <li
-          v-for="item in sidebarImages"
-          :key="item.image"
-          :class="{ active: item.active }"
-          @click="changeSidebarImage(item)"
-        >
-          <a class="img-holder switch-trigger">
-            <img :src="item.image" alt="" />
-          </a>
-        </li>
-
-        <li class="button-container">
-          <div class="">
-            <md-button
-              class="md-success md-block"
-              :href="freeUrl"
-              target="_blank"
-              >Free Download</md-button
-            >
-          </div>
-        </li>
-
-        <li class="button-container">
-          <div class="">
-            <md-button
-              class="md-block md-primary"
-              :href="documentationLink"
-              target="_blank"
-              >Documentation</md-button
-            >
-          </div>
-        </li>
 
         <li class="header-title d-flex justify-content-center">
           Thank you for sharing!
@@ -78,12 +34,6 @@
               </network>
             </div>
           </social-sharing>
-        </li>
-        <li class="github-buttons">
-          <gh-btns-star
-            slug="creativetimofficial/vue-material-dashboard"
-            show-count
-          ></gh-btns-star>
         </li>
       </ul>
     </div>

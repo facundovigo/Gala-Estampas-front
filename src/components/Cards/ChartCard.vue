@@ -1,10 +1,7 @@
 <template>
-  <md-card>
-    <md-card-header
-      class="card-chart"
-      :data-background-color="dataBackgroundColor"
-    >
-      <div :id="chartId" class="ct-chart"></div>
+  <md-card> 
+    <md-card-header class="card-chart" :data-background-color="dataBackgroundColor" >
+      <img class="imgf" src="@/assets/img/faces/1.jpg" >
     </md-card-header>
 
     <md-card-content>
@@ -15,7 +12,10 @@
       <slot name="footer"></slot>
     </md-card-actions>
   </md-card>
+
+  
 </template>
+
 <script>
 export default {
   name: "chart-card",
@@ -28,29 +28,10 @@ export default {
       type: String,
       default: "Chart title"
     },
-    chartType: {
-      type: String,
-      default: "Line" // Line | Pie | Bar
-    },
-    chartOptions: {
-      type: Object,
-      default: () => {
-        return {};
-      }
-    },
     chartResponsiveOptions: {
       type: Array,
       default: () => {
         return [];
-      }
-    },
-    chartData: {
-      type: Object,
-      default: () => {
-        return {
-          labels: [],
-          series: []
-        };
       }
     },
     dataBackgroundColor: {
@@ -63,34 +44,12 @@ export default {
       chartId: "no-id"
     };
   },
-  methods: {
-    /***
-     * Initializes the chart by merging the chart options sent via props and the default chart options
-     */
-    initChart(Chartist) {
-      var chartIdQuery = `#${this.chartId}`;
-      Chartist[this.chartType](chartIdQuery, this.chartData, this.chartOptions);
-    },
-    /***
-     * Assigns a random id to the chart
-     */
-    updateChartId() {
-      var currentTime = new Date().getTime().toString();
-      var randomInt = this.getRandomInt(0, currentTime);
-      this.chartId = `div_${randomInt}`;
-    },
-    getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-  },
-  mounted() {
-    this.updateChartId();
-    import("chartist").then(Chartist => {
-      let ChartistLib = Chartist.default || Chartist;
-      this.$nextTick(() => {
-        this.initChart(ChartistLib);
-      });
-    });
-  }
-};
+}
 </script>
+ 
+<style  scoped>
+.md-card{
+  max-width: 70%;
+}
+
+</style>
