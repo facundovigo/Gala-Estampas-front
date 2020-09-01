@@ -29,7 +29,7 @@ export default {
     name:"CardProduct",
     methods:{
         details(){
-            this.$router.push('cardDetails')
+            this.$router.push('productDetails')
         }
     }
 }
