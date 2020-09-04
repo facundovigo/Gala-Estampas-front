@@ -8,11 +8,12 @@
       <h6 class="category text-gray">CEO / Silvina</h6>
       <h4 class="card-title">Gala Estampa</h4>
       <p class="card-description">
-        Don't be scared of the truth because we need to restart the human
-        foundation in truth And I love you like Kanye loves Kanye I love Rick
-        Owens’ bed design but the back is...
+        Portacosméticos 14x19 cms. Símil neoprene estampado de ambos lados
+        Cierre reforzado
+        Personalizalo como elijas
       </p>
-      <md-button class="md-round md-success">Volver</md-button>
+      <md-button class="md-round md-primary" id="pepe" v-on:click="back">Volver</md-button>
+      <md-button class="md-round md-danger">Comprar</md-button> 
     </md-card-content>
   </md-card>
 </template>
@@ -26,9 +27,19 @@ export default {
     },
 
   },
+  methods: {
+      back(){
+          this.$router.push('dashboard')
+      }
+  },
   data() {
     return {};
   }
+
 };
 </script>
-<style></style>
+<style>
+#pepe{
+    margin-right: 15%
+}
+</style>

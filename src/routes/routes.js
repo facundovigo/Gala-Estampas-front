@@ -3,7 +3,7 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import UserProfile from "@/pages/UserProfile.vue";
-import Cardetails from "@/components/Cards/CardDetail.vue";
+import ProductDetails from "@/pages/ProductDetails.vue";
 
 const routes = [{
     mode: "history",
@@ -21,9 +21,9 @@ const routes = [{
             component: UserProfile
         },
         {
-            path: "cardDetails",
-            name: "cardDetails",
-            component: Cardetails
+            path: "productDetails",
+            name: "productDetails",
+            component: ProductDetails
         }
     ]
 }];
