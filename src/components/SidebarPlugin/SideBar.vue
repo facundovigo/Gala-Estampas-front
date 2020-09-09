@@ -55,7 +55,7 @@ export default {
     },
     imgLogo: {
       type: String,
-      default: require("@/assets/img/Flor.png")
+      default: require("@/assets/img/flor.png")
     },
     sidebarItemColor: {
       type: String,
