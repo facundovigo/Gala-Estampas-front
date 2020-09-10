@@ -4,6 +4,8 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import ProductDetails from "@/pages/ProductDetails.vue";
+import Login from '@/pages/Login.vue';
+import Register from '@/pages/Register.vue';
 
 const routes = [{
     mode: "history",
@@ -25,6 +27,16 @@ const routes = [{
             component: ProductDetails,
             name: 'productDetails',
             props: true
+        },
+        {
+            path: "login",
+            name: "login",
+            component: Login
+        },
+        {
+            path: "register",
+            name: "register",
+            component: Register
         }
     ]
 }];

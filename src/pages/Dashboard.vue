@@ -109,6 +109,9 @@ margin-top: 4rem;
   /* grid-template-columns: repeat(2, 1fr);  */
   margin-top: 3rem;
   margin-left: 1rem; 
+/* grid-template-columns: repeat(4);   */
+margin-top: 3rem;
+margin-left: 1rem;
 }
 
 </style>

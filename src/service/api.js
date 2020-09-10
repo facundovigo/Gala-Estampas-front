@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-//const server = 'https://algo-backend.herokuapp.com'; url de ejemplo
-// const server = 'http://localhost:8080';
-
+//const server = 'http://ec2-3-131-160-45.us-east-2.compute.amazonaws.com/';
+const server = 'http://localhost:8000';
 const API = {
     get: path => axios.get(`${server}${path}`).then(response => response.data),
     put: (path, body) => axios.put(`${server}${path}`, body).then(response => response.data),
