@@ -2,7 +2,7 @@
     <md-card>
       <md-card-media-actions>
         <md-card-media>
-          <img src="@/assets/img/faces/1.jpg" alt="Cover">
+          <img :src="this.urlImage" alt="Cover">
         </md-card-media>
 
         <md-card-actions>
@@ -27,9 +27,19 @@
 <script>
 export default {
     name:"CardProduct",
+    props: ['post'],
+    data(){
+      return{
+        imagen: this.post.url,
+        urlImage: require("@/assets/img/"+this.post.url)
+      }
+    },
     methods:{
         details(){
-            this.$router.push('productDetails')
+            this.$router.push({ name: 'productDetails', params: {post: this.post}})
+        },
+        url(){
+          return this.t
         }
     }
 }

@@ -21,9 +21,10 @@ const routes = [{
             component: UserProfile
         },
         {
-            path: "productDetails",
-            name: "productDetails",
-            component: ProductDetails
+            path: 'productDetails',
+            component: ProductDetails,
+            name: 'productDetails',
+            props: true
         }
     ]
 }];

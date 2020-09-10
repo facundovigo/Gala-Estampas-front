@@ -2,10 +2,10 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
-        <ProductDetailsForm> </ProductDetailsForm>
+        <ProductDetailsForm :data=post> </ProductDetailsForm>
       </div>
       <div class="md-layout-item md-medium-size-100 md-size-33">
-        <ProductDetailsAction> </ProductDetailsAction>
+        <ProductDetailsAction :data=post> </ProductDetailsAction>
       </div>
     </div>
   </div>
@@ -15,9 +15,15 @@
 import { ProductDetailsAction, ProductDetailsForm } from "@/pages";
 
 export default {
+  props:['post'],
   components: {
     ProductDetailsForm,
     ProductDetailsAction
+  },
+  data(){
+    return{
+        imagen: this.post.categoria
+    }
   }
 };
 </script>

@@ -2,9 +2,9 @@
   <form>
     <md-card id="facu">
         
-      <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">Cartuchera</h4>
-        <p class="category">La mejor opcion para guardar todas tus cosas</p>
+      <md-card-header :data-background-color="color">
+        <h4 class="title">{{name}}</h4>
+        <p class="category">{{cabecera}}</p>
       </md-card-header>
 
       <md-card-content class="prueba">
@@ -17,14 +17,13 @@
 <script>
 export default {
   name: "edit-profile-form",
-  props: {
-    dataBackgroundColor: {
-      type: String,
-      default: "red"
-    }
-  },
+  props: ['data'],
   data() {
-  
+    return{
+        name: this.data.name,
+        cabecera: this.data.cabecera,
+        color: "red"
+    }
   }
 };
 </script>
