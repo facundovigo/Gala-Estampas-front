@@ -6,6 +6,7 @@ import UserProfile from "@/pages/UserProfile.vue";
 import ProductDetails from "@/pages/ProductDetails.vue";
 import Login from '@/pages/Login.vue';
 import Register from '@/pages/Register.vue';
+import TableList from "@/pages/TableList.vue";
 
 const routes = [{
     mode: "history",
@@ -21,6 +22,11 @@ const routes = [{
             path: "user",
             name: "User Profile",
             component: UserProfile
+        },
+        {
+            path: "miscompras",
+            component: TableList,
+            name: "miscompras",
         },
         {
             path: 'productDetails',

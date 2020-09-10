@@ -41,12 +41,7 @@ export default {
 </script>
 
 <style>
-.footer{
 
-  margin: 0 auto;
-  display: block;
-  position: relative;
-}
 
 
 </style>
