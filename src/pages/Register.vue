@@ -58,7 +58,11 @@ export default {
   },
   methods:{
     register(){
-      API.post("/api/auth/register/", this.body).then( resp => console.log("resp",resp) )
+      API.post("/api/auth/register/", this.body).then( resp => {    
+          localStorage.session = resp.key;
+          console.log('imaginen que estoy haciendo más cosas...');
+          console.log("resp",localStorage) 
+        })
       console.log(this.body, "body");
     }
   },
