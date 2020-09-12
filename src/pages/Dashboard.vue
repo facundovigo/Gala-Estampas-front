@@ -14,6 +14,7 @@
 
 <script>
 import chunk from "lodash/chunk" ;
+import API from '../service/api'
 import {
   CardProduct
 } from "@/components";
@@ -27,72 +28,20 @@ export default {
   },
   data(){
     return{
-      products:[1,2,3,4,5,6,7,8],
       datos: [
-          {
-            id: 1,
-            name: "Cartuchera",
-            url: "faces/cartuchera.jpg",
+          /*{
+            article: 2,
+            description: "Portacosmético de corte recto con cierre. Medidas 17 x 21 cm. Como todos nuestros productos se puede personalizar.",
+            id: 5,
+            inscription: "",
+            name: "Portacosmetico",
+            price: 400,
+            stamp: "http://localhost:8000/uploads/product_stamp/portacosmetico_17x21.jpeg",
+
             categoria: "/Cartuchera.png",
-            info: "Portacosméticos 14x19 cms. Símil neoprene estampado de ambos lados Cierre reforzado Personalizalo como elijas",
             cabecera: "La mejor opcion para guardar todas tus cosas"
-          },
-          {
-            id: 2,
-            name: "Set De MAte",
-            url: "faces/setDeMate.jpg",
-            categoria: "/Mate.png",
-            info: "Set armado con todo lo nesesario para el mate",
-            cabecera: "La Mejor Opcion para tus Juntadas"
-          },
-          {
-            id: 3,
-            name: "PortaCosmeticos",
-            url: "faces/portacosmetico.jpg",
-            categoria: "/Portacosmeticos.png",
-            info: "Portacosméticos 14x19 cms. Símil neoprene estampado de ambos lados Cierre reforzado Personalizalo como elijas",
-            cabecera: "La mejor opcion para guardar todas tus cosas"
-          },
-          {
-            id: 4,
-            name: "Taza DE Ceramica",
-            url: "faces/tazaDeceramica.jpg",
-            categoria: "/Taza.png",
-            info: "Taza estampada Reforzada",
-            cabecera: "La mejor opcion para guardar todas tus cosas"
-          },
-          {
-            id: 1,
-            name: "Set Porta Cosmeticos",
-            url: "faces/SetPortaCosmeticos3.jpg",
-            categoria: "/Portacosmeticos.png",
-            info: "Portacosméticos 14x19 cms. Símil neoprene estampado de ambos lados Cierre reforzado Personalizalo como elijas",
-            cabecera: "La mejor opcion para guardar todas tus cosas"
-          },
-          {
-            id: 2,
-            name: "Set Porta Cosmeticos",
-            url: "faces/portacosmeticos4.jpg",
-            categoria: "/Portacosmeticos.png",
-            info: "Portacosméticos 14x19 cms. Símil neoprene estampado de ambos lados Cierre reforzado Personalizalo como elijas",
-            cabecera: "La mejor opcion para guardar todas tus cosas"
-          },
-          {
-            id: 3,
-            name: "Set De Mate",
-            url: "faces/setDeMate.jpg",
-            categoria: "/Mate.png",
-            info: "Portacosméticos 14x19 cms. Símil neoprene estampado de ambos lados Cierre reforzado Personalizalo como elijas",
-            cabecera: "La mejor opcion para guardar todas tus cosas"
-          },
-          {
-            id: 4,
-            name: "Set Porta Cosmeticos",
-            url: "faces/setPortaCosmeticos.jpg",
-            categoria: "/Portacosmeticos.png",
-            info: "Portacosméticos 14x19 cms. Símil neoprene estampado de ambos lados Cierre reforzado Personalizalo como elijas",
-            cabecera: "La mejor opcion para guardar todas tus cosas"
-          },
+          },*/
+ 
       ],
       menus: {},
       page: 0,
@@ -100,8 +49,11 @@ export default {
   },
   methods:{
     menuss(){
-    let r = this.datos
-    this.menus = chunk(r,8)
+      API.get('/api/product/').then( resp => {
+        this.datos = resp 
+        let r = this.datos
+        this.menus = chunk(r,8)
+      })
     },
     setPage(r){
       return this.page=r

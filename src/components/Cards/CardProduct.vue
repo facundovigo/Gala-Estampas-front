@@ -30,13 +30,13 @@ export default {
     props: ['post'],
     data(){
       return{
-        imagen: this.post.url,
-        urlImage: require("@/assets/img/"+this.post.url)
+        //imagen: '', //this.post.stamp,
+        urlImage: this.post.stamp
       }
     },
     methods:{
         details(){
-            this.$router.push({ name: 'productDetails', params: {post: this.post}})
+          this.$router.push({ name: 'productDetails', params: {post: this.post}})
         },
         url(){
           return this.t

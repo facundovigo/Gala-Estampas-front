@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      cardUserImage: require("@/assets/img"+this.data.categoria),
+      cardUserImage: require("@/assets/img/Portacosmeticos.png"),
       info: this.data.info
     };
   }

@@ -8,7 +8,7 @@
       </md-card-header>
 
       <md-card-content class="prueba">
-          <img  src="@/assets/img/faces/1.jpg" alt="Cover">
+          <img  :src="data.stamp" alt="Cover">
       </md-card-content>    
       
     </md-card>
@@ -21,7 +21,7 @@ export default {
   data() {
     return{
         name: this.data.name,
-        cabecera: this.data.cabecera,
+        cabecera: this.data.description,
         color: "red"
     }
   }
