@@ -14,25 +14,31 @@
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Nombre</label>
-            <md-input v-model="name" type="text"></md-input>
+            <md-input v-model="body.first_name" type="text"></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>Apellido</label>
+            <md-input v-model="body.last_name" type="text"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input v-model="email" type="email"></md-input>
+            <md-input v-model="body.email" type="email"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Contraseña</label>
-            <md-input v-model="pass" type="password"></md-input>
+            <md-input v-model="body.password" type="password"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Confirmar contraseña</label>
-            <md-input v-model="passConfirm" type="password"></md-input>
+            <md-input v-model="body.passConfirm" type="password"></md-input>
           </md-field>
         </div>
       </form>
@@ -41,6 +47,7 @@
   </md-card>
 </template>
 <script>
+import API from '../service/api'
 export default {
   name: "register",
   props: {
@@ -51,15 +58,21 @@ export default {
   },
   methods:{
     register(){
-      console.log(this.name, this.email, this.pass, this.passConfirm);
+      API.post("/api/auth/register/", this.body).then( resp => {    
+          localStorage.session = resp.key;
+        })
+      console.log(this.body, "body");
     }
   },
   data() {
     return {
-      name:null,
-      email:null,
-      pass:null,
-      passConfirm:null
+      body:{
+        first_name:null,
+        last_name:null,
+        email:null,
+        password:null,
+        passConfirm:null
+      }
     };
   }
 };

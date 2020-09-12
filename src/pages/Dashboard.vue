@@ -38,6 +38,7 @@ export default {
             cabecera: "La mejor opcion para guardar todas tus cosas"
           },
           {
+            id: 2,
             name: "Set De MAte",
             url: "faces/setDeMate.jpg",
             categoria: "/Mate.png",
@@ -45,6 +46,7 @@ export default {
             cabecera: "La Mejor Opcion para tus Juntadas"
           },
           {
+            id: 3,
             name: "PortaCosmeticos",
             url: "faces/portacosmetico.jpg",
             categoria: "/Portacosmeticos.png",
@@ -52,6 +54,7 @@ export default {
             cabecera: "La mejor opcion para guardar todas tus cosas"
           },
           {
+            id: 4,
             name: "Taza DE Ceramica",
             url: "faces/tazaDeceramica.jpg",
             categoria: "/Taza.png",
@@ -59,6 +62,7 @@ export default {
             cabecera: "La mejor opcion para guardar todas tus cosas"
           },
           {
+            id: 1,
             name: "Set Porta Cosmeticos",
             url: "faces/SetPortaCosmeticos3.jpg",
             categoria: "/Portacosmeticos.png",
@@ -66,6 +70,7 @@ export default {
             cabecera: "La mejor opcion para guardar todas tus cosas"
           },
           {
+            id: 2,
             name: "Set Porta Cosmeticos",
             url: "faces/portacosmeticos4.jpg",
             categoria: "/Portacosmeticos.png",
@@ -73,6 +78,7 @@ export default {
             cabecera: "La mejor opcion para guardar todas tus cosas"
           },
           {
+            id: 3,
             name: "Set De Mate",
             url: "faces/setDeMate.jpg",
             categoria: "/Mate.png",
@@ -80,6 +86,7 @@ export default {
             cabecera: "La mejor opcion para guardar todas tus cosas"
           },
           {
+            id: 4,
             name: "Set Porta Cosmeticos",
             url: "faces/setPortaCosmeticos.jpg",
             categoria: "/Portacosmeticos.png",

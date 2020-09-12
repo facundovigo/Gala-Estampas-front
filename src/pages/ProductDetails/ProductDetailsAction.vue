@@ -11,18 +11,40 @@
         {{this.info}}
       </p>
       <md-button class="md-round md-primary" id="pepe" v-on:click="back">Volver</md-button>
-      <md-button class="md-round md-danger">Comprar</md-button> 
+      <md-button class="md-round md-danger" v-on:click="purchase">Comprar</md-button> 
     </md-card-content>
   </md-card>
 </template>
 <script>
+import API from '../../service/api'
 export default {
   name: "user-card",
   props: ['data'],
   methods: {
-      back(){
-          this.$router.push('dashboard')
+    notifyVue(verticalAlign, horizontalAlign, date) {
+      this.$notify({
+        message:
+          "La compra se realizó con exito. - Fecha de entrega: " + date,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:"danger"
+      })
+    },
+    back(){
+      this.$router.push('dashboard')
+    },
+    purchase(){
+      const body={
+        product:this.data.id,
+        client:1
       }
+      API.post('/api/order/',body).then( resp =>{
+        console.log(resp);
+        this.notifyVue('top', 'center', resp.date_order)
+        this.$router.push('miscompras');
+      })
+    }
   },
   data() {
     return {
@@ -30,7 +52,6 @@ export default {
       info: this.data.info
     };
   }
-
 };
 </script>
 <style>

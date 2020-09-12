@@ -14,13 +14,13 @@
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input v-model="email" type="email"></md-input>
+            <md-input v-model="body.username" type="email"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Contraseña</label>
-            <md-input v-model="pass" type="password"></md-input>
+            <md-input v-model="body.password" type="password"></md-input>
           </md-field>
         </div>
       </form>
@@ -32,6 +32,7 @@
   </md-card>
 </template>
 <script>
+import API from '../service/api'
 export default {
   name: "login",
   props: {
@@ -42,15 +43,17 @@ export default {
   },
   methods:{
     login(){
-      console.log(this.email, this.pass);
+      API.post("/api/auth/login/", this.body).then( resp => {
+        console.log(resp) 
+      })     
     }
   },
   data() {
     return {
-      name:null,
-      email:null,
-      pass:null,
-      passConfirm:null
+      body:{
+        username:null,
+        password:null
+      }
     };
   }
 };
