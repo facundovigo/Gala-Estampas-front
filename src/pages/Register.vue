@@ -60,8 +60,6 @@ export default {
     register(){
       API.post("/api/auth/register/", this.body).then( resp => {    
           localStorage.session = resp.key;
-          console.log('imaginen que estoy haciendo más cosas...');
-          console.log("resp",localStorage) 
         })
       console.log(this.body, "body");
     }
