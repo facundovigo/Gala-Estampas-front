@@ -19,7 +19,7 @@
         <md-icon>content_paste</md-icon>
         <p>Mis Compras</p>
       </sidebar-link>
-      <sidebar-link to="/table">
+      <sidebar-link to="/favorites">
         <md-icon>favorite</md-icon>
         <p>Favoritos</p>
       </sidebar-link>

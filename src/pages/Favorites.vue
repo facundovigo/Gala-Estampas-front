@@ -6,7 +6,7 @@
       >
         <md-card>
           <md-card-header data-background-color="red">
-            <h4 class="title">Mis Compras</h4>
+            <h4 class="title">Mis Favortios</h4>
             <p class="category">Gala Estampas</p>
           </md-card-header>
           <md-card-content>

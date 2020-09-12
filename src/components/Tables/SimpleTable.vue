@@ -2,13 +2,13 @@
   <div>
     <md-table v-model="users" :table-header-color="tableHeaderColor">
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="Name">
+        <md-table-cell md-label="">
           <md-avatar class="md-large">
           <img src="@/assets/img/faces/portacosmetico.jpg" alt="Producto">
       </md-avatar>
         </md-table-cell>
-        <md-table-cell md-label="Country">{{ item.country }}</md-table-cell>
-        <md-table-cell md-label="Ciudad">{{ item.city }}</md-table-cell>
+        <md-table-cell md-label="Color">{{ item.country }}</md-table-cell>
+        <md-table-cell md-label="Cantidad">{{ item.city }}</md-table-cell>
         <md-table-cell md-label="Precio">{{ item.salary }}</md-table-cell>
       </md-table-row>
     </md-table>

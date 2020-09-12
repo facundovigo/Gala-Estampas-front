@@ -14,6 +14,7 @@
     "dependencies": {
         "axios": "^0.20.0",
         "chartist": "0.11.4",
+        "chunk": "0.0.3",
         "core-js": "3.6.4",
         "google-maps": "4.2.3",
         "vue": "2.6.11",
