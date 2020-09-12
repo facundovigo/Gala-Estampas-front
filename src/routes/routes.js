@@ -7,6 +7,8 @@ import ProductDetails from "@/pages/ProductDetails.vue";
 import Login from '@/pages/Login.vue';
 import Register from '@/pages/Register.vue';
 import TableList from "@/pages/TableList.vue";
+import Favorites from "@/pages/Favorites.vue"
+import Notifications from "@/pages/Notifications.vue"
 
 const routes = [{
     mode: "history",
@@ -27,6 +29,16 @@ const routes = [{
             path: "miscompras",
             component: TableList,
             name: "miscompras",
+        },
+        {
+            path: 'favorites',
+            component: Favorites,
+            name: 'favorites',
+        },
+        {
+            path: 'notifications',
+            component: Notifications,
+            name: 'notifications',
         },
         {
             path: 'productDetails',
