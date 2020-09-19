@@ -31,7 +31,7 @@ export default {
     data(){
       return{
         //imagen: '', //this.post.stamp,
-        urlImage: this.post.stamp
+        urlImage: this.post.photo
       }
     },
     methods:{

@@ -8,7 +8,7 @@
       </md-card-header>
 
       <md-card-content class="prueba">
-          <img  :src="data.stamp" alt="Cover">
+          <img  :src="data.photo" alt="Cover">
       </md-card-content>    
       
     </md-card>

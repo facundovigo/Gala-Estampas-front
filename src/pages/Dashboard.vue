@@ -28,21 +28,7 @@ export default {
   },
   data(){
     return{
-      datos: [
-          /*{
-            article: 2,
-            description: "Portacosmético de corte recto con cierre. Medidas 17 x 21 cm. Como todos nuestros productos se puede personalizar.",
-            id: 5,
-            inscription: "",
-            name: "Portacosmetico",
-            price: 400,
-            stamp: "http://localhost:8000/uploads/product_stamp/portacosmetico_17x21.jpeg",
-
-            categoria: "/Cartuchera.png",
-            cabecera: "La mejor opcion para guardar todas tus cosas"
-          },*/
- 
-      ],
+      datos: [],
       menus: {},
       page: 0,
     }
@@ -53,7 +39,7 @@ export default {
         this.datos = resp 
         let r = this.datos
         this.menus = chunk(r,8)
-      })
+      }).catch(console.error("error"));
     },
     setPage(r){
       return this.page=r
@@ -86,7 +72,7 @@ export default {
 }
 .md-raised{
   margin-left: 40% ;
-  margin-top: 4%;
+  margin-top: 2%;
 }
 
 </style>

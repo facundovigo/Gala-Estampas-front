@@ -28,13 +28,14 @@ export default {
         icon: "add_alert",
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:"danger"
+        type:"success"
       })
     },
     back(){
       this.$router.push('dashboard')
     },
     purchase(){
+      console.log(this.data.id);
       const body={
         product:this.data.id,
         client:1
@@ -43,7 +44,7 @@ export default {
         console.log(resp);
         this.notifyVue('top', 'center', resp.date_order)
         this.$router.push('miscompras');
-      })
+      }).catch(console.error("error order"))
     }
   },
   data() {

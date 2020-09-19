@@ -4,10 +4,10 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="">
           <md-avatar class="md-large">
-          <img :src="item.image" alt="Producto">
+          <img :src="item.product.stamp" alt="Producto">
       </md-avatar>
         </md-table-cell>
-        <md-table-cell md-label="Producto">{{ item.name }}</md-table-cell>
+        <md-table-cell md-label="Producto">{{ item.product.name }}</md-table-cell>
         <md-table-cell md-label="Cantidad">{{ item.cant }}</md-table-cell>
         <md-table-cell md-label="N° Orden">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
@@ -34,16 +34,9 @@ export default {
   },
   mounted(){
     API.get('/api/order/search_order/?client_id=1').then( resp => {
-      
-      resp.forEach(item => {
-        const url = '/api/product/' + item.product;
-        API.get(url).then( p => {
-          item.image = p.stamp;
-          item.name = p.description;
-          this.products.push(item)
-        })
-      });
-    })
+      console.log(resp);
+      this.products = resp;
+    }).catch( e => alert(e) );
   },
 };
 </script>
