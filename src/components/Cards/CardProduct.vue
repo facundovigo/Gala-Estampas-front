@@ -47,10 +47,18 @@ export default {
 
 <style lang="scss" scoped>
   .md-card {
-    width: 320px;
+    width: auto;
     margin: 4px;
     display: inline-block;
     vertical-align: top;
   }
+    .md-button i {
+    color: rgba(0,0,0,0.54) !important;
+  }
+  .md-button i:hover {
+           // background-color: red !important;
+            color: red !important;
+        }
+
 </style>
 
