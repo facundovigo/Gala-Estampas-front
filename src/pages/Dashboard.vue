@@ -1,9 +1,9 @@
 <template>
   <div class="contenedor">
-    <div class=" md-layout  md-alignment-top-center" >
-        <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
-    <div >   
-    </div >
+     <div class=" md-layout  md-alignment-top-center" >
+          <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
+    </div>
+
     <div class="md-layout  md-alignment-top-center">
       <md-button class="md-raised md-gala md-round ">
         <span class="material-icons" >keyboard_arrow_left</span>
@@ -12,7 +12,6 @@
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
     </div>
-    </div> 
   </div> 
 </template>
 
