@@ -60,6 +60,7 @@ export default {
             color: red !important;
         }:focus{
           color: red($color: pink);
+          background-color: ;
         }
 
 </style>
