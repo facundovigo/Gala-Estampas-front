@@ -5,6 +5,7 @@
     "engines": {
         "node": "8.x"
     },
+
     "scripts": {
         "serve": "vue-cli-service serve --open",
         "build": "vue-cli-service build",
