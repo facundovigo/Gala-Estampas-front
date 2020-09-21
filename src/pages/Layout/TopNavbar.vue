@@ -6,7 +6,7 @@
       </div>
       <div class="md-toolbar-section-end">
         <md-button
-          class="md-just-icon md-simple md-toolbar-toggle"
+          class="md-just-icon md-simple md-toolbar-toggle md-gala"
           :class="{ toggled: $sidebar.showSidebar }"
           @click="toggleSidebar"
         >
@@ -113,4 +113,10 @@ export default {
 };
 </script>
 
-<style lang="css"></style>
+<style lang="css" scoped>
+.md-field .md-input-action {
+    top: 8px;
+    border-radius: 50%;
+    background-color: red !important;
+}
+</style>

@@ -58,6 +58,8 @@ export default {
   .md-button i:hover {
            // background-color: red !important;
             color: red !important;
+        }:focus{
+          color: red($color: pink);
         }
 
 </style>
