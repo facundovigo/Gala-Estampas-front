@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
   .md-card {
-    width: auto;
+    width: 20rem;
     margin: 4px;
     display: inline-block;
     vertical-align: top;

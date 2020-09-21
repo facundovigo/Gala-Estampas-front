@@ -1,15 +1,19 @@
 <template>
-    <div class="contenedor">
-        <CardProduct  v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
-    <div >
-      <md-button class="md-raised md-gala md-round jet">
+  <div class="contenedor">
+    <div class=" md-layout  md-alignment-top-center" >
+        <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
+    <div >   
+    </div >
+    <div class="md-layout  md-alignment-top-center">
+      <md-button class="md-raised md-gala md-round ">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
       <md-button class="md-raised md-gala md-round ">
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
-      </div>
-    </div>  
+    </div>
+    </div> 
+  </div> 
 </template>
 
 <script>
@@ -59,20 +63,10 @@ export default {
 
 <style scoped>
 
-
 .contenedor{
-  /* display: row; */
-  /* grid-template-columns: repeat(2, 1fr);  */
-  margin-top: 5rem;
-  margin-left: 1rem; 
-}
-.facu{
-  margin-left: 40% ;
-  
-}
-.md-raised{
-  margin-left: 40% ;
-  margin-top: 2%;
+  margin-top: 3rem;
+  /* margin-left: 4rem; */
+
 }
 
 </style>

@@ -35,10 +35,10 @@
       <fixed-plugin :color.sync="sidebarBackground" :image.sync="sidebarBackgroundImage"></fixed-plugin>
 
       <dashboard-content></dashboard-content>
-
-      <content-footer></content-footer>
-
     </div>
+  <!-- <div>
+    <content-footer></content-footer>
+  </div> -->
   </div>
 </template>
 
@@ -53,7 +53,7 @@ export default {
   components: {
     TopNavbar,
     DashboardContent,
-    ContentFooter,
+    // ContentFooter,
     //MobileMenu,
     FixedPlugin
   },
