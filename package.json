@@ -2,11 +2,13 @@
     "name": "gala-estampas",
     "version": "1.4.0",
     "private": true,
+    "engines": {
+        "node": "8.x"
+    },
     "scripts": {
         "serve": "vue-cli-service serve --open",
         "build": "vue-cli-service build",
-        "dev": "npm run serve",
-        "start": "npm run serve"
+        "dev": "npm run serve"
     },
     "dependencies": {
         "axios": "^0.20.0",
