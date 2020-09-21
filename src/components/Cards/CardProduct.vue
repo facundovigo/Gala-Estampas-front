@@ -44,6 +44,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss" scoped>
   .md-card {
     width: auto;
@@ -59,7 +60,6 @@ export default {
             color: red !important;
         }:focus{
           color: red($color: pink);
-          background-color: ;
         }
 
 </style>
