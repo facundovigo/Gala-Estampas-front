@@ -1,6 +1,10 @@
 <template>
   <div class="content">
-     <div class=" md-layout  md-alignment-top-center" >
+    <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
+        <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
+    </div>  
+    <div v-if="!this.loading">
+     <div  class=" md-layout  md-alignment-top-center" >
           <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
     </div>
 
@@ -11,6 +15,7 @@
       <md-button class="md-raised md-gala md-round ">
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
+    </div>
     </div>
   </div> 
 </template>
@@ -35,6 +40,7 @@ export default {
       datos: [],
       menus: {},
       page: 0,
+      loading: true,
     }
   },
   methods:{
@@ -43,6 +49,7 @@ export default {
         this.datos = resp 
         let r = this.datos
         this.menus = chunk(r,8)
+        this.loading = false
       }).catch(console.error("error"));
     },
     setPage(r){
@@ -61,8 +68,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss"  scoped>
 .content{
   margin-top: 3rem ;
+}
+.spi{
+  color: pink !important;
+  --md-theme-default-primary: #f06292 !important;
 }
 </style>
