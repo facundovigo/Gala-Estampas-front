@@ -2,7 +2,7 @@
   <div class="fixed-plugin" v-click-outside="closeDropDown">
     <div class="dropdown show-dropdown" :class="{ show: isOpen }">
       <a data-toggle="dropdown">
-        <i class="fas fa-share-alt" @click="toggleDropDown"> </i>
+        <i class="fas fa-share-alt icon-trans" @click="toggleDropDown"> </i>
       </a>
       <ul class="dropdown-menu" :class="{ show: isOpen }">
         <li class="header-title"> Gala Estampas</li>
@@ -13,9 +13,9 @@
           <social-sharing
             :url="shareUrl"
             inline-template
-            title="Vue Material Dashboard - Admin Template for Vue.js"
-            hashtags="vuejs, dashboard, vuematerial"
-            twitter-user="creativetim"
+            title="Gala Estampas Lo mejor en regalos personalizados"
+            hashtags="Gala Estampas, la mejor Opcion"
+            twitter-user="galaestampas"
           >
             <div class="centered-buttons">
               <network
@@ -47,8 +47,8 @@ Vue.use(VueGitHubButtons, { useCache: true });
 export default {
   data() {
     return {
-      shareUrl: "https://www.creative-tim.com/product/vue-material-dashboard",
-      freeUrl: "https://www.creative-tim.com/product/vue-material-dashboard",
+      shareUrl: "http://localhost:8080/#/dashboard",
+      freeUrl: "http://localhost:8080/#/dashboard",
       isOpen: false,
     };
   },
@@ -82,7 +82,20 @@ export default {
 <style>
 .fixed-plugin{
   margin-top: -2%;
+  padding: 1rem;
+  width: 0.5rem !important;
+  transition: all .3s;
 }
+.fixed-plugin:hover{
+  width: 5rem !important;
+}
+.fixed-plugin:hover .icon-trans{
+  transform: scale(1.7);
+}
+.icon-trans{
+  transition: all 1s;
+}
+
 .centered-row {
   display: flex;
   height: 100%;
@@ -96,5 +109,6 @@ export default {
 .centered-buttons {
   display: flex;
   justify-content: center;
+
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <div class="contenedor">
+  <div class="content">
      <div class=" md-layout  md-alignment-top-center" >
           <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
     </div>
 
-    <div class="md-layout  md-alignment-top-center">
+    <div class="md-layout  md-alignment-top-center block">
       <md-button class="md-raised md-gala md-round ">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+
 import chunk from "lodash/chunk" ;
 import API from '../service/api'
 import {
@@ -61,11 +62,7 @@ export default {
 </script>
 
 <style scoped>
-
-.contenedor{
-  margin-top: 3rem;
-  /* margin-left: 4rem; */
-
+.content{
+  margin-top: 3rem ;
 }
-
 </style>
