@@ -8,11 +8,11 @@
           <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
     </div>
 
-    <div class="md-layout  md-alignment-top-center block">
-      <md-button class="md-raised md-gala md-round ">
+    <div class="md-layout  md-alignment-top-center block" >
+      <md-button class="md-raised md-gala md-round " v-on:click="previus">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
-      <md-button class="md-raised md-gala md-round ">
+      <md-button class="md-raised md-gala md-round " v-on:click="nextt">
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
     </div>
@@ -60,6 +60,7 @@ export default {
     },
     nextt(){
       if (this.page !== this.menus.length -1 ) this.page ++
+
     },
     getMenus(){
       return this.menus[this.page]
