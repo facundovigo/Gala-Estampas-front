@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <div class="container">
+    <div class="container ">
       <nav>
         <ul>
           <li>
@@ -20,7 +20,7 @@
           </li>
         </ul>
       </nav>
-      <div class="copyright text-center">
+      <div class="container-center">
         <a href="https://www.instagram.com/galaestampas/">
           <i class="fab fa-instagram"></i>
         </a>
@@ -41,8 +41,16 @@ export default {
 </script>
 
 <style>
-
-
-
+/* .container{
+  margin-bottom: 0.1%;
+} */
+.footer{
+  
+  background-color: pink;
+}
+.container-center{
+  /* align-items: center; */
+  padding: 15px;
+}
 </style>
 

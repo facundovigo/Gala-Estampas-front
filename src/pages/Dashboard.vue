@@ -1,18 +1,27 @@
 <template>
-    <div class="contenedor">
-        <CardProduct  v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
-    <div >
-      <md-button class="md-raised md-gala md-round jet">
+  <div class="content">
+    <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
+        <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
+    </div>  
+    <div v-if="!this.loading">
+     <div  class=" md-layout  md-alignment-top-center" >
+          <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
+    </div>
+
+    <div class="md-layout  md-alignment-top-center block" >
+      <md-button class="md-raised md-gala md-round " v-on:click="previus">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
-      <md-button class="md-raised md-gala md-round ">
+      <md-button class="md-raised md-gala md-round " v-on:click="nextt">
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
-      </div>
-    </div>  
+    </div>
+    </div>
+  </div> 
 </template>
 
 <script>
+
 import chunk from "lodash/chunk" ;
 import API from '../service/api'
 import {
@@ -31,6 +40,7 @@ export default {
       datos: [],
       menus: {},
       page: 0,
+      loading: true,
     }
   },
   methods:{
@@ -39,6 +49,7 @@ export default {
         this.datos = resp 
         let r = this.datos
         this.menus = chunk(r,8)
+        this.loading = false
       }).catch(console.error("error"));
     },
     setPage(r){
@@ -49,6 +60,7 @@ export default {
     },
     nextt(){
       if (this.page !== this.menus.length -1 ) this.page ++
+
     },
     getMenus(){
       return this.menus[this.page]
@@ -57,22 +69,12 @@ export default {
 }
 </script>
 
-<style scoped>
-
-
-.contenedor{
-  /* display: row; */
-  /* grid-template-columns: repeat(2, 1fr);  */
-  margin-top: 5rem;
-  margin-left: 1rem; 
+<style lang="scss"  scoped>
+.content{
+  margin-top: 3rem ;
 }
-.facu{
-  margin-left: 40% ;
-  
+.spi{
+  color: pink !important;
+  --md-theme-default-primary: #f06292 !important;
 }
-.md-raised{
-  margin-left: 40% ;
-  margin-top: 2%;
-}
-
 </style>

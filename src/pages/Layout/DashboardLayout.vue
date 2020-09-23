@@ -35,9 +35,9 @@
       <fixed-plugin :color.sync="sidebarBackground" :image.sync="sidebarBackgroundImage"></fixed-plugin>
 
       <dashboard-content></dashboard-content>
-
-      <content-footer></content-footer>
-
+  
+    <content-footer ></content-footer>
+  
     </div>
   </div>
 </template>
@@ -67,14 +67,6 @@ export default {
 </script>
 
 <style scoped>
-.footer{
-  /* margin-top: 11rem; */
-  position:fixed;
-  bottom:0;
-  width:85%;
-  /* background:crimson; */
-  background-color: pink;
-}
 </style>
 
 
