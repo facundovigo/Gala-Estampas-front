@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
+  <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }">
     <notifications></notifications>
 
     <side-bar
@@ -66,7 +66,21 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss"  scoped>
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.scr::-webkit-scrollbar-thumb {
+    background: red  !important;
+    border-radius: 4px;
+}
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+.scr::-webkit-scrollbar-thumb:hover {
+    background: red !important;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+/* Cambiamos el fondo cuando esté en active */
+.scr::-webkit-scrollbar-thumb:active {
+    background-color:red !important;
+}
 </style>
 
 

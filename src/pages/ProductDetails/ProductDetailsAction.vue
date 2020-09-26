@@ -10,7 +10,7 @@
       <p class="card-description">
         {{this.info}}
       </p>
-      <md-button class="md-round md-primary" id="pepe" v-on:click="back">Volver</md-button>
+      <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
       <md-button class="md-round md-danger" v-on:click="purchase">Comprar</md-button> 
     </md-card-content>
   </md-card>
@@ -56,7 +56,7 @@ export default {
 };
 </script>
 <style>
-#pepe{
+#separacion{
     margin-right: 15%
 }
 </style>
