@@ -35,6 +35,7 @@ export default {
       this.$router.push('dashboard')
     },
     purchase(){
+      if (localStorage.getItem("session")){
       console.log(this.data.id);
       const body={
         product:this.data.id,
@@ -45,6 +46,9 @@ export default {
         this.notifyVue('top', 'center', resp.date_order)
         this.$router.push('miscompras');
       }).catch(console.error("error order"))
+     }else{
+       this.$router.push('user')
+     }
     }
   },
   data() {

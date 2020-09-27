@@ -4,7 +4,7 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import ProductDetails from "@/pages/ProductDetails.vue";
-import Login from '@/pages/Login.vue';
+import LoginCard from '@/pages/UserProfile/LoginCard.vue';
 import Register from '@/pages/Register.vue';
 import TableList from "@/pages/TableList.vue";
 import Favorites from "@/pages/Favorites.vue"
@@ -46,16 +46,7 @@ const routes = [{
             name: 'productDetails',
             props: true
         },
-        {
-            path: "login",
-            name: "login",
-            component: Login
-        },
-        {
-            path: "register",
-            name: "register",
-            component: Register
-        }
+
     ]
 }];
 

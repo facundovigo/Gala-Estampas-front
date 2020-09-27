@@ -32,7 +32,7 @@
       </form>
         <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
 
-         <md-button class="md-round md-success"  >Ingresar</md-button>
+         <md-button class="md-round md-success"  v-on:click="loginn">Ingresar</md-button>
          <h6 class="category text-description ">No tenés usuario 
            <a class="page-link color-red"  v-on:click="preLogin">create uno</a>
       </h6>
@@ -43,38 +43,36 @@
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Nombre</label>
-            <md-input v-model="body.first_name" type="text"></md-input>
+            <md-input v-model="body.first_name" type="text" required></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Apellido</label>
-            <md-input v-model="body.last_name" type="text"></md-input>
+            <md-input v-model="body.last_name" type="text" required></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input v-model="body.email" type="email"></md-input>
+            <md-input v-model="body.email" type="email" required></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Contraseña</label>
-            <md-input v-model="body.password" type="password"></md-input>
+            <md-input v-model="body.passwordR" type="password" required></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Confirmar contraseña</label>
-            <md-input v-model="body.passConfirm" type="password"></md-input>
+            <md-input v-model="body.passConfirm" type="password" required></md-input>
           </md-field>
         </div>  
       </form>
           <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-          <md-button class="md-round md-success" >Registrar</md-button>
-    
-
+          <md-button class="md-round md-success" v-on:click="register">Registrar</md-button>
     </div>
      
 
@@ -83,6 +81,7 @@
 </template>
 
 <script>
+import API from '../../service/api'
 export default {
   name: "login-card",
   props: {
@@ -98,19 +97,49 @@ export default {
         first_name:null,
         last_name:null,
         email:null,
-        password:null,
+        passwordR:null,
         passConfirm:null
+      },
+      login:{
+        username:null,
+        password:null
       },
         prelogin: true,
     };
   },
   methods:{
+        notifyVue(verticalAlign, horizontalAlign, date) {
+      this.$notify({
+        message:
+          "La compra se realizó con exito." + date ,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:"danger"
+      })
+    },
       back(){
       this.$router.push('dashboard')
     },
     preLogin(){
         this.prelogin= (!this.prelogin);
     },
+      loginn(){
+      API.post("/api/auth/login/", this.login)
+      .then( resp => {
+        console.log(resp) 
+        localStorage.session = resp.key;
+      })
+      .catch(e =>  this.notifyVue('top', 'right', e))      
+    },
+    register(){
+      API.post("/api/auth/register/", this.body)
+        .then( resp => {
+          localStorage.session = resp.key;
+         })
+        .catch(e => e)
+      
+    }
   }
 };
 </script>

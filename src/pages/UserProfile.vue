@@ -32,7 +32,7 @@ export default {
   },
   methods:{
     token(){
-      return localStorage.getItem("user")
+      return localStorage.getItem("session")
     }
   }
 };
