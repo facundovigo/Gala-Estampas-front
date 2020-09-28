@@ -10,7 +10,7 @@
       <p class="card-description">
         {{this.info}}
       </p>
-      <md-button class="md-round md-primary" id="pepe" v-on:click="back">Volver</md-button>
+      <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
       <md-button class="md-round md-danger" v-on:click="purchase">Comprar</md-button> 
     </md-card-content>
   </md-card>
@@ -35,6 +35,7 @@ export default {
       this.$router.push('dashboard')
     },
     purchase(){
+      if (localStorage.getItem("session")){
       console.log(this.data.id);
       const body={
         product:this.data.id,
@@ -45,6 +46,9 @@ export default {
         this.notifyVue('top', 'center', resp.date_order)
         this.$router.push('miscompras');
       }).catch(console.error("error order"))
+     }else{
+       this.$router.push('user')
+     }
     }
   },
   data() {
@@ -56,7 +60,7 @@ export default {
 };
 </script>
 <style>
-#pepe{
+#separacion{
     margin-right: 15%
 }
 </style>
