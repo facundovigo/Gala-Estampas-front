@@ -21,14 +21,14 @@ export default {
   name: "user-card",
   props: ['data'],
   methods: {
-    notifyVue(verticalAlign, horizontalAlign, date) {
+    notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:
-          "La compra se realizó con exito. - Fecha de entrega: " + date,
+           date,
         icon: "add_alert",
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:"success"
+        type: level
       })
     },
     back(){
@@ -43,9 +43,9 @@ export default {
       }
       API.post('/api/order/',body).then( resp =>{
         console.log(resp);
-        this.notifyVue('top', 'center', resp.date_order)
+        this.notifyVue('top', 'center', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
         this.$router.push('miscompras');
-      }).catch(console.error("error order"))
+      }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
      }else{
        this.$router.push('user')
      }
@@ -53,8 +53,8 @@ export default {
   },
   data() {
     return {
-      cardUserImage: require("@/assets/img/Portacosmeticos.png"),
-      info: this.data.info
+      cardUserImage: this.data.category_id.icon,
+      info: this.data.info,
     };
   }
 };
