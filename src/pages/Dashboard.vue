@@ -44,13 +44,24 @@ export default {
     }
   },
   methods:{
+            notifyVue(verticalAlign, horizontalAlign, date, level) {
+      this.$notify({
+        message:
+           date ,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level
+      })
+    },
     menuss(){
       API.get('/api/product/').then( resp => {
         this.datos = resp 
         let r = this.datos
         this.menus = chunk(r,8)
         this.loading = false
-      }).catch(console.error("error"));
+      }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"),
+        this.loading=false);
     },
     setPage(r){
       return this.page=r
