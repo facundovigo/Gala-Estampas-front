@@ -39,7 +39,7 @@ export default {
       console.log(this.data.id);
       const body={
         product:this.data.id,
-        client:1
+        client:getItem("session")
       }
       API.post('/api/order/',body).then( resp =>{
         console.log(resp);

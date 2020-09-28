@@ -11,6 +11,8 @@ import Favorites from "@/pages/Favorites.vue"
 import Notifications from "@/pages/Notifications.vue"
 
 const routes = [{
+    routes: [],
+
     mode: "history",
     path: "/",
     component: DashboardLayout,

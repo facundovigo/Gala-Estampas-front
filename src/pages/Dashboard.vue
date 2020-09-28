@@ -58,6 +58,7 @@ export default {
       API.get('/api/product/').then( resp => {
         this.datos = resp 
         let r = this.datos
+        
         this.menus = chunk(r,8)
         this.loading = false
       }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"),

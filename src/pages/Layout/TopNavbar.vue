@@ -1,9 +1,13 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
-      <div class="md-toolbar-section-start">
-        <h3 class="md-title">{{ $route.name }}</h3>
+      <div class="md-toolbar-section-start "  v-if="token()">
+ 
+        <h3 class="md-title"  >{{ name()}}</h3>
+        
       </div>
+   
+      
       <div class="md-toolbar-section-end">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle md-gala"
@@ -20,6 +24,7 @@
             <md-autocomplete
               class="search"
               v-model="selectedProducts"
+              @input="prueba"
               :md-options="products"
             >
               <label>Productos...</label>
@@ -91,24 +96,46 @@
 export default {
   data() {
     return {
+      im: require("@/assets/img/Jardin.png"),
+      im2: require("@/assets/img/Tienda.png"),
       selectedProducts: null,
       products: [
         "Taza ceramica",
         "Set de Jardín",
-        "Set de Mate 1",
+        "Set de Mate",
         "Portacosmeticos",
         "Portacosmeticos con fuelle",
         "Portacosmeticos recto",
         "Cartuchera",
         "Mousepad",
-        "Termo autocebante 500ml"
+        "Termo autocebante 500ml",
+        "Tazas",
+        "Jardin",
+        "Almohadón",
+        "Tapabocas"
       ]
     };
   },
   methods: {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-    }
+    },
+    logOut(){
+      localStorage.clear();
+      this.$router.push('/');
+    },
+    prueba(){
+      if(this.products.includes(this.selectedProducts) ){
+        // console.log(this.selectedProducts)
+        // this.$router.push({query:{...this.$router.query, categorias:this.selectedProducts}})
+      }
+    },
+    token(){
+      return localStorage.getItem("session")
+    },
+    name(){
+      return localStorage.getItem("name")
+    },
   }
 };
 </script>
@@ -119,4 +146,7 @@ export default {
     border-radius: 50%;
     background-color: red !important;
 }
+/* .md-toolbar-section-start{
+background-image: url("@/assets/img/Jardin.png") !important;
+} */
 </style>

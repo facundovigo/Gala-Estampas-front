@@ -133,6 +133,7 @@ export default {
       .then( resp => {
         console.log(resp) 
         localStorage.session = resp.user.id
+        localStorage.name = resp.user.first_name
         this.notifyVue('top', 'right', `!!! Lindo volver a verte ${resp.user.first_name} :)` , "success")
         this.loading=false
         this.$router.push('dashboard')
