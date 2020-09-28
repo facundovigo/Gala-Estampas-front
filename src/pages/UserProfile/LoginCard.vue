@@ -1,6 +1,8 @@
 <template>
-
   <md-card class="md-card-profile">
+     <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
+        <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
+    </div>  
     <div class="md-card-avatar">
       <img class="img" :src="cardUserImage" />
     </div>
@@ -20,13 +22,13 @@
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input  type="email"></md-input>
+            <md-input  type="email" v-model="login.username"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Contraseña</label>
-            <md-input  type="password"></md-input>
+            <md-input  type="password" v-model="login.password"></md-input>
           </md-field>
         </div>
       </form>
@@ -43,31 +45,31 @@
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Nombre</label>
-            <md-input v-model="body.first_name" type="text" required></md-input>
+            <md-input v-model="body.first_name" type="text" ></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Apellido</label>
-            <md-input v-model="body.last_name" type="text" required></md-input>
+            <md-input v-model="body.last_name" type="text" ></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input v-model="body.email" type="email" required></md-input>
+            <md-input v-model="body.email" type="email" ></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Contraseña</label>
-            <md-input v-model="body.passwordR" type="password" required></md-input>
+            <md-input v-model="body.password" type="password" ></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Confirmar contraseña</label>
-            <md-input v-model="body.passConfirm" type="password" required></md-input>
+            <md-input v-model="body.passConfirm" type="password" ></md-input>
           </md-field>
         </div>  
       </form>
@@ -81,7 +83,7 @@
 </template>
 
 <script>
-import API from '../../service/api'
+import API from "../../service/api"
 export default {
   name: "login-card",
   props: {
@@ -97,7 +99,7 @@ export default {
         first_name:null,
         last_name:null,
         email:null,
-        passwordR:null,
+        password:null,
         passConfirm:null
       },
       login:{
@@ -105,17 +107,18 @@ export default {
         password:null
       },
         prelogin: true,
+        loading: false,
     };
   },
   methods:{
-        notifyVue(verticalAlign, horizontalAlign, date) {
+        notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:
-          "La compra se realizó con exito." + date ,
+           date ,
         icon: "add_alert",
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:"danger"
+        type:level
       })
     },
       back(){
@@ -125,19 +128,29 @@ export default {
         this.prelogin= (!this.prelogin);
     },
       loginn(){
-      API.post("/api/auth/login/", this.login)
+      this.loading=true
+      API.post('/api/auth/login/', this.login)
       .then( resp => {
         console.log(resp) 
-        localStorage.session = resp.key;
+        localStorage.session = resp.user.id
+        this.notifyVue('top', 'right', `!!! Lindo volver a verte ${resp.user.first_name} :)` , "success")
+        this.loading=false
+        this.$router.push('dashboard')
       })
-      .catch(e =>  this.notifyVue('top', 'right', e))      
+      .catch(e =>  this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" + e, "danger"),
+      this.loading=false)      
     },
     register(){
+      this.loading=true
       API.post("/api/auth/register/", this.body)
         .then( resp => {
-          localStorage.session = resp.key;
+          localStorage.session = resp.user.id
+          this.loading=false
+          this.notifyVue('top', 'right', ` el usuario se registro correctamente ${resp.user.first_name} :) `, "success")
+          this.$router.push('dashboard')
          })
-        .catch(e => e)
+        .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio " + e, "danger"),
+        this.loading=false)
       
     }
   }
@@ -183,4 +196,11 @@ export default {
   }
 }
 
+</style>
+
+<style lang="scss"  scoped>
+.spi{
+  color: pink !important;
+  --md-theme-default-primary: #f06292 !important;
+}
 </style>
