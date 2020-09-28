@@ -7,7 +7,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="">
           <md-avatar class="md-large">
-          <img :src="item.product_id.photo" alt="Producto">
+          <img :src="pepe" alt="Producto">
       </md-avatar>
         </md-table-cell>
         <md-table-cell md-label="Producto">{{ item.product_id.name }}</md-table-cell>
@@ -44,6 +44,8 @@ export default {
       products: [],
       page: 0,
       loading: true,
+      //item.product_id.photo
+      pepe: require("@/assets/img/Firma especial1.png")
     }
   },
   methods:{
