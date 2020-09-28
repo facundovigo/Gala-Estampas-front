@@ -198,7 +198,7 @@ export default {
 
 </style>
 
-<style lang="scss"  scoped>
+<style scoped>
 .spi{
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
