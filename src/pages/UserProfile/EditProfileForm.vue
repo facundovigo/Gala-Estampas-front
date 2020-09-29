@@ -73,10 +73,10 @@
           </div>
         <div class="radio">
               <label class="radio-inline">
-                <input type="radio" v-model="exp" value="true"> Si  
+                <input id="check-yes" type="radio" v-model="exp" value="true"> Si  
               </label>
               <label class="radio-inline">
-                <input type="radio" v-model="exp" value="false"> No 
+                <input id="check-no" type="radio" v-model="exp" value="false"> No 
               </label>
         </div>
         </div>

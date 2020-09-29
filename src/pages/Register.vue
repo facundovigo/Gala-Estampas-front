@@ -14,35 +14,35 @@
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Nombre</label>
-            <md-input v-model="body.first_name" type="text"></md-input>
+            <md-input v-model="body.first_name" type="text" id="first_name"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Apellido</label>
-            <md-input v-model="body.last_name" type="text"></md-input>
+            <md-input v-model="body.last_name" type="text" id="last_name"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input v-model="body.email" type="email"></md-input>
+            <md-input v-model="body.email" type="email" id="email"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Contraseña</label>
-            <md-input v-model="body.password" type="password"></md-input>
+            <md-input v-model="body.password" type="password" id="password"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Confirmar contraseña</label>
-            <md-input v-model="body.passConfirm" type="password"></md-input>
+            <md-input v-model="body.passConfirm" type="password" id="passwor_confirm"></md-input>
           </md-field>
         </div>
       </form>
-      <md-button class="md-round md-success" @click="register">Registrarme</md-button>
+      <md-button class="md-round md-success" @click="register" id="registerBtn">Registrarme</md-button>
     </md-card-content>
   </md-card>
 </template>

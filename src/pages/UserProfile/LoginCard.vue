@@ -45,36 +45,36 @@
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Nombre</label>
-            <md-input v-model="body.first_name" type="text" ></md-input>
+            <md-input v-model="body.first_name" type="text" name="first_name"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Apellido</label>
-            <md-input v-model="body.last_name" type="text" ></md-input>
+            <md-input v-model="body.last_name" type="text" name="last_name"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input v-model="body.email" type="email" ></md-input>
+            <md-input v-model="body.email" type="email" name="email"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Contraseña</label>
-            <md-input v-model="body.password" type="password" ></md-input>
+            <md-input v-model="body.password" type="password" name="password"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Confirmar contraseña</label>
-            <md-input v-model="body.passConfirm" type="password" ></md-input>
+            <md-input v-model="body.passConfirm" type="password" name="password_confirm"></md-input>
           </md-field>
         </div>  
       </form>
           <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-          <md-button class="md-round md-success" v-on:click="register">Registrar</md-button>
+          <md-button class="md-round md-success" v-on:click="register" name="register_btn">Registrar</md-button>
     </div>
      
 

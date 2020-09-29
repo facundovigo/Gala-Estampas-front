@@ -23,3 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("gala_page", (mode, url)=>{ 
+    api = mode=="prod" ?'http://heroku/sarasa' :'http://localhost:8080/'
+    return cy.visit(api+url) 
+})
