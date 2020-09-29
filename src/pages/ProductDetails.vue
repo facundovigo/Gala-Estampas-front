@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" >
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <ProductDetailsForm :data=post> </ProductDetailsForm>
@@ -28,3 +28,7 @@ export default {
 };
 </script>
 
+<style lang="css" scoped>
+
+
+</style>

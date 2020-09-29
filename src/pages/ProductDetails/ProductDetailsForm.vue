@@ -38,6 +38,6 @@ export default {
 
 #facu{
     background-color: rgb(253, 192, 202);
-    
+    margin-top: 7%;
 }
 </style>

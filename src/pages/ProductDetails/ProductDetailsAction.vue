@@ -1,5 +1,5 @@
 <template>
-  <md-card class="md-card-profile">
+  <md-card class="md-card-profile" id="prueba">
     <div class="md-card-avatar">
       <img class="img" :src="this.cardUserImage" />
     </div>
@@ -62,4 +62,8 @@ export default {
 #separacion{
     margin-right: 15%
 }
+#prueba{
+  margin-top: 30%;
+}
+
 </style>

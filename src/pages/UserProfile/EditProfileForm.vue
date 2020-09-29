@@ -3,7 +3,7 @@
     <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
     </div>  
-    <md-card>
+    <md-card v-if="!this.loading">
       <md-card-header style="background-color: #ec407a" >
         <h4 class="title">Datos de perfil</h4>
         <!-- <p class="category">Complete your profile</p> -->
@@ -102,27 +102,28 @@ export default {
     },
   data() {
     return {
-      person: null,
-      username: null,
-      disabled: null,
-      emailadress: null,
-      lastname: null,
-      firstname: null,
-      address: null,
-      city: null,
-      country: null,
-      code: null,
-      exp: null,
+      person: "",
+      username: "" ,
+      disabled: "",
+      emailadress: "",
+      lastname: "",
+      firstname: "",
+      address: "",
+      city: "",
+      country: "",
+      code: "",
+      exp: "",
       aboutme:
         "Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.", 
-      respuesta: null,
-      facu: null,
+      respuesta: "",
+      facu: "",
       loading: true,
+      userid: localStorage.getItem("session"),
     };
   },
     methods:{
       call(){
-       API.get(`/api/auth/2`)
+       API.get(`/api/auth/${this.userid}`)
       .then( resp => {
         let  r =resp
          this.facu=r

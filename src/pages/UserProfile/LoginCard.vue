@@ -140,7 +140,7 @@ export default {
         location.reload();
 
       })
-      .catch(e =>  this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" + e, "danger"),
+      .catch(e =>  this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger"),
       this.loading=false)      
     },
     register(){
@@ -152,7 +152,7 @@ export default {
           this.notifyVue('top', 'right', ` el usuario se registro correctamente ${resp.user.first_name} :) `, "success")
           this.$router.push('dashboard')
          })
-        .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio " + e, "danger"),
+        .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"),
         this.loading=false)
       
     }
