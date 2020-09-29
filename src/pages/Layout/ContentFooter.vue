@@ -50,7 +50,7 @@ export default {
 }
 .container-center{
   /* align-items: center; */
-  padding: 16px;
+  padding: 15px;
 }
 </style>
 

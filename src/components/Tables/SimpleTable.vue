@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div >
     <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
     </div>  
-    <md-table v-model="products" :table-header-color="tableHeaderColor">
+    <md-table v-model="products" :table-header-color="tableHeaderColor" >
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="">
           <md-avatar class="md-large">
@@ -16,7 +16,17 @@
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
       </md-table-row>
     </md-table>
+    
+    <div class="md-layout  md-alignment-top-center block" >
+      <md-button class="md-raised md-gala md-round " >
+        <span class="material-icons derecha" >keyboard_arrow_left</span>
+      </md-button>
+      <md-button class="md-raised md-gala md-round " >
+        <span class="material-icons" >keyboard_arrow_right</span>
+      </md-button>
+    </div>
   </div>
+  
 </template>
 
 <script>
@@ -70,4 +80,5 @@ export default {
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
 }
+
 </style>

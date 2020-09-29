@@ -25,7 +25,6 @@ export default {
       type: String,
       default: require("@/assets/img/Tienda.png")
     },
-
   },
   methods: {
     logOut(){

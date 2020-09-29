@@ -131,7 +131,6 @@ export default {
       this.loading=true
       API.post('/api/auth/login/', this.login)
       .then( resp => {
-        console.log(resp) 
         localStorage.session = resp.user.id
         localStorage.name = resp.user.first_name
         this.notifyVue('top', 'right', `!!! Lindo volver a verte ${resp.user.first_name} :)` , "success")
@@ -148,12 +147,15 @@ export default {
       API.post("/api/auth/register/", this.body)
         .then( resp => {
           localStorage.session = resp.user.id
-          this.loading=false
+          localStorage.name = resp.user.first_name
           this.notifyVue('top', 'right', ` el usuario se registro correctamente ${resp.user.first_name} :) `, "success")
+          this.loading=false
           this.$router.push('dashboard')
+          location.reload();
          })
         .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"),
         this.loading=false)
+
       
     }
   }
