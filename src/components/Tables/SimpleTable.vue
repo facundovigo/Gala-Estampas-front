@@ -30,13 +30,7 @@ export default {
     }
   },
     mounted(){
-      API.get('/api/order/search_order/?client_id=1')
-      .then( resp => {
-        this.products = resp
-        this.loading = false
-      })
-      .catch( e => this.notifyVue('top', 'right',  e, "danger")
-      );
+      this.call()
     },
   data() {
     return {
@@ -44,9 +38,19 @@ export default {
       products: [],
       page: 0,
       loading: true,
+      client: localStorage.getItem("session"),
     }
   },
   methods:{
+      call(){
+       API.get(`/api/order/search_order/?client_id=${this.client}`)
+      .then( resp => {
+        this.products = resp
+        this.loading = false
+      })
+      .catch( e => this.notifyVue('top', 'right',  e, "danger")
+      );
+      },
         notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:

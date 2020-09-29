@@ -137,6 +137,8 @@ export default {
         this.notifyVue('top', 'right', `!!! Lindo volver a verte ${resp.user.first_name} :)` , "success")
         this.loading=false
         this.$router.push('dashboard')
+        location.reload();
+
       })
       .catch(e =>  this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" + e, "danger"),
       this.loading=false)      

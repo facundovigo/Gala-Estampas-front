@@ -1,9 +1,12 @@
 <template>
   <form>
+    <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
+        <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
+    </div>  
     <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">Edit Profile</h4>
-        <p class="category">Complete your profile</p>
+      <md-card-header style="background-color: #ec407a" >
+        <h4 class="title">Datos de perfil</h4>
+        <!-- <p class="category">Complete your profile</p> -->
       </md-card-header>
 
       <md-card-content>
@@ -17,25 +20,25 @@
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
               <label>User Name</label>
-              <md-input v-model="username" type="text"></md-input>
+              <md-input v-model="facu.first_name" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
               <label>Email Address</label>
-              <md-input v-model="emailadress" type="email"></md-input>
+              <md-input v-model="facu.email" type="email"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>First Name</label>
-              <md-input v-model="firstname" type="text"></md-input>
+              <md-input v-model="facu.first_name" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Last Name</label>
-              <md-input v-model="lastname" type="text"></md-input>
+              <md-input v-model="facu.last_name" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-100">
@@ -69,33 +72,37 @@
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised md-success">Update Profile</md-button>
+            <md-button class="md-round  md-gala2">Actualizar Datos</md-button>
           </div>
-        <div class="radio">
+        <!-- <div class="radio">
               <label class="radio-inline">
                 <input type="radio" v-model="exp" value="true"> Si  
               </label>
               <label class="radio-inline">
                 <input type="radio" v-model="exp" value="false"> No 
               </label>
-        </div>
+        </div> -->
         </div>
       </md-card-content>
     </md-card>
   </form>
 </template>
 <script>
+import API from "../../service/api"
 export default {
   name: "edit-profile-form",
   props: {
     dataBackgroundColor: {
       type: String,
-      default: ""
-    }
+      default: "danger"
+    },
   },
+    mounted(){
+      this.call()
+    },
   data() {
-  
     return {
+      person: null,
       username: null,
       disabled: null,
       emailadress: null,
@@ -108,8 +115,38 @@ export default {
       exp: null,
       aboutme:
         "Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.", 
+      respuesta: null,
+      facu: null,
+      loading: true,
     };
+  },
+    methods:{
+      call(){
+       API.get(`/api/auth/2`)
+      .then( resp => {
+        let  r =resp
+         this.facu=r
+        this.loading=false 
+      })
+      .catch( e => this.notifyVue('top', 'right',  e, "danger")
+      );
+      },
+        notifyVue(verticalAlign, horizontalAlign, date, level) {
+      this.$notify({
+        message:
+           date ,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level
+      })
+    },
   }
 };
 </script>
-<style></style>
+<style>
+.spi{
+  color: pink !important;
+  --md-theme-default-primary: #f06292 !important;
+}
+</style>

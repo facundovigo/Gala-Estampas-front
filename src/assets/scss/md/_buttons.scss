@@ -41,6 +41,9 @@
     &.md-gala {
         @include btn-styles(#f06292)
     }
+    &.md-gala2 {
+        @include btn-styles(#ec407a)
+    }
     &.md-info {
         @include btn-styles($brand-info);
     }

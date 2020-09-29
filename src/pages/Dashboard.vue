@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
+  <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
     </div>  
     <div v-if="!this.loading">
@@ -37,14 +37,24 @@ export default {
   },
   data(){
     return{
+      loading: true,
       datos: [],
       menus: {},
       page: 0,
-      loading: true,
     }
   },
   methods:{
-            notifyVue(verticalAlign, horizontalAlign, date, level) {
+    menuss(){
+      API.get('/api/product/')
+      .then( resp => {
+        this.datos = resp
+        let r = this.datos
+        this.menus =chunk(r,8)
+        this.loading=false
+      })
+      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))},
+
+    notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:
            date ,
@@ -54,15 +64,8 @@ export default {
         type:level
       })
     },
-    menuss(){
-      API.get('/api/product/').then( resp => {
-        this.datos = resp 
-        let r = this.datos
-        
-        this.menus = chunk(r,8)
-        this.loading = false
-      }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"),
-        this.loading=false);
+    pepe(){
+      return this.loading
     },
     setPage(r){
       return this.page=r

@@ -85,6 +85,11 @@ export default {
         backgroundImage: `url(${this.sidebarBackgroundImage})`
       };
     }
+  },
+  methods:{
+        token(){
+      return localStorage.getItem("session")
+    },
   }
 };
 </script>

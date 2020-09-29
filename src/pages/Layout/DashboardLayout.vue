@@ -15,15 +15,15 @@
         <md-icon>person</md-icon>
         <p>Mi Perfil</p>
       </sidebar-link>
-      <sidebar-link to="/miscompras">
+      <sidebar-link to="/miscompras" v-if="token()">
         <md-icon>content_paste</md-icon>
         <p>Mis Compras</p>
       </sidebar-link>
-      <sidebar-link to="/favorites">
+      <sidebar-link to="/favorites" v-if="token()">
         <md-icon>favorite</md-icon>
         <p>Favoritos</p>
       </sidebar-link>
-      <sidebar-link to="/notifications">
+      <sidebar-link to="/notifications" v-if="token()">
         <md-icon>notifications</md-icon>
         <p>Notifications</p>
       </sidebar-link>
@@ -62,6 +62,15 @@ export default {
       sidebarBackground: "red",
       sidebarBackgroundImage: require("@/assets/img/portada2.jpg")
     };
+  },
+  methods:{
+     token(){
+      return localStorage.getItem("session")
+    },
+     logOut(){
+      localStorage.clear();
+      this.$router.push('/');
+    },
   }
 };
 </script>

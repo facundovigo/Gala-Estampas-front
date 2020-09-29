@@ -36,10 +36,9 @@ export default {
     },
     purchase(){
       if (localStorage.getItem("session")){
-      console.log(this.data.id);
       const body={
         product:this.data.id,
-        client:getItem("session")
+        client: localStorage.getItem("session")
       }
       API.post('/api/order/',body).then( resp =>{
         console.log(resp);

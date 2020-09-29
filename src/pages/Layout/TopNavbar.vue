@@ -58,7 +58,7 @@
                 href="#/notifications"
                 class="md-list-item-router md-list-item-container md-button-clean dropdown"
               >
-                <div class="md-list-item-content">
+                <div class="md-list-item-content" v-if="token()">
                   <drop-down>
                     <md-button
                       slot="title"
