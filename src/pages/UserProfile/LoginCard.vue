@@ -71,7 +71,49 @@
             <label>Confirmar contraseña</label>
             <md-input v-model="body.passConfirm" type="password" ></md-input>
           </md-field>
-        </div>  
+        </div>
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>Cumpleaños</label>
+            <md-input v-model="bodyClient.birthdate" type="date" ></md-input>
+          </md-field>
+        </div> 
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>Celular</label>
+            <md-input v-model="bodyClient.telephone" type="number" ></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>Dirección</label>
+            <md-input v-model="bodyClient.address" type="text" ></md-input>
+          </md-field>
+        </div> 
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>Ciudad</label>
+            <md-input v-model="bodyClient.city" type="text" ></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>Provincia</label>
+            <md-input v-model="bodyClient.state" type="text" ></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>País</label>
+            <md-input v-model="bodyClient.country" type="text" ></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100">
+          <md-field>
+            <label>Código Postal</label>
+            <md-input v-model="bodyClient.zip_code" type="number" ></md-input>
+          </md-field>
+        </div>
       </form>
           <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
           <md-button class="md-round md-success" v-on:click="register">Registrar</md-button>
@@ -95,12 +137,22 @@ export default {
   },
   data() {
     return {
-            body:{
+      body:{
         first_name:null,
         last_name:null,
         email:null,
         password:null,
-        passConfirm:null
+        passConfirm:null,
+      },
+      bodyClient:{
+        user:null,
+        birthdate:null, 
+        address:null,
+        city:null, 
+        state:null, 
+        country:null, 
+        zip_code:null, 
+        telephone:null
       },
       login:{
         username:null,
@@ -146,12 +198,15 @@ export default {
     register(){
       this.loading=true
       API.post("/api/auth/register/", this.body)
-        .then( resp => {
-          localStorage.session = resp.user.id
-          this.loading=false
-          this.notifyVue('top', 'right', ` el usuario se registro correctamente ${resp.user.first_name} :) `, "success")
-          this.$router.push('dashboard')
-         })
+        .then( usr => {
+          this.bodyClient.user = usr.user.id
+          API.post("/api/client/", this.bodyClient).then(resp =>{  
+            localStorage.session = usr.user.id
+            this.loading=false
+            this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
+            this.$router.push('dashboard')
+          })
+        })
         .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"),
         this.loading=false)
       

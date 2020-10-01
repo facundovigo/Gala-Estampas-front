@@ -10,7 +10,7 @@
             <p class="category">Gala Estampas</p>
           </md-card-header>
           <md-card-content>
-            <simple-table table-header-color="red"></simple-table>
+            <favorite-table table-header-color="red"></favorite-table>
           </md-card-content>
         </md-card>
       </div>
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import { SimpleTable, OrderedTable } from "@/components";
+import { FavoriteTable, OrderedTable } from "@/components";
 
 export default {
   components: {
     //OrderedTable,
-    SimpleTable
+    FavoriteTable
   }
 };
 </script>

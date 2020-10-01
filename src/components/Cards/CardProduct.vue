@@ -7,7 +7,7 @@
 
         <md-card-actions>
 
-          <md-button class="md-icon-button">
+          <md-button class="md-icon-button" v-on:click="makeFavorite">
             <md-icon>favorite</md-icon>
           </md-button>
 
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import API from '../../service/api';
 export default {
     name:"CardProduct",
     props: ['post'],
@@ -35,12 +36,33 @@ export default {
       }
     },
     methods:{
-        details(){
-          this.$router.push({ name: 'productDetails', params: {post: this.post}})
-        },
-        url(){
-          return this.t
+      notifyVue(verticalAlign, horizontalAlign, date, level) {
+        this.$notify({
+          message:
+          date ,
+          icon: "add_alert",
+          horizontalAlign: horizontalAlign,
+          verticalAlign: verticalAlign,
+          type:level
+        })
+      },
+      details(){
+        this.$router.push({ name: 'productDetails', params: {post: this.post}})
+      },
+      url(){
+        return this.t
+      },
+      makeFavorite(){
+        let body = {
+          product: this.post.id,
+          client: localStorage.getItem("session")
         }
+        API.post('/api/favorite/', body).then( resp => {
+          this.notifyVue(resp, "agregado") 
+        }).catch( e => {
+          console.log(e);
+        })
+      }
     }
 }
 </script>
