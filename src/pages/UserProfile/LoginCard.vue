@@ -205,6 +205,7 @@ export default {
             this.loading=false
             this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
             this.$router.push('dashboard')
+            location.reload();
           })
         })
         .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"),
