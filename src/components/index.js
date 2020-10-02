@@ -1,6 +1,7 @@
 // Cards
 import ChartCard from "./Cards/ChartCard.vue";
 import CardProduct from "./Cards/CardProduct.vue"
+import CardNoProduct from "./Cards/CardNoProduct.vue"
 // Tables
 import NavTabsTable from "./Tables/NavTabsTable.vue";
 import OrderedTable from "./Tables/OrderedTable.vue";
@@ -11,5 +12,6 @@ export {
     NavTabsTable,
     OrderedTable,
     SimpleTable,
-    CardProduct
+    CardProduct,
+    CardNoProduct
 };

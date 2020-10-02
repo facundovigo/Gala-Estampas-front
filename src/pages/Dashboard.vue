@@ -3,12 +3,16 @@
   <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
     </div>  
-    <div v-if="!this.loading">
-     <div  class=" md-layout  md-alignment-top-center" >
+    <div  >
+     <div  class=" md-layout  md-alignment-top-center" v-if="!emptyProducts()" >
           <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
     </div>
+    <div class="md-layout  md-alignment-top-center" v-else>
+    
+          <CardNoProduct></CardNoProduct>
+    </div>  
 
-    <div class="md-layout  md-alignment-top-center block" >
+    <div class="md-layout  md-alignment-top-center block" v-if="showButtons()" >
       <md-button class="md-raised md-gala md-round " v-on:click="previus">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
@@ -25,12 +29,14 @@
 import chunk from "lodash/chunk";
 import API from '../service/api';
 import {
-  CardProduct
+  CardProduct,
+  CardNoProduct
 } from "@/components";
 
 export default {
   components: {
-     CardProduct
+     CardProduct,
+     CardNoProduct
   },
   mounted(){
             this.menuss()
@@ -43,25 +49,40 @@ export default {
       page: 0,
     }
   },
-  watch:{
-      '$store.state.category'() {
-          console.log("facu",this.$store.state.category)
+        watch:{
+        '$store.state.category'() {
+          //api/product/search_product/?search_category=
+          //console.log(this.$store.state.category)
+          this.menuss()
+  
+        }
+    },
 
-      }
-  },
   methods:{
     menuss(){
-      if(this.$store.state.category = null){
-        console.log("facu")
+      let categoryId = this.$store.state.category
+      if(categoryId == null){
+  
+        API.get('/api/product/')
+        .then( resp => {
+          this.datos = resp
+          let r = this.datos
+          this.menus =chunk(r,8)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      }else{
+          API.get(`/api/product/search_product/?search_category=${categoryId}`)
+        .then( resp => {
+          this.datos = resp
+          let r = this.datos
+          this.menus =chunk(r,8)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
       }
-      API.get('/api/product/')
-      .then( resp => {
-        this.datos = resp
-        let r = this.datos
-        this.menus =chunk(r,8)
-        this.loading=false
-      })
-      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))},
+      
+    },
 
     notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
@@ -89,7 +110,16 @@ export default {
     getMenus(){
       return this.menus[this.page]
     },
-  }
+    showButtons(){
+      return (this.datos.length > 8);
+    },
+    emptyProducts(){
+      return  ((this.datos.length == 0) && ! this.loading)
+    }
+  },
+
+
+    
 }
 </script>
 
