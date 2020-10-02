@@ -24,8 +24,8 @@
             <md-autocomplete
               class="search"
               v-model="selectedProducts"
-              @input="prueba"
-              :md-options="products"
+              @input="prueba()"
+              :md-options="this.categoryListNames"
             >
               <label>Productos...</label>
             </md-autocomplete>
@@ -93,30 +93,40 @@
 </template>
 
 <script>
+import API from '../../service/api'
 export default {
+  mounted(){
+    this.call()
+  },
   data() {
     return {
       im: require("@/assets/img/Jardin.png"),
       im2: require("@/assets/img/Tienda.png"),
       selectedProducts: null,
-      products: [
-        "Taza ceramica",
-        "Set de Jardín",
-        "Set de Mate",
-        "Portacosmeticos",
-        "Portacosmeticos con fuelle",
-        "Portacosmeticos recto",
-        "Cartuchera",
-        "Mousepad",
-        "Termo autocebante 500ml",
-        "Tazas",
-        "Jardin",
-        "Almohadón",
-        "Tapabocas"
-      ]
+      categoryList: [],
+      categoryListNames: []
+      
     };
   },
   methods: {
+        notifyVue(verticalAlign, horizontalAlign, date, level) {
+      this.$notify({
+        message:
+           date ,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level
+      })
+    },
+    call(){
+        API.get('/api/category/')
+      .then( resp => {
+        this.categoryList = resp
+        this.categoryListName(resp)
+      })
+      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger")
+      )},
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
     },
@@ -125,17 +135,23 @@ export default {
       this.$router.push('/');
     },
     prueba(){
-      if(this.products.includes(this.selectedProducts) ){
-        // console.log(this.selectedProducts)
-        // this.$router.push({query:{...this.$router.query, categorias:this.selectedProducts}})
-      }
-    },
+       if(this.categoryListNames.includes(this.selectedProducts) ){
+        let res = this.categoryList.filter(e => e.name == this.selectedProducts )
+        this.$store.state.category = res[0].id
+       }else{
+          this.$store.state.category = null
+       }
+           },
+ 
     token(){
       return localStorage.getItem("session")
     },
     name(){
       return localStorage.getItem("name")
     },
+    categoryListName(resp){
+       this.categoryListNames  = resp.map( e => e.name)
+    }
   }
 };
 </script>

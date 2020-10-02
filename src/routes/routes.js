@@ -14,11 +14,11 @@ const routes = [{
     routes: [],
 
     mode: "history",
-    path: "/",
+    path: '/',
     component: DashboardLayout,
     redirect: "/dashboard",
     children: [{
-            path: "dashboard",
+            path: 'dashboard',
             name: "Dashboard",
             component: Dashboard
         },

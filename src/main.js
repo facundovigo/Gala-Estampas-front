@@ -5,6 +5,9 @@ import App from "./App";
 // router setup
 import routes from "./routes/routes";
 
+// store sertup
+import { store } from './store/store';
+
 // Plugins
 import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
@@ -34,8 +37,9 @@ Vue.use(Notifications);
 /* eslint-disable no-new */
 new Vue({
     el: "#app",
-    render: h => h(App),
+    store,
     router,
+    render: h => h(App),
     data: {
         Chartist: Chartist
     }
