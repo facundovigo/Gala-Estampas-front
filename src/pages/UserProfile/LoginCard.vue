@@ -198,8 +198,8 @@ export default {
       this.loading=true
       API.post("/api/auth/register/", this.body)
         // .then( usr => {
-        //   // this.bodyClient.user = usr.user.id
-        //   // API.post("/api/client/", this.bodyClient).then(resp =>{  
+        //   this.bodyClient.user = usr.user.id
+        //   API.post("/api/client/", this.bodyClient).then(resp =>{  
         //     localStorage.session = usr.user.id
         //     this.loading=false
         //     this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
