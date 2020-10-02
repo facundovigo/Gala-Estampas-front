@@ -14,9 +14,6 @@ export {
     OrderedTable,
     SimpleTable,
     CardProduct,
-<<<<<<< HEAD
-    FavoriteTable
-=======
+    FavoriteTable,
     CardNoProduct
->>>>>>> 491a1da4283468c1db42b89716f4a938fb09246a
 };
