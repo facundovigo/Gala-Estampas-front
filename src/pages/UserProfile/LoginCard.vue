@@ -183,7 +183,6 @@ export default {
       this.loading=true
       API.post('/api/auth/login/', this.login)
       .then( resp => {
-        console.log(resp) 
         localStorage.session = resp.user.id
         localStorage.name = resp.user.first_name
         this.notifyVue('top', 'right', `!!! Lindo volver a verte ${resp.user.first_name} :)` , "success")
@@ -198,17 +197,26 @@ export default {
     register(){
       this.loading=true
       API.post("/api/auth/register/", this.body)
-        .then( usr => {
-          this.bodyClient.user = usr.user.id
-          API.post("/api/client/", this.bodyClient).then(resp =>{  
-            localStorage.session = usr.user.id
-            this.loading=false
-            this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
-            this.$router.push('dashboard')
-          })
-        })
+        // .then( usr => {
+        //   // this.bodyClient.user = usr.user.id
+        //   // API.post("/api/client/", this.bodyClient).then(resp =>{  
+        //     localStorage.session = usr.user.id
+        //     this.loading=false
+        //     this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
+        //     this.$router.push('dashboard')
+        //   })
+        // })
+        .then( resp => {
+          localStorage.session = resp.user.id
+          localStorage.name = resp.user.first_name
+          this.notifyVue('top', 'right', ` el usuario se registro correctamente ${resp.user.first_name} :) `, "success")
+          this.loading=false
+          this.$router.push('dashboard')
+          location.reload();
+         })
         .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"),
         this.loading=false)
+
       
     }
   }

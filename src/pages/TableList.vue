@@ -1,10 +1,10 @@
 <template>
-  <div class="content">
+  <div class="content" >
     <div class="md-layout">
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
       >
-        <md-card>
+        <md-card >
           <md-card-header data-background-color="red">
             <h4 class="title">Mis Compras</h4>
             <p class="category">Gala Estampas</p>
@@ -28,3 +28,9 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+#pepe{
+  margin-top: 10% !important;
+
+}
+</style>

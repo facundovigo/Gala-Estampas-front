@@ -22,8 +22,8 @@
 
 <script>
 
-import chunk from "lodash/chunk" ;
-import API from '../service/api'
+import chunk from "lodash/chunk";
+import API from '../service/api';
 import {
   CardProduct
 } from "@/components";
@@ -43,8 +43,17 @@ export default {
       page: 0,
     }
   },
+  watch:{
+      '$store.state.category'() {
+          console.log("facu",this.$store.state.category)
+
+      }
+  },
   methods:{
     menuss(){
+      if(this.$store.state.category = null){
+        console.log("facu")
+      }
       API.get('/api/product/')
       .then( resp => {
         this.datos = resp
