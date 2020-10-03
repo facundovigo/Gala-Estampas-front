@@ -19,11 +19,10 @@
 </template>
 
 <script>
-import { FavoriteTable, OrderedTable } from "@/components";
+import { FavoriteTable } from "@/components";
 
 export default {
   components: {
-    //OrderedTable,
     FavoriteTable
   }
 };

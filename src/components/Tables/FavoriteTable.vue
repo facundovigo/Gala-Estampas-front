@@ -15,6 +15,15 @@
         <md-table-cell md-label="Realizar Pedido">{{ item.date_delivery }}</md-table-cell>
       </md-table-row>
     </md-table>
+
+        <div class="md-layout  md-alignment-top-center block" >
+      <md-button class="md-raised md-gala md-round " >
+        <span class="material-icons derecha" >keyboard_arrow_left</span>
+      </md-button>
+      <md-button class="md-raised md-gala md-round " >
+        <span class="material-icons" >keyboard_arrow_right</span>
+      </md-button>
+    </div>
   </div>
 </template>
 
@@ -46,12 +55,10 @@ export default {
       .then( resp => {
         this.products = resp
         this.loading = false
-        console.log(this.products);
       })
-      .catch( e => this.notifyVue('top', 'right',  e, "danger")
-      );
+      .catch( e => this.notifyVue('top', 'right',  e, "danger"));
       },
-        notifyVue(verticalAlign, horizontalAlign, date, level) {
+      notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:
            date ,

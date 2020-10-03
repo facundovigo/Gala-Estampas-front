@@ -57,11 +57,10 @@ export default {
           product: this.post.id,
           client: localStorage.getItem("session")
         }
-        API.post('/api/favorite/', body).then( resp => {
-          this.notifyVue(resp, "agregado") 
-        }).catch( e => {
-          console.log(e);
-        })
+        API.post('/api/favorite/', body)
+        .then( resp => {
+         this.notifyVue('top', 'right', ` Gurdaste el producto que te gusto! :) `, "success")
+        }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
       }
     }
 }

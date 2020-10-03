@@ -123,14 +123,14 @@ export default {
   },
     methods:{
       call(){
+      console.log(this.userid)
        API.get(`/api/auth/${this.userid}`)
       .then( resp => {
         let  r =resp
          this.facu=r
         this.loading=false 
       })
-      .catch( e => this.notifyVue('top', 'right',  e, "danger")
-      );
+      .catch( e => this.notifyVue('top', 'right',  e, "danger"));
       },
         notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({

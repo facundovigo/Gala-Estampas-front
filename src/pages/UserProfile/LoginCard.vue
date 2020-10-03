@@ -1,12 +1,12 @@
 <template>
-  <md-card class="md-card-profile">
-     <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
-        <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
-    </div>  
+  <div>
+   <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
+          <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
+      </div>  
+    <md-card class="md-card-profile" v-if="!this.loading"> 
     <div class="md-card-avatar">
       <img class="img" :src="cardUserImage" />
     </div>
-
       <transition name="bounce">
     <md-card-content v-if="prelogin">
       <h6 class="category text-gray">Gala Estampa</h6>
@@ -15,14 +15,12 @@
       </p>
     </md-card-content>
       </transition>        
-
     <div v-if="prelogin">
-
     <form >
         <div class="md-layout-item md-small-size-100">
           <md-field>
             <label>Email</label>
-            <md-input  type="email" v-model="login.username"></md-input>
+            <md-input  class="md-g" type="email" v-model="login.username"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
@@ -34,94 +32,68 @@
       </form>
         <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
 
-         <md-button class="md-round md-success"  v-on:click="loginn">Ingresar</md-button>
+         <md-button class="md-round md-gala-cyan"  v-on:click="loginn">Ingresar</md-button>
          <h6 class="category text-description ">No tenés usuario 
            <a class="page-link color-red"  v-on:click="preLogin">create uno</a>
       </h6>
      </div>
 
     <div v-else>  
-      <form>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Nombre</label>
-            <md-input v-model="body.first_name" type="text" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Apellido</label>
-            <md-input v-model="body.last_name" type="text" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Email</label>
-            <md-input v-model="body.email" type="email" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Contraseña</label>
-            <md-input v-model="body.password" type="password" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Confirmar contraseña</label>
-            <md-input v-model="body.passConfirm" type="password" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Cumpleaños</label>
-            <md-input v-model="bodyClient.birthdate" type="date" ></md-input>
-          </md-field>
-        </div> 
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Celular</label>
-            <md-input v-model="bodyClient.telephone" type="number" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Dirección</label>
-            <md-input v-model="bodyClient.address" type="text" ></md-input>
-          </md-field>
-        </div> 
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Ciudad</label>
-            <md-input v-model="bodyClient.city" type="text" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Provincia</label>
-            <md-input v-model="bodyClient.state" type="text" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>País</label>
-            <md-input v-model="bodyClient.country" type="text" ></md-input>
-          </md-field>
-        </div>
-        <div class="md-layout-item md-small-size-100">
-          <md-field>
-            <label>Código Postal</label>
-            <md-input v-model="bodyClient.zip_code" type="number" ></md-input>
-          </md-field>
-        </div>
-      </form>
-          <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-          <md-button class="md-round md-success" v-on:click="register">Registrar</md-button>
-    </div>
-     
 
+      <form >
+         <md-card >
+      <md-card-header style="background-color: #FF5D57;  height: 1rem;" >
+      </md-card-header>
+
+      <md-card-content>
+        <div class="md-layout">
+
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>Nombre</label>
+              <md-input  v-model="body.first_name" type="text"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>Apellido</label>
+              <md-input v-model="body.last_name"  type="text"></md-input>
+            </md-field>
+          </div>
+
+          <div class="md-layout-item md-small-size-100 md-size-100">
+            <md-field>
+              <label>Email</label>
+              <md-input  v-model="body.email" type="email"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>Contraseña</label>
+              <md-input   v-model="body.password"  type="password"></md-input>
+            </md-field>
+          </div>
+             <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>Confirmar contraseña</label>
+              <md-input  v-model="body.passConfirm" type="password"></md-input>
+            </md-field>
+          </div>
+
+        
+        </div>
+      </md-card-content>
+    </md-card>
+      </form>
   
-  </md-card>
+    <div >
+          <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
+          <md-button class="md-round md-gala-cyan" v-on:click="register">Registrar</md-button>
+    </div>      
+    </div>
+      </md-card>
+  </div>
+
 </template>
 
 <script>
@@ -200,25 +172,34 @@ export default {
       API.post("/api/auth/register/", this.body)
         .then( usr => {
           this.bodyClient.user = usr.user.id
-          API.post("/api/client/", this.bodyClient).then(resp =>{  
-            localStorage.session = usr.user.id
+          localStorage.session = usr.user.id
             localStorage.name = usr.user.first_name
             this.loading=false
             this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
             this.$router.push('dashboard')
             location.reload();
-          })
+          // API.post("/api/client/", this.bodyClient)
+          // .then(resp =>{  
+          //   localStorage.session = usr.user.id
+          //   localStorage.name = usr.user.first_name
+          //   this.loading=false
+          //   this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
+          //   this.$router.push('dashboard')
+          //   location.reload();
+          // })
         })
-        .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"),
-        this.loading=false)
-
-      
+        .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"))
     }
   }
 };
 </script>
 
-<style>
+<style lang="css" scoped>
+
+.md-button .md-icon-button .md-dense .md-input-action .md-toggle-password .md-theme-default{
+  background-color: red !important;
+  color: pink !important;
+}
 #separacion{
     margin-right: 15%
 }
@@ -256,12 +237,9 @@ export default {
     transform: scale(1);
   }
 }
-
-</style>
-
-<style lang="scss"  scoped>
 .spi{
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
 }
 </style>
+
