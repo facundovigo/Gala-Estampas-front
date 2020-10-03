@@ -42,7 +42,7 @@ export default {
       }
       API.post('/api/order/',body).then( resp =>{
         console.log(resp);
-        this.notifyVue('top', 'center', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
+        this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
         this.$router.push('miscompras');
       }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
      }else{
