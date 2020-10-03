@@ -12,7 +12,14 @@
         </md-table-cell>
         <md-table-cell md-label="Producto">{{ item.product_id.name }}</md-table-cell>
         <md-table-cell md-label="Precio">{{ item.product_id.price }}</md-table-cell>
-        <md-table-cell md-label="Realizar Pedido">{{ item.date_delivery }}</md-table-cell>
+        <md-table-cell md-label="Realizar Pedido">{{ item.date_delivery }}
+         <md-button class="md-round md-gala-cyan" v-on:click="details(item.product_id)">Detalles </md-button>
+        </md-table-cell>
+        <md-table-cell md-label="">
+         <md-button class="md-icon-button" v-on:click="deleteItem(item.id)">
+         <md-icon class="material-icons">delete</md-icon>
+         </md-button> 
+        </md-table-cell>
       </md-table-row>
     </md-table>
 
@@ -68,6 +75,14 @@ export default {
         type:level
       })
     },
+    details(item){
+        this.$router.push({ name: 'productDetails', params: {post: item}})
+    },
+    deleteItem(id){
+    API.delete(`/api/favorite/${id}`)
+    .then(location.reload())
+    .catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
+     }
   }
 };
 </script>
@@ -77,4 +92,19 @@ export default {
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
 }
+
+  .md-button i {
+    padding: 1rem;
+    color:  gray !important;
+    transform: scale(1.5);    
+  }
+
+  .md-button i:hover {    
+      color: red !important;
+      transform: scale(2);
+
+    }:focus{
+          color: red($color: pink) ;
+        }
+
 </style>

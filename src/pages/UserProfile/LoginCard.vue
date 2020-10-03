@@ -33,9 +33,11 @@
         <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
 
          <md-button class="md-round md-gala-cyan"  v-on:click="loginn">Ingresar</md-button>
+         <div >
          <h6 class="category text-description ">No tenés usuario 
-           <a class="page-link color-red"  v-on:click="preLogin">create uno</a>
-      </h6>
+           <a class="simple-text"  v-on:click="preLogin">create uno </a>
+          </h6>
+         </div>
      </div>
 
     <div v-else>  
