@@ -1,14 +1,26 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
-      <div class="md-toolbar-section-start "  v-if="token()">
+      <div class="md-toolbar-section-start " >
  
-        <h3 class="md-title"  >{{ name()}}</h3>
+        <!-- <h3 class="md-title"   v-if="token()">{{ name()}}</h3> -->
         
-      </div>
    
+     <div class="md-autocomplete md-toolbar-toggle" style="width: 100%;">
+            <md-autocomplete
+              class="search"
+              v-model="selectedProducts"
+              @input="prueba()"
+              :md-options="this.categoryListNames"
+            >
+              <label>Productos...</label>
+            </md-autocomplete>
+          </div>
+      </div>
       
       <div class="md-toolbar-section-end">
+
+        
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle md-gala"
           :class="{ toggled: $sidebar.showSidebar }"
@@ -19,7 +31,7 @@
           <span class="icon-bar"></span>
         </md-button>
 
-        <div class="md-collapse">
+        <div class="md-collapse ">
           <div class="md-autocomplete">
             <md-autocomplete
               class="search"
