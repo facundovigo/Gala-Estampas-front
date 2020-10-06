@@ -16,91 +16,136 @@
     </md-card-content>
       </transition>        
     <div v-if="prelogin">
-    <form >
+    <ValidationObserver v-slot="{ invalid }">  
+     <form >
         <div class="md-layout-item md-small-size-100">
           <md-field>
+            <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
             <label>Email</label>
-            <md-input  class="md-g" type="email" v-model="login.username"></md-input>
+            <md-input  class="md-g" type="email"  v-model="login.username"></md-input>
+            <span >{{ errors[0] }}</span>                
+            </ValidationProvider>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100">
           <md-field>
+            <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
             <label>Contraseña</label>
             <md-input  type="password" v-model="login.password"></md-input>
+            <span>{{ errors[0] }}</span>
+            </ValidationProvider>
           </md-field>
         </div>
       </form>
         <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
 
-         <md-button class="md-round md-gala-cyan"  v-on:click="loginn">Ingresar</md-button>
+         <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid">Ingresar</md-button>
          <div >
          <h6 class="category text-description ">No tenés usuario 
            <a class="simple-text"  v-on:click="preLogin">create uno </a>
           </h6>
          </div>
+       </ValidationObserver>  
      </div>
 
     <div v-else>  
+      <ValidationObserver v-slot="{ invalid }">
+        <form >
+           <md-card >
+              <md-card-header style="background-color: #FF5D57;  height: 1rem;" >
+                </md-card-header>
+                  <md-card-content>
+                    <div class="md-layout">
+                      <div class="md-layout-item md-small-size-100 md-size-50">
+                        <md-field>
+                          <ValidationProvider name="name" rules="required|mimimo" v-slot="{ errors }">
+                          <label>Nombre</label>
+                          <md-input  v-model="body.first_name" type="text" ></md-input>
+                          <span >{{ errors[0] }}</span>                
+                          </ValidationProvider>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item md-small-size-100 md-size-50" required>
+                        <md-field>
+                            <ValidationProvider name="name" rules="required|alpha" v-slot="{ errors }">
+                          <label>Apellido</label>
+                          <md-input v-model="body.last_name"  type="text" ></md-input>
+                          <span >{{ errors[0] }}</span> 
+                            </ValidationProvider>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item md-small-size-100 md-size-100">
+                        <md-field>
+                          <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
+                          <label>Email</label>
+                          <md-input  v-model="body.email" type="email" ></md-input>
+                          <span>{{ errors[0] }}</span>
+                          </ValidationProvider>
+                        </md-field>
+                      </div>
+                      
+                      <ValidationObserver class="md-layout-item md-small-size-100 md-size-100">
+                        <md-field>
+                          <ValidationProvider name="password" rules="required|mimimo|password:@confirm" v-slot="{ errors }">
+                          <label>Contraseña</label>
+                          <md-input v-model="body.password"  type="password"></md-input>
+                          <span>{{ errors[0] }}</span>
+                          </ValidationProvider>
+                        </md-field>
+                        <md-field>
+                          <ValidationProvider name="confirm" rules="required" v-slot="{ errors }">
+                          <label>Confirmar contraseña</label>
+                          <md-input v-model="body.passConfirm" type="password"></md-input>
+                          <span>{{ errors[0] }}</span>
 
-      <form >
-         <md-card >
-      <md-card-header style="background-color: #FF5D57;  height: 1rem;" >
-      </md-card-header>
-
-      <md-card-content>
-        <div class="md-layout">
-
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Nombre</label>
-              <md-input  v-model="body.first_name" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Apellido</label>
-              <md-input v-model="body.last_name"  type="text"></md-input>
-            </md-field>
-          </div>
-
-          <div class="md-layout-item md-small-size-100 md-size-100">
-            <md-field>
-              <label>Email</label>
-              <md-input  v-model="body.email" type="email"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Contraseña</label>
-              <md-input   v-model="body.password"  type="password"></md-input>
-            </md-field>
-          </div>
-             <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Confirmar contraseña</label>
-              <md-input  v-model="body.passConfirm" type="password"></md-input>
-            </md-field>
-          </div>
-
-        
-        </div>
-      </md-card-content>
-    </md-card>
-      </form>
-  
-    <div >
-          <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-          <md-button class="md-round md-gala-cyan" v-on:click="register">Registrar</md-button>
-    </div>      
+                          </ValidationProvider>
+                        </md-field>
+                     
+                      </ValidationObserver>
+                    </div>
+                  
+                  </md-card-content>
+                </md-card>
+                <div >
+                    <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
+                    <md-button class="md-round md-gala-cyan" v-on:click="register" :disabled="invalid">Registrar</md-button>
+                </div>      
+         </form>
+      </ValidationObserver>
     </div>
-      </md-card>
+  </md-card>
   </div>
-
 </template>
 
 <script>
 import API from "../../service/api"
+import { extend } from 'vee-validate';
+import { localize } from 'vee-validate';
+
+localize({
+  es: {
+    messages: {
+      required: 'Este campo es requerido',
+      mimimo: 'Debe ser mayor a 4 letras',
+      email: "Debe ser un correo electrónico válido"
+    }
+  }
+});
+
+extend('mimimo', value => {
+  return value.length >= 4;
+});
+
+extend('password', {
+  params: ['target'],
+  validate(value, { target }) {
+    return value === target;
+  },
+  message: 'Las Contraseñas no coinciden'
+});
+
 export default {
+
   name: "login-card",
   props: {
     cardUserImage: {
@@ -109,6 +154,7 @@ export default {
     },
 
   },
+
   data() {
     return {
       body:{
@@ -136,6 +182,7 @@ export default {
         loading: false,
     };
   },
+
   methods:{
         notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
@@ -146,6 +193,17 @@ export default {
         verticalAlign: verticalAlign,
         type:level
       })
+    },
+    onSubmit(){
+        console.log("facu")
+    },
+       handleSubmit(e) {
+      this.submitted = true;
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.user));
+        }
+      });
     },
       back(){
       this.$router.push('dashboard')
@@ -190,7 +248,7 @@ export default {
           //   location.reload();
           // })
         })
-        .catch(e => this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"))
+        .catch(e => this.loading=false, this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger"))
     }
   }
 };

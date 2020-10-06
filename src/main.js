@@ -16,6 +16,11 @@ import Notifications from "./components/NotificationPlugin";
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
 
+//Vuelidate
+import { ValidationObserver, ValidationProvider, extend, localize } from 'vee-validate';
+import en from 'vee-validate/dist/locale/en.json';
+import * as rules from 'vee-validate/dist/rules'
+
 import Chartist from "chartist";
 
 // configure router
@@ -24,6 +29,16 @@ const router = new VueRouter({
     linkExactActiveClass: "nav-item active"
 });
 
+// install rules and localization
+Object.keys(rules).forEach(rule => {
+    extend(rule, rules[rule]);
+});
+
+localize('es');
+
+// Install components globally
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider)
 
 Vue.prototype.$Chartist = Chartist;
 
@@ -33,6 +48,9 @@ Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 
+// Install components globally
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);
 
 /* eslint-disable no-new */
 new Vue({
