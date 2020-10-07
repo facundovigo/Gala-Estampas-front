@@ -3,7 +3,11 @@
     <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
     </div>  
-    <md-table v-model="products" :table-header-color="tableHeaderColor">
+
+  <div class="md-layout" >
+   <md-toolbar class="md-transparent" v-if="!this.loading">
+    <div class="md-toolbar-row">
+    <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="">
           <md-avatar class="md-large">
@@ -22,8 +26,15 @@
         </md-table-cell>
       </md-table-row>
     </md-table>
+    </div>
+    
+    <div class="md-toolbar-toggle md-layout  md-alignment-top-center" >
+      <CardsFavorites v-for="(product, index) in products" :key="index" :post=product></CardsFavorites>
+    </div>
 
-        <div class="md-layout  md-alignment-top-center block" >
+ </md-toolbar>
+
+        <div class="md-layout  md-alignment-top-center block" v-if="showButtons()">
       <md-button class="md-raised md-gala md-round " >
         <span class="material-icons derecha" >keyboard_arrow_left</span>
       </md-button>
@@ -31,12 +42,20 @@
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
     </div>
+</div>
+
   </div>
 </template>
 
 <script>
 import API from '../../service/api';
+import {
+  CardsFavorites,
+} from "@/components";
 export default {
+  components:{
+    CardsFavorites
+  },
   name: "favorite-table",
   props: {
     tableHeaderColor: {
@@ -82,7 +101,10 @@ export default {
     API.delete(`/api/favorite/${id}`)
     .then(location.reload())
     .catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
-     }
+     },
+     showButtons(){
+      return ((this.products.length > 4) && ! this.loading);
+    },
   }
 };
 </script>

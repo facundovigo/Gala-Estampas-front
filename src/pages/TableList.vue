@@ -1,8 +1,9 @@
 <template>
-  <div class="content" >
-    <div class="md-layout">
+  <div class="content"  >
+    <div class="md-layout" >
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+        
       >
         <md-card >
           <md-card-header data-background-color="red">
@@ -10,7 +11,7 @@
             <p class="category">Gala Estampas</p>
           </md-card-header>
           <md-card-content>
-            <simple-table table-header-color="red"></simple-table>
+            <simple-table table-header-color="red" ></simple-table>
           </md-card-content>
         </md-card>
       </div>
@@ -29,6 +30,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.md-card{
+  background-color: beige!important;
+
+}
 #pepe{
   margin-top: 10% !important;
 

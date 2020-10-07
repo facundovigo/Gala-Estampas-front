@@ -3,7 +3,7 @@
   <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
     </div>  
-    <div  >
+    <div>
      <div  class=" md-layout  md-alignment-top-center" v-if="!emptyProducts()" >
           <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
     </div>
@@ -21,6 +21,8 @@
       </md-button>
     </div>
     </div>
+          <fixed-plugin :color.sync="sidebarBackground" :image.sync="sidebarBackgroundImage"></fixed-plugin>
+
   </div> 
 </template>
 
@@ -28,6 +30,7 @@
 
 import chunk from "lodash/chunk";
 import API from '../service/api';
+import FixedPlugin from "./Layout/Extra/FixedPlugin";
 import {
   CardProduct,
   CardNoProduct
@@ -36,7 +39,8 @@ import {
 export default {
   components: {
      CardProduct,
-     CardNoProduct
+     CardNoProduct,
+     FixedPlugin
   },
   mounted(){
             this.menuss()
@@ -111,7 +115,7 @@ export default {
       return this.menus[this.page]
     },
     showButtons(){
-      return (this.datos.length > 8);
+      return ((this.datos.length > 8) && ! this.loading);
     },
     emptyProducts(){
       return  ((this.datos.length == 0) && ! this.loading)

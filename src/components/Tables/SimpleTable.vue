@@ -1,14 +1,18 @@
 <template>
-  <div >
+  <div>  
     <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
-    </div>  
-    <md-table v-model="products" :table-header-color="tableHeaderColor" >
+    </div> 
+
+ <div class="md-layout" >
+  <md-toolbar class="md-transparent" v-if="!this.loading">
+    <div class="md-toolbar-row">
+    <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="">
           <md-avatar class="md-large">
-          <img :src="item.product_id.photo" alt="Producto">
-      </md-avatar>
+           <img :src="item.product_id.photo" alt="Producto">
+          </md-avatar>
         </md-table-cell>
         <md-table-cell md-label="Producto">{{ item.product_id.name }}</md-table-cell>
         <md-table-cell md-label="Cantidad">{{ item.cant }}</md-table-cell>
@@ -16,8 +20,13 @@
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
       </md-table-row>
     </md-table>
+    </div>
     
-    <div class="md-layout  md-alignment-top-center block" >
+    <div class="md-toolbar-toggle md-layout  md-alignment-top-center" >
+      <CardsMyBuy v-for="(product, index) in products" :key="index" :post=product></CardsMyBuy>
+    </div>
+  </md-toolbar>
+      <div class="md-layout  md-alignment-top-center block" v-if="showButtons()" >
       <md-button class="md-raised md-gala md-round " >
         <span class="material-icons derecha" >keyboard_arrow_left</span>
       </md-button>
@@ -25,13 +34,20 @@
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
     </div>
-  </div>
-  
+</div>
+</div>
+
 </template>
 
 <script>
 import API from '../../service/api';
+import {
+  CardsMyBuy,
+} from "@/components";
 export default {
+  components:{
+      CardsMyBuy
+  },
   name: "simple-table",
   props: {
     tableHeaderColor: {
@@ -70,6 +86,9 @@ export default {
         verticalAlign: verticalAlign,
         type:level
       })
+    },
+    showButtons(){
+      return ((this.products.length > 4) && ! this.loading);
     },
   }
 };

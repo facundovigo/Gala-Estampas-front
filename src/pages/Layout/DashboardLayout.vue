@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }">
+  <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }" > <!-- style="background-color: wheat !important;" -->
     <notifications></notifications>
 
     <side-bar
@@ -32,7 +32,6 @@
     <div class="main-panel">
       <top-navbar></top-navbar>
 
-      <fixed-plugin :color.sync="sidebarBackground" :image.sync="sidebarBackgroundImage"></fixed-plugin>
 
       <dashboard-content></dashboard-content>
   
@@ -55,7 +54,7 @@ export default {
     DashboardContent,
     ContentFooter,
     //MobileMenu,
-    FixedPlugin
+    //FixedPlugin
   },
   data() {
     return {

@@ -1,10 +1,8 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
-      <div class="md-toolbar-section-start " >
- 
+      <div class="md-toolbar-section-start " > 
         <!-- <h3 class="md-title"   v-if="token()">{{ name()}}</h3> -->
-        
    
      <div class="md-autocomplete md-toolbar-toggle" style="width: 100%;">
             <md-autocomplete
@@ -31,7 +29,8 @@
           <span class="icon-bar"></span>
         </md-button>
 
-        <div class="md-collapse ">
+        <div class="md-collapse">
+
           <div class="md-autocomplete">
             <md-autocomplete
               class="search"

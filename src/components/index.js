@@ -2,6 +2,9 @@
 import ChartCard from "./Cards/ChartCard.vue";
 import CardProduct from "./Cards/CardProduct.vue"
 import CardNoProduct from "./Cards/CardNoProduct.vue"
+import CardsMyBuy from "./Cards/CardsMyBuy.vue"
+import CardsFavorites from "./Cards/CardsFavorites.vue"
+
 // Tables
 import NavTabsTable from "./Tables/NavTabsTable.vue";
 import OrderedTable from "./Tables/OrderedTable.vue";
@@ -15,5 +18,7 @@ export {
     SimpleTable,
     CardProduct,
     FavoriteTable,
-    CardNoProduct
+    CardNoProduct,
+    CardsMyBuy,
+    CardsFavorites
 };
