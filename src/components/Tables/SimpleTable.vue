@@ -7,7 +7,7 @@
  <div class="md-layout" >
   <md-toolbar class="md-transparent" v-if="!this.loading">
     <div class="md-toolbar-row">
-    <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
+    <md-table v-model="selected" :table-header-color="tableHeaderColor" class="md-collapse" >
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="">
           <md-avatar class="md-large">
@@ -27,10 +27,10 @@
     </div>
   </md-toolbar>
       <div class="md-layout  md-alignment-top-center block" v-if="showButtons()" >
-      <md-button class="md-raised md-gala md-round " >
+      <md-button class="md-raised md-gala md-round " v-on:click="previus">
         <span class="material-icons derecha" >keyboard_arrow_left</span>
       </md-button>
-      <md-button class="md-raised md-gala md-round " >
+      <md-button class="md-raised md-gala md-round " v-on:click="nextt">
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
     </div>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import chunk from "lodash/chunk";
 import API from '../../service/api';
 import {
   CardsMyBuy,
@@ -60,8 +61,9 @@ export default {
     },
   data() {
     return {
-      selected: [],
+      selected: {},
       products: [],
+      prod: {},
       page: 0,
       loading: true,
       client: localStorage.getItem("session"),
@@ -72,6 +74,8 @@ export default {
        API.get(`/api/order/search_order/?client_id=${this.client}`)
       .then( resp => {
         this.products = resp
+        this.prod  = chunk(this.products,5)
+        this.getProd()
         this.loading = false
       })
       .catch( e => this.notifyVue('top', 'right',  e, "danger")
@@ -88,7 +92,17 @@ export default {
       })
     },
     showButtons(){
-      return ((this.products.length > 4) && ! this.loading);
+      return ((this.products.length > 5) && ! this.loading);
+    },
+     getProd(){
+      return this.selected = this.prod[this.page]
+    },
+    previus(){
+      if (this.page !== 0) this.page = this.page -1
+    },
+    nextt(){
+      if (this.page !== this.menus.length -1 ) this.page ++
+
     },
   }
 };

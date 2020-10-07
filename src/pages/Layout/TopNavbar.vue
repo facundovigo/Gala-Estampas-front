@@ -2,8 +2,53 @@
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start " > 
-        <!-- <h3 class="md-title"   v-if="token()">{{ name()}}</h3> -->
-   
+      
+      <div class="md-collapse">
+               <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Almohadon.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Auto.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Botella.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Camara.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Cartuchera.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Jardin.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+
+      </div>
+
      <div class="md-autocomplete md-toolbar-toggle" style="width: 100%;">
             <md-autocomplete
               class="search"
@@ -14,10 +59,53 @@
               <label>Productos...</label>
             </md-autocomplete>
           </div>
-      </div>
-      
+      </div>    
       <div class="md-toolbar-section-end">
 
+      <div class="md-collapse">
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Mate.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Mochi.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Portacosmeticos.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Tapabocas.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Taza.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Mail.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+      </div>      
         
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle md-gala"
@@ -31,7 +119,7 @@
 
         <div class="md-collapse">
 
-          <div class="md-autocomplete">
+          <!-- <div class="md-autocomplete">
             <md-autocomplete
               class="search"
               v-model="selectedProducts"
@@ -40,7 +128,7 @@
             >
               <label>Productos...</label>
             </md-autocomplete>
-          </div>
+          </div> -->
           <md-list>
             <md-list-item href="#/">
               <i class="material-icons">dashboard</i>
@@ -111,8 +199,6 @@ export default {
   },
   data() {
     return {
-      im: require("@/assets/img/Jardin.png"),
-      im2: require("@/assets/img/Tienda.png"),
       selectedProducts: null,
       categoryList: [],
       categoryListNames: []
@@ -172,6 +258,9 @@ export default {
     top: 8px;
     border-radius: 50%;
     background-color: red !important;
+}
+.sep{
+  margin-right: 1rem;
 }
 /* .md-toolbar-section-start{
 background-image: url("@/assets/img/Jardin.png") !important;

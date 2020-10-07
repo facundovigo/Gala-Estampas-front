@@ -21,7 +21,7 @@
       </md-button>
     </div>
     </div>
-          <fixed-plugin :color.sync="sidebarBackground" :image.sync="sidebarBackgroundImage"></fixed-plugin>
+          <fixed-plugin  ></fixed-plugin>
 
   </div> 
 </template>
