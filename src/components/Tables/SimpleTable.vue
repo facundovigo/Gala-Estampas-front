@@ -8,8 +8,9 @@
   <md-toolbar class="md-transparent" v-if="!this.loading">
     <div class="md-toolbar-row">
     <md-table v-model="selected" :table-header-color="tableHeaderColor" class="md-collapse" >
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="">
+      
+      <md-table-row slot="md-table-row" slot-scope="{ item,  }">
+        <md-table-cell md-label="" >
           <md-avatar class="md-large">
            <img :src="item.product_id.photo" alt="Producto">
           </md-avatar>
@@ -95,14 +96,14 @@ export default {
       return ((this.products.length > 5) && ! this.loading);
     },
      getProd(){
-      return this.selected = this.prod[this.page]
+      this.selected = this.prod[this.page]
     },
     previus(){
       if (this.page !== 0) this.page = this.page -1
     },
     nextt(){
-      if (this.page !== this.menus.length -1 ) this.page ++
-
+      if (this.page !== this.prod.length -1 ) this.page ++
+      getProd()
     },
   }
 };
@@ -113,5 +114,4 @@ export default {
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
 }
-
 </style>

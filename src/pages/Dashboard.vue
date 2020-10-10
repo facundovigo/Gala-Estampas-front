@@ -1,28 +1,25 @@
 <template>
-  <div class="content">
+  <div class="content ">
   <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
         <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
     </div>  
-    <div>
+    <div v-if="!this.loading">
      <div  class=" md-layout  md-alignment-top-center" v-if="!emptyProducts()" >
-          <CardProduct  class=" md-alignment-center" v-for="(product, index) in getMenus()" :key="index" :post=product></CardProduct> 
+          <CardProduct  class=" md-alignment-center" v-for="(product, index) in datos" :key="index" :post="product"></CardProduct> 
     </div>
     <div class="md-layout  md-alignment-top-center" v-else>
-    
           <CardNoProduct></CardNoProduct>
     </div>  
-
-    <div class="md-layout  md-alignment-top-center block" v-if="showButtons()" >
-      <md-button class="md-raised md-gala md-round " v-on:click="previus">
+    <div class="md-layout  md-alignment-top-center block" v-if="showButtons && (! this.loading)" >
+      <md-button class="md-raised md-gala md-round " v-on:click="this.previusssss">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
-      <md-button class="md-raised md-gala md-round " v-on:click="nextt">
+      <md-button class="md-raised md-gala md-round " v-on:click="this.nextt">
         <span class="material-icons" >keyboard_arrow_right</span>
       </md-button>
     </div>
     </div>
           <fixed-plugin  ></fixed-plugin>
-
   </div> 
 </template>
 
@@ -42,23 +39,21 @@ export default {
      CardNoProduct,
      FixedPlugin
   },
-  mounted(){
-            this.menuss()
+  created(){
+       this.menuss()
   },
   data(){
     return{
       loading: true,
+      showButtons: false,
       datos: [],
-      menus: {},
-      page: 0,
+      info:"",
+      page: 1,
     }
   },
         watch:{
         '$store.state.category'() {
-          //api/product/search_product/?search_category=
-          //console.log(this.$store.state.category)
           this.menuss()
-  
         }
     },
 
@@ -66,28 +61,27 @@ export default {
     menuss(){
       let categoryId = this.$store.state.category
       if(categoryId == null){
-  
-        API.get('/api/product/')
+        console.log(this.page)
+        API.get(`/api/product/search_product/?page=${this.page}`)
         .then( resp => {
-          this.datos = resp
-          let r = this.datos
-          this.menus =chunk(r,8)
+          this.datos = {...resp.results}
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          console.log(this.datos)
           this.loading=false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
       }else{
-          API.get(`/api/product/search_product/?search_category=${categoryId}`)
+        this.page=1
+          API.get(`/api/product/search_product/?search_category=${categoryId}&page=${this.page}`)
         .then( resp => {
           this.datos = resp
-          let r = this.datos
-          this.menus =chunk(r,8)
           this.loading=false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
-      }
+       }
       
     },
-
     notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:
@@ -98,32 +92,47 @@ export default {
         type:level
       })
     },
-    pepe(){
-      return this.loading
-    },
-    setPage(r){
-      return this.page=r
-    },
-    previus(){
-      if (this.page !== 0) this.page = this.page -1
+    previusssss(){
+      console.log(this.page,"previus")
+      if ( this.page  > 1) {
+        this.loading=true
+        this.page --
+        API.get(`/api/product/search_product/?page=${this.page}`)
+        .then( resp => {
+          this.datos = {...resp.results}
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          console.log(this.datos)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+       
+      }
+             console.log(this.page,"previus2")
     },
     nextt(){
-      if (this.page !== this.menus.length -1 ) this.page ++
-
+       console.log(this.page,"next")
+      if(this.info !== null) {
+       this.page ++
+       this.loading=true
+       API.get(`/api/product/search_product/?page=${this.page}`)
+        .then( resp => {
+          this.datos = {...resp.results}
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          console.log(this.datos)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      } 
     },
-    getMenus(){
-      return this.menus[this.page]
-    },
-    showButtons(){
-      return ((this.datos.length > 8) && ! this.loading);
+    checkShowButtons(r){
+       this.showButtons = ((r > 8) );
     },
     emptyProducts(){
       return  ((this.datos.length == 0) && ! this.loading)
     }
   },
-
-
-    
 }
 </script>
 

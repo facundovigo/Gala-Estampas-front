@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }" > <!-- style="background-color: wheat !important;" -->
+  <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }" style="background-color: #ebf9f9 !important;"> <!-- style="background-color: wheat !important;" -->
     <notifications></notifications>
 
     <side-bar

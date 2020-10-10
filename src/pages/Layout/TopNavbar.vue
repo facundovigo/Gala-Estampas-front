@@ -253,7 +253,7 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .md-field .md-input-action {
     top: 8px;
     border-radius: 50%;
@@ -262,6 +262,12 @@ export default {
 .sep{
   margin-right: 1rem;
 }
+.sep:hover {
+    transition: all .4s;
+    transform: scale(1.4);
+  }:focus{
+    color: red($color: pink);
+  }
 /* .md-toolbar-section-start{
 background-image: url("@/assets/img/Jardin.png") !important;
 } */
