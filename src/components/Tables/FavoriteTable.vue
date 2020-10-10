@@ -8,6 +8,7 @@
    <md-toolbar class="md-transparent" v-if="!this.loading">
     <div class="md-toolbar-row">
     <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
+      
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="">
           <md-avatar class="md-large">

@@ -1,8 +1,8 @@
 <template>
-    <md-card>
-      <md-card-media-actions>
+    <md-card class="pepe">
+      <md-card-media-actions >
         <md-card-media>
-          <img :src="this.urlImage" alt="Cover">
+          <img :src="this.urlImage"  v-on:click="details" alt="Cover">
         </md-card-media>
 
         <md-card-actions>
@@ -69,22 +69,25 @@ export default {
 <style lang="scss" scoped>
   .md-card {
     width: 20rem;
-    margin: 4px;
+    margin: 8px;
     display: inline-block;
     vertical-align: top;
   }
-    .md-button i {
+  .md-button i {
       padding: 0.8rem;
-    color: rgba(0,0,0,0.54) !important;
+      color: rgba(0,0,0,0.54) !important;
   }
   .md-button i:hover {
-        
         color: red !important;
-            transform: scale(1.4);
+        transform: scale(1.4);
         }:focus{
           color: red($color: pink);
         }
-
-
+  .pepe:hover {
+    transition: all .4s;
+    transform: scale(1.1);
+  }:focus{
+    color: red($color: pink);
+        }
 </style>
 
