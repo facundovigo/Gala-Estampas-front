@@ -22,8 +22,8 @@
           <md-field>
             <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
             <label>Email</label>
-            <md-input  class="md-g" type="email"  v-model="login.username"></md-input>
-            <span >{{ errors[0] }}</span>                
+            <md-input  class="md-g" type="email"  v-model="login.username" data-cy="username"></md-input>
+            <span data-cy="error-pass">{{ errors[0] }}</span>                
             </ValidationProvider>
           </md-field>
         </div>
@@ -31,7 +31,7 @@
           <md-field>
             <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
             <label>Contraseña</label>
-            <md-input  type="password" v-model="login.password"></md-input>
+            <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
             <span>{{ errors[0] }}</span>
             </ValidationProvider>
           </md-field>
@@ -39,10 +39,10 @@
       </form>
         <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
 
-         <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid">Ingresar</md-button>
+         <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
          <div >
          <h6 class="category text-description ">No tenés usuario 
-           <a class="simple-text"  v-on:click="preLogin">create uno </a>
+           <a class="simple-text"  v-on:click="preLogin" data-cy="register">create uno </a>
           </h6>
          </div>
        </ValidationObserver>  
@@ -60,8 +60,8 @@
                         <md-field>
                           <ValidationProvider name="name" rules="required|mimimo" v-slot="{ errors }">
                           <label>Nombre</label>
-                          <md-input  v-model="body.first_name" type="text" ></md-input>
-                          <span >{{ errors[0] }}</span>                
+                          <md-input  v-model="body.first_name" type="text" data-cy="firstName"></md-input>
+                          <span data-cy="error-firstName">{{ errors[0] }}</span>                
                           </ValidationProvider>
                         </md-field>
                       </div>
@@ -69,8 +69,8 @@
                         <md-field>
                             <ValidationProvider name="name" rules="required|alpha" v-slot="{ errors }">
                           <label>Apellido</label>
-                          <md-input v-model="body.last_name"  type="text" ></md-input>
-                          <span >{{ errors[0] }}</span> 
+                          <md-input v-model="body.last_name"  type="text" data-cy="lastName"></md-input>
+                          <span data-cy="error-lastName">{{ errors[0] }}</span> 
                             </ValidationProvider>
                         </md-field>
                       </div>
@@ -78,8 +78,8 @@
                         <md-field>
                           <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
                           <label>Email</label>
-                          <md-input  v-model="body.email" type="email" ></md-input>
-                          <span>{{ errors[0] }}</span>
+                          <md-input  v-model="body.email" type="email" data-cy="email"></md-input>
+                          <span data-cy="error-email">{{ errors[0] }}</span>
                           </ValidationProvider>
                         </md-field>
                       </div>
@@ -88,15 +88,15 @@
                         <md-field>
                           <ValidationProvider name="password" rules="required|mimimo|password:@confirm" v-slot="{ errors }">
                           <label>Contraseña</label>
-                          <md-input v-model="body.password"  type="password"></md-input>
-                          <span>{{ errors[0] }}</span>
+                          <md-input v-model="body.password"  type="password" data-cy="pass"></md-input>
+                          <span data-cy="error-pass">{{ errors[0] }}</span>
                           </ValidationProvider>
                         </md-field>
                         <md-field>
                           <ValidationProvider name="confirm" rules="required" v-slot="{ errors }">
                           <label>Confirmar contraseña</label>
-                          <md-input v-model="body.passConfirm" type="password"></md-input>
-                          <span>{{ errors[0] }}</span>
+                          <md-input v-model="body.passConfirm" type="password" data-cy="confirmPass"></md-input>
+                          <span data-cy="error-confirmPass">{{ errors[0] }}</span>
 
                           </ValidationProvider>
                         </md-field>
