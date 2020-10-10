@@ -58,7 +58,7 @@
                     <div class="md-layout">
                       <div class="md-layout-item md-small-size-100 md-size-50">
                         <md-field>
-                          <ValidationProvider name="name" rules="required|mimimo" v-slot="{ errors }">
+                          <ValidationProvider name="firstName" rules="required|mimimo" v-slot="{ errors }">
                           <label>Nombre</label>
                           <md-input  v-model="body.first_name" type="text" data-cy="firstName"></md-input>
                           <span data-cy="error-firstName">{{ errors[0] }}</span>                
@@ -67,7 +67,7 @@
                       </div>
                       <div class="md-layout-item md-small-size-100 md-size-50" required>
                         <md-field>
-                            <ValidationProvider name="name" rules="required|alpha" v-slot="{ errors }">
+                            <ValidationProvider name="lastName" rules="required|mimimo" v-slot="{ errors }">
                           <label>Apellido</label>
                           <md-input v-model="body.last_name"  type="text" data-cy="lastName"></md-input>
                           <span data-cy="error-lastName">{{ errors[0] }}</span> 
@@ -108,7 +108,7 @@
                 </md-card>
                 <div >
                     <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-                    <md-button class="md-round md-gala-cyan" v-on:click="register" :disabled="invalid">Registrar</md-button>
+                    <md-button class="md-round md-gala-cyan" v-on:click="register" :disabled="invalid" data-cy="register">Registrar</md-button>
                 </div>      
          </form>
       </ValidationObserver>
@@ -187,7 +187,6 @@ export default {
       })
     },
     onSubmit(){
-        console.log("facu")
     },
        handleSubmit(e) {
       this.submitted = true;
