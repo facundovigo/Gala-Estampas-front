@@ -1,10 +1,112 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
-      <div class="md-toolbar-section-start">
-        <h3 class="md-title">{{ $route.name }}</h3>
+      <div class="md-toolbar-section-start " > 
+      
+      <div class="md-collapse">
+               <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Almohadon.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Auto.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Botella.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Camara.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Cartuchera.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Jardin.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+
       </div>
+
+     <div class="md-autocomplete md-toolbar-toggle" style="width: 100%;">
+            <md-autocomplete
+              class="search"
+              v-model="selectedProducts"
+              @input="prueba()"
+              :md-options="this.categoryListNames"
+            >
+              <label>Productos...</label>
+            </md-autocomplete>
+          </div>
+      </div>    
       <div class="md-toolbar-section-end">
+
+      <div class="md-collapse">
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Mate.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Mochi.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Portacosmeticos.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Tapabocas.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Taza.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+              <div class="sep">
+          <md-button class="md-just-icon md-simple" >
+           <md-avatar class="md-avatar-icon" >
+            <img src="@/assets/img/Mail.png" alt="People">
+         </md-avatar>
+        </md-button>
+       </div>
+      </div>      
+        
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle md-gala"
           :class="{ toggled: $sidebar.showSidebar }"
@@ -16,15 +118,17 @@
         </md-button>
 
         <div class="md-collapse">
-          <div class="md-autocomplete">
+
+          <!-- <div class="md-autocomplete">
             <md-autocomplete
               class="search"
               v-model="selectedProducts"
-              :md-options="products"
+              @input="prueba()"
+              :md-options="this.categoryListNames"
             >
               <label>Productos...</label>
             </md-autocomplete>
-          </div>
+          </div> -->
           <md-list>
             <md-list-item href="#/">
               <i class="material-icons">dashboard</i>
@@ -53,7 +157,7 @@
                 href="#/notifications"
                 class="md-list-item-router md-list-item-container md-button-clean dropdown"
               >
-                <div class="md-list-item-content">
+                <div class="md-list-item-content" v-if="token()">
                   <drop-down>
                     <md-button
                       slot="title"
@@ -88,26 +192,62 @@
 </template>
 
 <script>
+import API from '../../service/api'
 export default {
+  mounted(){
+    this.call()
+  },
   data() {
     return {
       selectedProducts: null,
-      products: [
-        "Taza ceramica",
-        "Set de Jardín",
-        "Set de Mate 1",
-        "Portacosmeticos",
-        "Portacosmeticos con fuelle",
-        "Portacosmeticos recto",
-        "Cartuchera",
-        "Mousepad",
-        "Termo autocebante 500ml"
-      ]
+      categoryList: [],
+      categoryListNames: []
+      
     };
   },
   methods: {
+        notifyVue(verticalAlign, horizontalAlign, date, level) {
+      this.$notify({
+        message:
+           date ,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level
+      })
+    },
+    call(){
+        API.get('/api/category/')
+      .then( resp => {
+        this.categoryList = resp
+        this.categoryListName(resp)
+      })
+      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger")
+      )},
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    },
+    logOut(){
+      localStorage.clear();
+      this.$router.push('/');
+    },
+    prueba(){
+       if(this.categoryListNames.includes(this.selectedProducts) ){
+        let res = this.categoryList.filter(e => e.name == this.selectedProducts )
+        this.$store.state.category = res[0].id
+       }else{
+          this.$store.state.category = null
+       }
+           },
+ 
+    token(){
+      return localStorage.getItem("session")
+    },
+    name(){
+      return localStorage.getItem("name")
+    },
+    categoryListName(resp){
+       this.categoryListNames  = resp.map( e => e.name)
     }
   }
 };
@@ -119,4 +259,10 @@ export default {
     border-radius: 50%;
     background-color: red !important;
 }
+.sep{
+  margin-right: 1rem;
+}
+/* .md-toolbar-section-start{
+background-image: url("@/assets/img/Jardin.png") !important;
+} */
 </style>

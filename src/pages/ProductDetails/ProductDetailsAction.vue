@@ -1,5 +1,5 @@
 <template>
-  <md-card class="md-card-profile">
+  <md-card class="md-card-profile" id="prueba">
     <div class="md-card-avatar">
       <img class="img" :src="this.cardUserImage" />
     </div>
@@ -36,14 +36,13 @@ export default {
     },
     purchase(){
       if (localStorage.getItem("session")){
-      console.log(this.data.id);
       const body={
         product:this.data.id,
-        client:1
+        client: localStorage.getItem("session")
       }
       API.post('/api/order/',body).then( resp =>{
         console.log(resp);
-        this.notifyVue('top', 'center', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
+        this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
         this.$router.push('miscompras');
       }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
      }else{
@@ -63,4 +62,8 @@ export default {
 #separacion{
     margin-right: 15%
 }
+#prueba{
+  margin-top: 30%;
+}
+
 </style>

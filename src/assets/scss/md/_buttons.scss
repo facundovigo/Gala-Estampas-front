@@ -41,6 +41,15 @@
     &.md-gala {
         @include btn-styles(#f06292)
     }
+    &.md-gala2 {
+        @include btn-styles(#ec407a)
+    }
+    &.md-gala-cyan {
+        @include btn-styles(#6BC5C8)
+    }
+    &.md-gala-light-cyan {
+        @include btn-styles(#7FDDE0)
+    }
     &.md-info {
         @include btn-styles($brand-info);
     }

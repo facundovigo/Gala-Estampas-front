@@ -13,7 +13,7 @@
       </a>
 
       <a
-        href="https://www.creative-tim.com/product/vue-material-dashboard"
+       
         target="_blank"
         class="simple-text logo-normal"
       >
@@ -85,6 +85,11 @@ export default {
         backgroundImage: `url(${this.sidebarBackgroundImage})`
       };
     }
+  },
+  methods:{
+        token(){
+      return localStorage.getItem("session")
+    },
   }
 };
 </script>
