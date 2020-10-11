@@ -33,11 +33,13 @@ export default {
     mounted(){
       const user = localStorage.getItem("session")
       const productId = this.post.id
-      API.get('/api/favorite/verify/?client_id='+user+'&product_id='+productId)
-      .then(fav => {
-        this.isFavorite = fav.length!=0
-      })
-      .catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+      if(user){
+        API.get('/api/favorite/verify/?client_id='+user+'&product_id='+productId)
+        .then(fav => {
+          this.isFavorite = fav.length!=0
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+      }
     },
     data(){
       return{
@@ -77,11 +79,12 @@ export default {
         }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
       },
       quitFavorite(body){
+        console.log(body, "borro a ");
         this.isFavorite = !this.isFavorite 
-        // API.delete('/api/delete-favorite/', body)
-        // .then( resp => {
-        //  this.notifyVue('top', 'right', `Ya volveremos a conquistar tu corazón con otro producto ;) `, "success")
-        // }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+        API.delete('/api/favorite/?user_id='+body.client+'&product_id='+body.product)
+        .then( resp => {
+         this.notifyVue('top', 'right', `Ya volveremos a conquistar tu corazón con otro producto ;) `, "success")
+        }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
       }
     }
 }
