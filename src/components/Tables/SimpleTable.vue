@@ -74,7 +74,7 @@ export default {
       call(){
        API.get(`/api/order/search_order/?client_id=${this.client}`)
       .then( resp => {
-        this.products = resp
+        this.products = resp.results
         this.prod  = chunk(this.products,5)
         this.getProd()
         this.loading = false
