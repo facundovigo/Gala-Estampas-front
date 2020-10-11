@@ -61,13 +61,11 @@ export default {
     menuss(){
       let categoryId = this.$store.state.category
       if(categoryId == null){
-        console.log(this.page)
         API.get(`/api/product/search_product/?page=${this.page}`)
         .then( resp => {
           this.datos = {...resp.results}
           this.info =  resp.next
           this.checkShowButtons(resp.count)
-          console.log(this.datos)
           this.loading=false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
@@ -108,7 +106,6 @@ export default {
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
        
       }
-             console.log(this.page,"previus2")
     },
     nextt(){
        console.log(this.page,"next")
@@ -120,7 +117,6 @@ export default {
           this.datos = {...resp.results}
           this.info =  resp.next
           this.checkShowButtons(resp.count)
-          console.log(this.datos)
           this.loading=false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))

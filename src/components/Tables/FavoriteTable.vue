@@ -80,7 +80,7 @@ export default {
       call(){
        API.get(`/api/favorite/search_by_user_id/?client_id=${this.client}`)
       .then( resp => {
-        this.products = resp
+        this.products = resp.results
         this.loading = false
       })
       .catch( e => this.notifyVue('top', 'right',  e, "danger"));

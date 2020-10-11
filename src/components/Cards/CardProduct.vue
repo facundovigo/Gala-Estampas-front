@@ -7,7 +7,8 @@
 
         <md-card-actions>
 
-          <md-button class="md-icon-button" v-on:click="makeFavorite">
+          <md-button v-bind:class="{'md-icon-button':true, 'favorite':(isFavorite)}"
+             v-on:click="changeFavorite">
             <md-icon>favorite</md-icon>
           </md-button>
 
@@ -29,9 +30,18 @@ import API from '../../service/api';
 export default {
     name:"CardProduct",
     props: ['post'],
+    mounted(){
+      const user = localStorage.getItem("session")
+      const productId = this.post.id
+      API.get('/api/favorite/verify/?client_id='+user+'&product_id='+productId)
+      .then(fav => {
+        this.isFavorite = fav.length!=0
+      })
+      .catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+    },
     data(){
       return{
-        //imagen: '', //this.post.stamp,
+        isFavorite: false,
         urlImage: this.post.photo
       }
     },
@@ -52,15 +62,26 @@ export default {
       url(){
         return this.t
       },
-      makeFavorite(){
+      changeFavorite(){
         let body = {
           product: this.post.id,
           client: localStorage.getItem("session")
-        }
+        };
+        this.isFavorite ? this.quitFavorite(body) : this.makeFavorite(body)
+      },
+      makeFavorite(body){
+        this.isFavorite = !this.isFavorite 
         API.post('/api/favorite/', body)
         .then( resp => {
          this.notifyVue('top', 'right', ` Gurdaste el producto que te gusto! :) `, "success")
         }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+      },
+      quitFavorite(body){
+        this.isFavorite = !this.isFavorite 
+        // API.delete('/api/delete-favorite/', body)
+        // .then( resp => {
+        //  this.notifyVue('top', 'right', `Ya volveremos a conquistar tu corazón con otro producto ;) `, "success")
+        // }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
       }
     }
 }
@@ -76,6 +97,11 @@ export default {
   .md-button i {
       padding: 0.8rem;
       color: rgba(0,0,0,0.54) !important;
+      
+  }
+  .md-icon-button.favorite{
+    color: red !important;
+    transform: scale(1.4);
   }
   .md-button i:hover {
         color: red !important;
@@ -89,5 +115,6 @@ export default {
   }:focus{
     color: red($color: pink);
         }
+  
 </style>
 

@@ -36,8 +36,8 @@ data(){
     }
   },
   methods:{
-         details(item){
-        this.$router.push({ name: 'productDetails', params: {post: item}})
+    details(item){
+      this.$router.push({ name: 'productDetails', params: {post: item}})
     },
   }
 }
