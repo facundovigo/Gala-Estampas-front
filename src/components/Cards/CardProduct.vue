@@ -8,7 +8,8 @@
         <md-card-actions>
 
           <md-button class="md-icon-button"
-             v-on:click="changeFavorite">
+             v-on:click="changeFavorite"
+             v-if="token()">
             <md-icon v-bind:class="{'md-i':(!isFavorite), 'favorite':(isFavorite)}">favorite</md-icon>
           </md-button>
 
@@ -84,6 +85,9 @@ export default {
         .then( resp => {
          this.notifyVue('top', 'right', `Ya volveremos a conquistar tu corazón con otro producto ;) `, "success")
         }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+      },
+      token(){
+        return localStorage.getItem("session")
       }
     }
 }
