@@ -11,7 +11,7 @@
           <CardNoProduct></CardNoProduct>
     </div>  
     <div class="md-layout  md-alignment-top-center block" v-if="showButtons && (! this.loading)" >
-      <md-button class="md-raised md-gala md-round " v-on:click="this.previusssss">
+      <md-button class="md-raised md-gala md-round " v-on:click="this.previus">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
       <md-button class="md-raised md-gala md-round " v-on:click="this.nextt">
@@ -63,7 +63,7 @@ export default {
       if(categoryId == null){
         API.get(`/api/product/search_product/?page=${this.page}`)
         .then( resp => {
-          this.datos = {...resp.results}
+          this.datos = resp.results
           this.info =  resp.next
           this.checkShowButtons(resp.count)
           this.loading=false
@@ -71,10 +71,13 @@ export default {
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
       }else{
         this.page=1
-          API.get(`/api/product/search_product/?search_category=${categoryId}&page=${this.page}`)
+        this.loading = true
+        API.get(`/api/product/search_product/?search_category=${categoryId}&page=${this.page}`)
         .then( resp => {
-          this.datos = resp
-          this.loading=false
+          this.datos = resp.results
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          this.loading = false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
        }
@@ -90,8 +93,7 @@ export default {
         type:level
       })
     },
-    previusssss(){
-      console.log(this.page,"previus")
+    previus(){
       if ( this.page  > 1) {
         this.loading=true
         this.page --
@@ -100,15 +102,12 @@ export default {
           this.datos = {...resp.results}
           this.info =  resp.next
           this.checkShowButtons(resp.count)
-          console.log(this.datos)
           this.loading=false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
-       
       }
     },
     nextt(){
-       console.log(this.page,"next")
       if(this.info !== null) {
        this.page ++
        this.loading=true
@@ -126,7 +125,7 @@ export default {
        this.showButtons = ((r > 8) );
     },
     emptyProducts(){
-      return  ((this.datos.length == 0) && ! this.loading)
+      return  ((this.datos == 0) && ! this.loading)
     }
   },
 }
