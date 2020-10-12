@@ -5,18 +5,48 @@
     </div>
 
     <md-card-content>
-      <h6 class="category text-gray">CEO / Silvina</h6>
-      <h4 class="card-title">Gala Estampa</h4>
-      <p class="card-description">
-        {{this.info}}
-      </p>
-      <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
-      <md-button class="md-round md-danger" v-on:click="purchase">Comprar</md-button> 
+      <h4 class="card-title">Realizar pedido</h4>
+      <div>
+      <label>Precio por unidad: ${{ this.data.price }}</label>
+        <ValidationObserver >
+          <form>
+            <md-field>
+              <ValidationProvider name="cant" rules="required|minimo" v-slot="{ errors }">
+              <label>Cantidad</label>
+              <md-input  v-model="cant" type="number" v-on:change="validate()"></md-input>
+              <span >{{ errors[0] }}</span>                
+              </ValidationProvider>
+            </md-field>
+            <div class="input">
+              <md-checkbox v-model="shipping">Envío a domicilio</md-checkbox>
+            </div>
+            <label> Total: ${{ this.data.price * this.cant }}</label>
+            <p class="card-description">
+              {{this.data.price}}
+            </p>
+            <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
+            <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid">Comprar</md-button> 
+          </form>
+        </ValidationObserver>
+      </div>
     </md-card-content>
   </md-card>
 </template>
 <script>
-import API from '../../service/api'
+import API from '../../service/api';
+import { extend } from 'vee-validate';
+import { localize } from 'vee-validate';
+localize({
+  es: {
+    messages: {
+      required: 'Este campo es requerido',
+      minimo: 'Debe ser mayor a 0',
+    }
+  }
+});
+extend('minimo', value => {
+  return value >= 1;
+});
 export default {
   name: "user-card",
   props: ['data'],
@@ -40,20 +70,32 @@ export default {
         product:this.data.id,
         client: localStorage.getItem("session")
       }
-      API.post('/api/order/',body).then( resp =>{
-        console.log(resp);
-        this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
-        this.$router.push('miscompras');
-      }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
+      if(!this.shipping || this.hasShippimgData()){
+        API.post('/api/order/',body).then( resp =>{
+          console.log(resp);
+          this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
+          this.$router.push('miscompras');
+        }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
+      }else{
+        this.$router.push('user')
+      }
      }else{
        this.$router.push('user')
      }
+    },
+    validate(){
+      this.invalid = ! (this.cant > 0)
+    },
+    hasShippimgData(){
+      return false
     }
   },
   data() {
     return {
       cardUserImage: this.data.category_id.icon,
-      info: this.data.info,
+      cant: 1,
+      shipping: false,
+      invalid: false
     };
   }
 };
