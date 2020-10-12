@@ -11,7 +11,7 @@
           <CardNoProduct></CardNoProduct>
     </div>  
     <div class="md-layout  md-alignment-top-center block" v-if="showButtons && (! this.loading)" >
-      <md-button class="md-raised md-gala md-round " v-on:click="this.previusssss">
+      <md-button class="md-raised md-gala md-round " v-on:click="this.previus">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>
       <md-button class="md-raised md-gala md-round " v-on:click="this.nextt">
@@ -90,8 +90,7 @@ export default {
         type:level
       })
     },
-    previusssss(){
-      console.log(this.page,"previus")
+    previus(){
       if ( this.page  > 1) {
         this.loading=true
         this.page --
@@ -100,11 +99,9 @@ export default {
           this.datos = {...resp.results}
           this.info =  resp.next
           this.checkShowButtons(resp.count)
-          console.log(this.datos)
           this.loading=false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
-       
       }
     },
     nextt(){

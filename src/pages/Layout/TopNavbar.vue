@@ -3,49 +3,49 @@
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start " > 
       
-      <div class="md-collapse">
-               <div class="sep">
+        <div class="md-collapse">
+          <div class="sep">
+            <md-button class="md-just-icon md-simple" >
+              <md-avatar class="md-avatar-icon" >
+                <img src="@/assets/img/Almohadon.png" alt="People">
+              </md-avatar>
+            </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Almohadon.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Auto.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Auto.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Botella.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Botella.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Camara.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Camara.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Cartuchera.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Cartuchera.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Jardin.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Jardin.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
 
       </div>
 
@@ -63,47 +63,47 @@
       <div class="md-toolbar-section-end">
 
       <div class="md-collapse">
-              <div class="sep">
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Mate.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Mate.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Mochi.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Mochi.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Portacosmeticos.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Portacosmeticos.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Tapabocas.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Tapabocas.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Taza.png" alt="People">
-         </md-avatar>
-        </md-button>
-       </div>
-              <div class="sep">
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Taza.png" alt="People">
+            </md-avatar>
+          </md-button>
+        </div>
+        <div class="sep">
           <md-button class="md-just-icon md-simple" >
-           <md-avatar class="md-avatar-icon" >
-            <img src="@/assets/img/Mail.png" alt="People">
-         </md-avatar>
-        </md-button>
+            <md-avatar class="md-avatar-icon" >
+              <img src="@/assets/img/Mail.png" alt="People">
+            </md-avatar>
+          </md-button>
        </div>
       </div>      
         
