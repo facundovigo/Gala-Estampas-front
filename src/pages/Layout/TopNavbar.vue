@@ -4,56 +4,20 @@
       <div class="md-toolbar-section-start " > 
       
         <div class="md-collapse">
-          <div class="sep">
-            <md-button class="md-just-icon md-simple" >
+          <div class="sep" v-for="(category, index) in categoriesA" :key="index">
+            <md-button class="md-just-icon md-simple" v-on:click="searchByCategory(category.id)">
               <md-avatar class="md-avatar-icon" >
-                <img src="@/assets/img/Almohadon.png" alt="People">
+                <img :src="category.icon" alt="People">
               </md-avatar>
             </md-button>
         </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Auto.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Botella.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Camara.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Cartuchera.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Jardin.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-
       </div>
 
      <div class="md-autocomplete md-toolbar-toggle" style="width: 100%;">
             <md-autocomplete
               class="search"
               v-model="selectedProducts"
-              @input="prueba()"
+              @input="search()"
               :md-options="this.categoryListNames"
             >
               <label>Productos...</label>
@@ -61,50 +25,15 @@
           </div>
       </div>    
       <div class="md-toolbar-section-end">
-
       <div class="md-collapse">
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
+        <div class="sep" v-for="(category, index) in categoriesB" :key="index">
+          <md-button class="md-just-icon md-simple" v-on:click="searchByCategory(category.id)">
             <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Mate.png" alt="People">
+              <img :src="category.icon" alt="People">
             </md-avatar>
           </md-button>
         </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Mochi.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Portacosmeticos.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Tapabocas.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Taza.png" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        <div class="sep">
-          <md-button class="md-just-icon md-simple" >
-            <md-avatar class="md-avatar-icon" >
-              <img src="@/assets/img/Mail.png" alt="People">
-            </md-avatar>
-          </md-button>
-       </div>
+        
       </div>      
         
         <md-button
@@ -192,21 +121,24 @@
 </template>
 
 <script>
-import API from '../../service/api'
+import API from '../../service/api';
+import chunk from "lodash/chunk" ;
 export default {
   mounted(){
+    this.getCategories()
     this.call()
   },
   data() {
     return {
       selectedProducts: null,
       categoryList: [],
-      categoryListNames: []
-      
+      categoryListNames: [],
+      categoriesA:[],
+      categoriesB:[]
     };
   },
   methods: {
-        notifyVue(verticalAlign, horizontalAlign, date, level) {
+    notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:
            date ,
@@ -215,6 +147,16 @@ export default {
         verticalAlign: verticalAlign,
         type:level
       })
+    },
+    getCategories(){
+      API.get(`/api/category/`)
+      .then(res => {
+        console.log(res, "categories");
+        const size = res.length
+        this.categoriesA = chunk(res,6)[0]
+        this.categoriesB = chunk(res,6)[1]
+
+      }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
     },
     call(){
         API.get('/api/category/')
@@ -231,14 +173,14 @@ export default {
       localStorage.clear();
       this.$router.push('/');
     },
-    prueba(){
+    search(){
        if(this.categoryListNames.includes(this.selectedProducts) ){
         let res = this.categoryList.filter(e => e.name == this.selectedProducts )
         this.$store.state.category = res[0].id
        }else{
           this.$store.state.category = null
        }
-           },
+    },
  
     token(){
       return localStorage.getItem("session")
@@ -248,6 +190,9 @@ export default {
     },
     categoryListName(resp){
        this.categoryListNames  = resp.map( e => e.name)
+    },
+    searchByCategory(categoryId){
+        this.$store.state.category = categoryId
     }
   }
 };

@@ -63,7 +63,7 @@ export default {
       if(categoryId == null){
         API.get(`/api/product/search_product/?page=${this.page}`)
         .then( resp => {
-          this.datos = {...resp.results}
+          this.datos = resp.results
           this.info =  resp.next
           this.checkShowButtons(resp.count)
           this.loading=false
@@ -71,10 +71,13 @@ export default {
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
       }else{
         this.page=1
-          API.get(`/api/product/search_product/?search_category=${categoryId}&page=${this.page}`)
+        this.loading = true
+        API.get(`/api/product/search_product/?search_category=${categoryId}&page=${this.page}`)
         .then( resp => {
-          this.datos = resp
-          this.loading=false
+          this.datos = resp.results
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          this.loading = false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
        }
@@ -105,7 +108,6 @@ export default {
       }
     },
     nextt(){
-       console.log(this.page,"next")
       if(this.info !== null) {
        this.page ++
        this.loading=true
@@ -123,7 +125,7 @@ export default {
        this.showButtons = ((r > 8) );
     },
     emptyProducts(){
-      return  ((this.datos.length == 0) && ! this.loading)
+      return  ((this.datos == 0) && ! this.loading)
     }
   },
 }
