@@ -32,17 +32,16 @@
     <div class="md-toolbar-toggle md-layout  md-alignment-top-center" >
       <CardsFavorites v-for="(product, index) in products" :key="index" :post=product></CardsFavorites>
     </div>
-
  </md-toolbar>
 
-        <div class="md-layout  md-alignment-top-center block" v-if="showButtons()">
-      <md-button class="md-raised md-gala md-round " >
-        <span class="material-icons derecha" >keyboard_arrow_left</span>
-      </md-button>
-      <md-button class="md-raised md-gala md-round " >
-        <span class="material-icons" >keyboard_arrow_right</span>
-      </md-button>
-    </div>
+  <div class="md-layout  md-alignment-top-center block" v-if="showButtons && (! this.loading)">
+    <md-button class="md-raised md-gala md-round " >
+      <span class="material-icons derecha" v-on:click="previus()">keyboard_arrow_left</span>
+    </md-button>
+    <md-button class="md-raised md-gala md-round " >
+      <span class="material-icons" v-on:click="nextt()">keyboard_arrow_right</span>
+    </md-button>
+  </div>
 </div>
 
   </div>
@@ -71,7 +70,9 @@ export default {
     return {
       selected: [],
       products: [],
-      page: 0,
+      page: 1,
+      showButtons: false,
+      info:"",
       loading: true,
       client: localStorage.getItem("session"),
     }
@@ -81,6 +82,7 @@ export default {
        API.get(`/api/favorite/search_by_user_id/?client_id=${this.client}`)
       .then( resp => {
         this.products = resp.results
+        this.checkShowButtons(resp.count)
         this.loading = false
       })
       .catch( e => this.notifyVue('top', 'right',  e, "danger"));
@@ -106,8 +108,38 @@ export default {
         this.products = this.products.filter(elem => elem.id !== item.id )
       }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
       },
-      showButtons(){
-        return ((this.products.length > 4) && ! this.loading);
+     
+    previus(){
+      if ( this.page  > 1) {
+        this.loading=true
+        this.page --
+        API.get(`/api/favorite/search_by_user_id/?client_id=${this.client}&page=${this.page}`)
+        .then( resp => {
+          this.products = resp.results
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      }
+    },
+    nextt(){
+       console.log(this.page,"next")
+      if(this.info !== null) {
+       this.page ++
+       this.loading=true
+       API.get(`/api/favorite/search_by_user_id/?client_id=${this.client}&page=${this.page}`)
+        .then( resp => {
+          this.products = resp.results
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      } 
+    },
+    checkShowButtons(r){
+       this.showButtons = ((r > 5) );
     },
   }
 };

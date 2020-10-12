@@ -7,7 +7,7 @@
  <div class="md-layout" >
   <md-toolbar class="md-transparent" v-if="!this.loading">
     <div class="md-toolbar-row">
-    <md-table v-model="selected" :table-header-color="tableHeaderColor" class="md-collapse" >
+    <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
       
       <md-table-row slot="md-table-row" slot-scope="{ item,  }">
         <md-table-cell md-label="" >
@@ -27,7 +27,7 @@
       <CardsMyBuy v-for="(product, index) in products" :key="index" :post=product></CardsMyBuy>
     </div>
   </md-toolbar>
-      <div class="md-layout  md-alignment-top-center block" v-if="showButtons()" >
+      <div class="md-layout  md-alignment-top-center block" v-if="showButtons && (! this.loading)">
       <md-button class="md-raised md-gala md-round " v-on:click="previus">
         <span class="material-icons derecha" >keyboard_arrow_left</span>
       </md-button>
@@ -62,21 +62,20 @@ export default {
     },
   data() {
     return {
-      selected: {},
       products: [],
-      prod: {},
-      page: 0,
+      page: 1,
+      info:"",
       loading: true,
       client: localStorage.getItem("session"),
+      showButtons: false
     }
   },
   methods:{
-      call(){
-       API.get(`/api/order/search_order/?client_id=${this.client}`)
+    call(){
+      API.get(`/api/order/search_order/?client_id=${this.client}`)
       .then( resp => {
         this.products = resp.results
-        this.prod  = chunk(this.products,5)
-        this.getProd()
+        this.checkShowButtons(resp.count)
         this.loading = false
       })
       .catch( e => this.notifyVue('top', 'right',  e, "danger")
@@ -92,18 +91,37 @@ export default {
         type:level
       })
     },
-    showButtons(){
-      return ((this.products.length > 5) && ! this.loading);
-    },
-     getProd(){
-      this.selected = this.prod[this.page]
-    },
     previus(){
-      if (this.page !== 0) this.page = this.page -1
+      if ( this.page  > 1) {
+        this.loading=true
+        this.page --
+       API.get(`/api/order/search_order/?client_id=${this.client}&page=${this.page}`)
+        .then( resp => {
+          this.products = resp.results
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      }
     },
     nextt(){
-      if (this.page !== this.prod.length -1 ) this.page ++
-      getProd()
+       console.log(this.page,"next")
+      if(this.info !== null) {
+       this.page ++
+       this.loading=true
+       API.get(`/api/order/search_order/?client_id=${this.client}&page=${this.page}`)
+        .then( resp => {
+          this.products = resp.results
+          this.info =  resp.next
+          this.checkShowButtons(resp.count)
+          this.loading=false
+        })
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      } 
+    },
+    checkShowButtons(r){
+       this.showButtons = ((r > 5) );
     },
   }
 };
