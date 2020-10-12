@@ -75,11 +75,10 @@ export default {
         this.isFavorite = !this.isFavorite 
         API.post('/api/favorite/', body)
         .then( resp => {
-         this.notifyVue('top', 'right', ` Gurdaste el producto que te gusto! :) `, "success")
+         this.notifyVue('top', 'right', ` Guardaste el producto que te gusto! :) `, "success")
         }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
       },
       quitFavorite(body){
-        console.log(body, "borro a ");
         this.isFavorite = !this.isFavorite 
         API.delete('/api/favorite/?user_id='+body.client+'&product_id='+body.product)
         .then( resp => {
