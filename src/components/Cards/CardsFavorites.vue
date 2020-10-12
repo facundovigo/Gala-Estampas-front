@@ -41,13 +41,13 @@ data(){
       this.$router.push({ name: 'productDetails', params: {post: item}})
     },
     deleteFav(item){
-      client: localStorage.getItem("session")
-      pruduct_id: item.id
-      console.log("borro a: ", client, product_id);
-      // API.delete('/api/favorite/?user_id='+client+'&product_id='+product_id)
-      // .then(()=>{
-      //    this.notifyVue('top', 'right', `Ya volveremos a conquistar tu corazón con otro producto ;) `, "success")
-      // }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))      
+      const client = localStorage.getItem("session")
+      const product = item.id
+      console.log("borro a: ", client, product, item);
+      API.delete('/api/favorite/?user_id='+client+'&product_id='+product)
+      .then( resp => {
+        location.reload()
+      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
     }
   }
 }
