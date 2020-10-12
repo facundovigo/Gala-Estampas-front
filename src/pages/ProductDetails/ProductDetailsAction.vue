@@ -20,12 +20,22 @@
             <div class="input">
               <md-checkbox v-model="shipping">Envío a domicilio</md-checkbox>
             </div>
-            <label> Total: ${{ this.data.price * this.cant }}</label>
-            <p class="card-description">
-              {{this.data.price}}
-            </p>
-            <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
-            <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid">Comprar</md-button> 
+            <div v-if="shipping">
+              <label>Calcular costo del envío</label>
+              <md-field >
+                <ValidationProvider name="cant" rules="required" v-slot="{ errors }">
+                <label>Código Postal: </label>
+                <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
+                <span >{{ errors[0] }}</span>                
+                </ValidationProvider>
+              </md-field>
+              <label> Envío: ${{ this.zipAmount }}</label>
+            </div>
+            <label> Total: ${{ this.data.price * this.cant + this.zipAmount }}</label>
+            <div>
+              <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
+              <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid">Comprar</md-button> 
+            </div>
           </form>
         </ValidationObserver>
       </div>
@@ -88,6 +98,15 @@ export default {
     },
     hasShippimgData(){
       return false
+    },
+    getZipAmount(){
+      if(this.zipCode.length > 3){
+        API.get(`/api/zip_amount/get_amount_by?zip_code=${this.zipCode}`)
+        .then(resp => {
+          this.zipAmount = resp[0].amount
+        }).catch(e => this.notifyVue('top', 'right', "No hacemos envios a esa ubicación =S", "warning"))
+
+      }
     }
   },
   data() {
@@ -95,7 +114,9 @@ export default {
       cardUserImage: this.data.category_id.icon,
       cant: 1,
       shipping: false,
-      invalid: false
+      invalid: false,
+      zipAmount: 0,
+      zipCode: null
     };
   }
 };
