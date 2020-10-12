@@ -21,7 +21,7 @@
          <md-button class="md-round md-gala-cyan" v-on:click="details(item.product_id)">Detalles </md-button>
         </md-table-cell>
         <md-table-cell md-label="">
-         <md-button class="md-icon-button" v-on:click="deleteItem(item.id)">
+         <md-button class="md-icon-button" v-on:click="deleteItem(item)">
          <md-icon class="material-icons">delete</md-icon>
          </md-button> 
         </md-table-cell>
@@ -80,7 +80,7 @@ export default {
       call(){
        API.get(`/api/favorite/search_by_user_id/?client_id=${this.client}`)
       .then( resp => {
-        this.products = resp
+        this.products = resp.results
         this.loading = false
       })
       .catch( e => this.notifyVue('top', 'right',  e, "danger"));
@@ -96,15 +96,18 @@ export default {
       })
     },
     details(item){
-        this.$router.push({ name: 'productDetails', params: {post: item}})
+      this.$router.push({ name: 'productDetails', params: {post: item}})
     },
-    deleteItem(id){
-    API.delete(`/api/favorite/${id}`)
-    .then(location.reload())
-    .catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
-     },
-     showButtons(){
-      return ((this.products.length > 4) && ! this.loading);
+    deleteItem(item){
+      const product = item.product_id.id
+      const client = +localStorage.getItem("session")
+      API.delete('/api/favorite/?user_id='+client+'&product_id='+product)
+      .then( resp => {
+        this.products = this.products.filter(elem => elem.id !== item.id )
+      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
+      },
+      showButtons(){
+        return ((this.products.length > 4) && ! this.loading);
     },
   }
 };

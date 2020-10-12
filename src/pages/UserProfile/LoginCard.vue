@@ -22,8 +22,8 @@
           <md-field>
             <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
             <label>Email</label>
-            <md-input  class="md-g" type="email"  v-model="login.username"></md-input>
-            <span >{{ errors[0] }}</span>                
+            <md-input  class="md-g" type="email"  v-model="login.username" data-cy="username"></md-input>
+            <span data-cy="error-pass">{{ errors[0] }}</span>                
             </ValidationProvider>
           </md-field>
         </div>
@@ -31,7 +31,7 @@
           <md-field>
             <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
             <label>Contraseña</label>
-            <md-input  type="password" v-model="login.password"></md-input>
+            <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
             <span>{{ errors[0] }}</span>
             </ValidationProvider>
           </md-field>
@@ -39,10 +39,10 @@
       </form>
         <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
 
-         <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid">Ingresar</md-button>
+         <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
          <div >
          <h6 class="category text-description ">No tenés usuario 
-           <a class="simple-text"  v-on:click="preLogin">create uno </a>
+           <a class="simple-text"  v-on:click="preLogin" data-cy="register">create uno </a>
           </h6>
          </div>
        </ValidationObserver>  
@@ -58,19 +58,19 @@
                     <div class="md-layout">
                       <div class="md-layout-item md-small-size-100 md-size-50">
                         <md-field>
-                          <ValidationProvider name="name" rules="required|mimimo" v-slot="{ errors }">
+                          <ValidationProvider name="firstName" rules="required|mimimo" v-slot="{ errors }">
                           <label>Nombre</label>
-                          <md-input  v-model="body.first_name" type="text" ></md-input>
-                          <span >{{ errors[0] }}</span>                
+                          <md-input  v-model="body.first_name" type="text" data-cy="firstName"></md-input>
+                          <span data-cy="error-firstName">{{ errors[0] }}</span>                
                           </ValidationProvider>
                         </md-field>
                       </div>
                       <div class="md-layout-item md-small-size-100 md-size-50" required>
                         <md-field>
-                            <ValidationProvider name="name" rules="required|alpha" v-slot="{ errors }">
+                            <ValidationProvider name="lastName" rules="required|mimimo" v-slot="{ errors }">
                           <label>Apellido</label>
-                          <md-input v-model="body.last_name"  type="text" ></md-input>
-                          <span >{{ errors[0] }}</span> 
+                          <md-input v-model="body.last_name"  type="text" data-cy="lastName"></md-input>
+                          <span data-cy="error-lastName">{{ errors[0] }}</span> 
                             </ValidationProvider>
                         </md-field>
                       </div>
@@ -78,8 +78,8 @@
                         <md-field>
                           <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
                           <label>Email</label>
-                          <md-input  v-model="body.email" type="email" ></md-input>
-                          <span>{{ errors[0] }}</span>
+                          <md-input  v-model="body.email" type="email" data-cy="email"></md-input>
+                          <span data-cy="error-email">{{ errors[0] }}</span>
                           </ValidationProvider>
                         </md-field>
                       </div>
@@ -88,15 +88,15 @@
                         <md-field>
                           <ValidationProvider name="password" rules="required|mimimo|password:@confirm" v-slot="{ errors }">
                           <label>Contraseña</label>
-                          <md-input v-model="body.password"  type="password"></md-input>
-                          <span>{{ errors[0] }}</span>
+                          <md-input v-model="body.password"  type="password" data-cy="pass"></md-input>
+                          <span data-cy="error-pass">{{ errors[0] }}</span>
                           </ValidationProvider>
                         </md-field>
                         <md-field>
                           <ValidationProvider name="confirm" rules="required" v-slot="{ errors }">
                           <label>Confirmar contraseña</label>
-                          <md-input v-model="body.passConfirm" type="password"></md-input>
-                          <span>{{ errors[0] }}</span>
+                          <md-input v-model="body.passConfirm" type="password" data-cy="confirmPass"></md-input>
+                          <span data-cy="error-confirmPass">{{ errors[0] }}</span>
 
                           </ValidationProvider>
                         </md-field>
@@ -108,7 +108,7 @@
                 </md-card>
                 <div >
                     <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-                    <md-button class="md-round md-gala-cyan" v-on:click="register" :disabled="invalid">Registrar</md-button>
+                    <md-button class="md-round md-gala-cyan" v-on:click="register" :disabled="invalid" data-cy="register">Registrar</md-button>
                 </div>      
          </form>
       </ValidationObserver>
@@ -121,7 +121,6 @@
 import API from "../../service/api"
 import { extend } from 'vee-validate';
 import { localize } from 'vee-validate';
-
 localize({
   es: {
     messages: {
@@ -131,11 +130,9 @@ localize({
     }
   }
 });
-
 extend('mimimo', value => {
   return value.length >= 4;
 });
-
 extend('password', {
   params: ['target'],
   validate(value, { target }) {
@@ -143,18 +140,14 @@ extend('password', {
   },
   message: 'Las Contraseñas no coinciden'
 });
-
 export default {
-
   name: "login-card",
   props: {
     cardUserImage: {
       type: String,
       default: require("@/assets/img/Firma especial1.png")
     },
-
   },
-
   data() {
     return {
       body:{
@@ -182,7 +175,6 @@ export default {
         loading: false,
     };
   },
-
   methods:{
         notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
@@ -195,7 +187,6 @@ export default {
       })
     },
     onSubmit(){
-        console.log("facu")
     },
        handleSubmit(e) {
       this.submitted = true;
@@ -221,7 +212,6 @@ export default {
         this.loading=false
         this.$router.push('dashboard')
         location.reload();
-
       })
       .catch(e =>  this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger"),
       this.loading=false)      
@@ -255,7 +245,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 .md-button .md-icon-button .md-dense .md-input-action .md-toggle-password .md-theme-default{
   background-color: red !important;
   color: pink !important;
@@ -263,7 +252,6 @@ export default {
 #separacion{
     margin-right: 15%
 }
-
       /*Transition*/
 .aparecer-enter{
   opacity: 0;
@@ -277,9 +265,7 @@ export default {
 .aparecer-leave-active{
     transition: opacity 0.2s;
 }
-
   /*Animation*/
-
 .bounce-enter-active {
   animation: bounce-in .5s;
 }
@@ -302,4 +288,3 @@ export default {
   --md-theme-default-primary: #f06292 !important;
 }
 </style>
-

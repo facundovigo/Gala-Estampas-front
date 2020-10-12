@@ -12,7 +12,7 @@
             <md-icon style="color: antiquewhite !important">remove_red_eye</md-icon>
           </md-button>
 
-          <md-button class="md-icon-button md-gala">
+          <md-button class="md-icon-button md-gala" v-on:click="deleteFav(post.product_id)">
             <md-icon style="color: antiquewhite !important">delete</md-icon>
           </md-button>
         </md-card-actions>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import API from '../../service/api'
 export default {
 props: ['post'],
 data(){
@@ -36,9 +37,18 @@ data(){
     }
   },
   methods:{
-         details(item){
-        this.$router.push({ name: 'productDetails', params: {post: item}})
+    details(item){
+      this.$router.push({ name: 'productDetails', params: {post: item}})
     },
+    deleteFav(item){
+      const client = localStorage.getItem("session")
+      const product = item.id
+      console.log("borro a: ", client, product, item);
+      API.delete('/api/favorite/?user_id='+client+'&product_id='+product)
+      .then( resp => {
+        location.reload()
+      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
+    }
   }
 }
 </script>
