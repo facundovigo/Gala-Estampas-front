@@ -1,20 +1,25 @@
 <template>
-  <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }" style="background-color: #ebf9f9 !important;"> <!-- style="background-color: wheat !important;" -->
+  <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }" style="background-color: #ebf9f9 !important;"> 
     <notifications></notifications>
 
     <side-bar
       :sidebar-item-color="sidebarBackground"
       :sidebar-background-image="sidebarBackgroundImage"
+      :class="{ toggled: $sidebar.showSidebar }" 
     >
       <!-- <mobile-menu slot="content"></mobile-menu> -->
-      <sidebar-link to="/dashboard">
-        <md-icon>dashboard</md-icon>
-        <p>Inicio</p>
-      </sidebar-link>
+      <div v-on:click="toggleSidebar">
+       <sidebar-link to="/dashboard">
+         <md-icon>dashboard</md-icon>
+         <p>Inicio</p>
+       </sidebar-link>
+      </div> 
+      <div v-on:click="toggleSidebar">
       <sidebar-link to="/user">
         <md-icon>person</md-icon>
         <p>Mi Perfil</p>
       </sidebar-link>
+      </div>
       <sidebar-link to="/miscompras" v-if="token()">
         <md-icon>content_paste</md-icon>
         <p>Mis Compras</p>
@@ -23,7 +28,11 @@
         <md-icon>favorite</md-icon>
         <p>Favoritos</p>
       </sidebar-link>
-      <sidebar-link to="/notifications" v-if="token()">
+
+      <sidebar-link to="/notifications" v-if="token()"
+        :class="{ toggled: $sidebar.showSidebar }"
+          @input="toggleSidebar"
+      >
         <md-icon>notifications</md-icon>
         <p>Notifications</p>
       </sidebar-link>
@@ -45,8 +54,8 @@
 import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
-//import MobileMenu from "@/pages/Layout/MobileMenu.vue";
-import FixedPlugin from "./Extra/FixedPlugin.vue";
+// import MobileMenu from "@/pages/Layout/MobileMenu.vue";
+// import FixedPlugin from "./Extra/FixedPlugin.vue";
 
 export default {
   components: {
@@ -69,6 +78,9 @@ export default {
      logOut(){
       localStorage.clear();
       this.$router.push('/');
+    },
+      toggleSidebar() {
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
     },
   }
 };

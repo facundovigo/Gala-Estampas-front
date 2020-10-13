@@ -5,7 +5,7 @@
       
         <div class="md-collapse">
           <div class="sep" v-for="(category, index) in categoriesA" :key="index">
-            <md-button class="md-just-icon md-simple" v-on:click="searchByCategory(category.id)">
+            <md-button class="md-just-icon md-simple " v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
               <md-avatar class="md-avatar-icon" >
                 <img :src="category.icon" alt="People">
               </md-avatar>
@@ -27,7 +27,7 @@
       <div class="md-toolbar-section-end">
       <div class="md-collapse">
         <div class="sep" v-for="(category, index) in categoriesB" :key="index">
-          <md-button class="md-just-icon md-simple" v-on:click="searchByCategory(category.id)">
+          <md-button class="md-just-icon md-simple" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
             <md-avatar class="md-avatar-icon" >
               <img :src="category.icon" alt="People">
             </md-avatar>
@@ -134,7 +134,8 @@ export default {
       categoryList: [],
       categoryListNames: [],
       categoriesA:[],
-      categoriesB:[]
+      categoriesB:[],
+      isFavorite: false,
     };
   },
   methods: {
@@ -193,6 +194,13 @@ export default {
     },
     searchByCategory(categoryId){
         this.$store.state.category = categoryId
+        this.isFavorite = !this.isFavorite
+        if(!this.isFavorite){
+        this.$store.state.category = null
+        }
+    },
+    isActive(id){
+      return (id==this.$store.state.category)
     }
   }
 };
@@ -207,13 +215,14 @@ export default {
 .sep{
   margin-right: 1rem;
 }
-.sep:hover {
+.gala-category:hover {
     transition: all .4s;
     transform: scale(1.4);
-  }:focus{
-    color: red($color: pink);
   }
 /* .md-toolbar-section-start{
 background-image: url("@/assets/img/Jardin.png") !important;
 } */
+.gala-category-active{
+  transform: scale(1.4);
+}
 </style>
