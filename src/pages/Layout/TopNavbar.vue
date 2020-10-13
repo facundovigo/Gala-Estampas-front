@@ -3,9 +3,10 @@
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start " > 
       
-        <div class="md-collapse">
+        <div class="md-collapse" v-if="(this.$route.name== 'Dashboard')">
           <div class="sep" v-for="(category, index) in categoriesA" :key="index">
-            <md-button class="md-just-icon md-simple " v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
+            <md-button class="md-just-icon md-simple " v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
+            v-on:click="searchByCategory(category.id)">
               <md-avatar class="md-avatar-icon" >
                 <img :src="category.icon" alt="People">
               </md-avatar>
@@ -25,7 +26,7 @@
           </div>
       </div>    
       <div class="md-toolbar-section-end">
-      <div class="md-collapse">
+      <div class="md-collapse" v-if="(this.$route.name== 'Dashboard')">
         <div class="sep" v-for="(category, index) in categoriesB" :key="index">
           <md-button class="md-just-icon md-simple" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
             <md-avatar class="md-avatar-icon" >
@@ -193,11 +194,17 @@ export default {
        this.categoryListNames  = resp.map( e => e.name)
     },
     searchByCategory(categoryId){
-        this.$store.state.category = categoryId
-        this.isFavorite = !this.isFavorite
-        if(!this.isFavorite){
-        this.$store.state.category = null
+        // this.$store.state.category = categoryId
+        // this.isFavorite = !this.isFavorite
+        // if(!this.isFavorite){
+        // this.$store.state.category = null
+        // }
+        if(this.$store.state.category == categoryId){
+            this.$store.state.category = null
+        }else{
+          this.$store.state.category = categoryId
         }
+        this.isFavorite = (this.$store.state.category != null) 
     },
     isActive(id){
       return (id==this.$store.state.category)
