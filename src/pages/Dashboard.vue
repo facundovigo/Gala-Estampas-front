@@ -42,6 +42,9 @@ export default {
   created(){
        this.menuss()
   },
+  beforeDestroy(){
+    this.$store.state.category = null
+  },
   data(){
     return{
       loading: true,
