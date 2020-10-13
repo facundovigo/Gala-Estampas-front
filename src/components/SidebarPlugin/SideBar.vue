@@ -90,6 +90,10 @@ export default {
         token(){
       return localStorage.getItem("session")
     },
+          toggleSidebar() {
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+      console.log("entro")
+    },
   }
 };
 </script>
