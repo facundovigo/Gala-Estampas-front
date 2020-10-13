@@ -83,7 +83,7 @@ export default {
       default: "danger"
     },
   },
-    mounted(){
+    created(){
       this.call()
     },
   data() {
@@ -109,11 +109,10 @@ export default {
   },
     methods:{
       call(){
-      console.log(this.userid)
-       API.get(`/api/auth/${this.userid}`)
+       API.get(`/api/auth/${this.userid}/`)
       .then( resp => {
         let  r =resp
-         this.facu=r
+        this.facu=r
         this.loading=false 
       })
       .catch( e => this.notifyVue('top', 'right',  e, "danger"));

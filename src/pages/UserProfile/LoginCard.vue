@@ -221,7 +221,6 @@ export default {
       console.log(this.body);
       API.post("/api/auth/register/", this.body)
         .then( usr => {
-          this.bodyClient.user = usr.user.id
           localStorage.session = usr.user.id
             localStorage.name = usr.user.first_name
             this.loading=false
