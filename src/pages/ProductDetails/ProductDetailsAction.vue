@@ -17,6 +17,10 @@
               <span >{{ errors[0] }}</span>                
               </ValidationProvider>
             </md-field>
+            <div>
+                <label>Fecha de entrega:</label>
+                <md-datepicker v-model="shippingDate"/>
+            </div>
             <div class="input">
               <md-checkbox v-model="shipping">Envío a domicilio</md-checkbox>
             </div>
@@ -46,6 +50,7 @@
 import API from '../../service/api';
 import { extend } from 'vee-validate';
 import { localize } from 'vee-validate';
+import format from 'date-fns/format';
 localize({
   es: {
     messages: {
@@ -87,6 +92,7 @@ export default {
           this.$router.push('miscompras');
         }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
       }else{
+        console.log(this.shippingDate);
         this.$router.push('user')
       }
      }else{
@@ -116,7 +122,9 @@ export default {
       shipping: false,
       invalid: false,
       zipAmount: 0,
-      zipCode: null
+      zipCode: null,
+      shippingDate: null,
+      dateFormat: this.$material.locale.dateFormat || 'dd-MM-yyyy'
     };
   }
 };

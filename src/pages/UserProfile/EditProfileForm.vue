@@ -68,14 +68,6 @@
           <div class="md-layout-item md-size-100 text-right">
             <md-button class="md-round  md-gala2">Actualizar Datos</md-button>
           </div>
-          <div class="radio">
-                <label class="radio-inline">
-                  <input id="check-yes" type="radio" v-model="exp" value="true"> Si  
-                </label>
-                <label class="radio-inline">
-                  <input id="check-no" type="radio" v-model="exp" value="false"> No 
-                </label>
-          </div>
         </div>
       </md-card-content>
     </md-card>
