@@ -18,8 +18,8 @@
               </ValidationProvider>
             </md-field>
             <div>
-                <label>Fecha de entrega:</label>
-                <md-datepicker v-model="shippingDate"/>
+              <label>Fecha de entrega:</label>
+              <md-datepicker v-model="shippingDate"/>
             </div>
             <div class="input">
               <md-checkbox v-model="shipping">Envío a domicilio</md-checkbox>
@@ -87,16 +87,13 @@ export default {
         client: localStorage.getItem("session"),
         date_delivery: this.shippingDate,
         cant: this.cant
-
       }
       if(!this.shipping || this.hasShippimgData()){
         API.post('/api/order/',body).then( resp =>{
-          console.log(resp);
           this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
           this.$router.push('miscompras');
         }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
       }else{
-        console.log(this.shippingDate);
         this.$router.push('user')
       }
      }else{
