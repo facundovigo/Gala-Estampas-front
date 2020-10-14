@@ -116,15 +116,15 @@ export default {
     border-radius: 100% !important;
     padding: 0.8rem;
     color:rgba(0,0,0,0.54) !important;
-  }:focus{
-        animation: ripple 400ms linear;
+              }:focus{
+                       animation: ripple 400ms linear;
 
   }
 
   .md-button i:hover {
         color: red !important;
         transform: scale(1.4);
-        }
+  }
 
   .pepe:hover {
     transition: all .4s;
