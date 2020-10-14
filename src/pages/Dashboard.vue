@@ -142,4 +142,9 @@ export default {
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
 }
+
+.content {
+    padding: 30px 15px;
+    min-height: calc(100vh - 12.40rem) !important;
+  }  
 </style>

@@ -33,9 +33,9 @@
                 <span >{{ errors[0] }}</span>                
                 </ValidationProvider>
               </md-field>
-              <label> Envío: ${{ this.zipAmount }}</label>
+              <label class="md-gala-separation"> Envío: ${{ this.zipAmount }}</label>
+              <label> Total: ${{ this.data.price * this.cant + this.zipAmount }}</label>
             </div>
-            <label> Total: ${{ this.data.price * this.cant + this.zipAmount }}</label>
             <div>
               <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
               <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid">Comprar</md-button> 
@@ -118,7 +118,7 @@ export default {
       }
     },
     getShippingData(){
-      API.get(`/api/client?user_id=${localStorage.getItem("session")}`)
+      API.get(`/api/client/?user_id=${this.userid}`)
       .then(resp=>{
         console.log(resp, "cliente");
         this.hasShippingData = resp != []
@@ -137,7 +137,8 @@ let now = new Date()
       zipAmount: 0,
       zipCode: null,
       shippingDate: format(now, dateFormat),
-      hasShippingData: false
+      hasShippingData: false,
+      userid: localStorage.getItem("session"),
     };
   }
 };
@@ -147,7 +148,10 @@ let now = new Date()
     margin-right: 15%
 }
 #prueba{
-  margin-top: 30%;
+  margin-top: 8%;
 }
 
+.md-gala-separation{
+    margin-right: 50%;
+}
 </style>

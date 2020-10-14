@@ -33,8 +33,4 @@ export default {
   background-color: beige!important;
 
 }
-#pepe{
-  margin-top: 10% !important;
-
-}
 </style>

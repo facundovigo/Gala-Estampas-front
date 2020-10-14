@@ -45,7 +45,6 @@ export default {
   margin-bottom: 0.1%;
 } */
 .footer{
-  
   background-color: pink;
 }
 .container-center{

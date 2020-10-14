@@ -1,5 +1,5 @@
 <template>
-  <div class="content facu">
+  <div class="content md-gala-content">
     <div class="md-layout" v-if="token()">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <edit-profile-form data-background-color="green"> </edit-profile-form>
@@ -39,9 +39,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.facu{
-
-  margin: 1.5rem !important;
-
+.md-gala-content{
+    margin: 1.5rem !important;
 }
+.content {
+    padding: 30px 15px;
+    min-height: calc(100vh - 12.40rem) !important;
+  }  
 </style>

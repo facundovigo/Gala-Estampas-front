@@ -106,11 +106,11 @@ export default {
     methods:{
       call(){
        API.get(`/api/auth/${this.userid}/`)
-      .then( resp => {
-        this.user = resp
-        this.loading = false 
-      })
-      .catch( e => this.notifyVue('top', 'right',  e, "danger"));
+          .then( resp => {
+            this.user = resp
+            this.loading = false 
+          })
+          .catch( e => this.notifyVue('top', 'right',  e, "danger"));
       },
       notifyVue(verticalAlign, horizontalAlign, date, level) {
         this.$notify({
