@@ -146,5 +146,6 @@ export default {
 .content {
     padding: 30px 15px;
     min-height: calc(100vh - 12.40rem) !important;
+    
   }  
 </style>

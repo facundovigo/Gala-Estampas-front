@@ -3,9 +3,9 @@
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start " > 
       
-        <div class="md-collapse" v-if="(this.$route.name== 'Dashboard')">
+        <div class="md-collapse" v-if="(this.$route.name == 'Dashboard')">
           <div class="sep" v-for="(category, index) in categoriesA" :key="index">
-            <md-button class="md-just-icon md-simple " v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
+            <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
             v-on:click="searchByCategory(category.id)">
               <md-avatar class="md-avatar-icon" >
                 <img :src="category.icon" alt="People">
@@ -28,7 +28,7 @@
       <div class="md-toolbar-section-end">
       <div class="md-collapse" v-if="(this.$route.name== 'Dashboard')">
         <div class="sep" v-for="(category, index) in categoriesB" :key="index">
-          <md-button class="md-just-icon md-simple" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
+          <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
             <md-avatar class="md-avatar-icon" >
               <img :src="category.icon" alt="People">
             </md-avatar>
@@ -218,18 +218,31 @@ export default {
     top: 8px;
     border-radius: 50%;
     background-color: red !important;
+    transition: all 0.6s;
 }
 .sep{
   margin-right: 1rem;
 }
+.f{
+  transition: all 0.6s;
+}
 .gala-category:hover {
-    transition: all .4s;
-    transform: scale(1.4);
+    transition: all .5s;
+    transform: scale(1.4); 
   }
-/* .md-toolbar-section-start{
-background-image: url("@/assets/img/Jardin.png") !important;
-} */
+
 .gala-category-active{
   transform: scale(1.4);
+     }:focus{
+       animation: ripple 400ms linear;
+       transition: all 1s;
+     }
+
+
+@keyframes ripple {
+  to {
+    transform: scale(1.3);
+    opacity: 0;   
+  }
 }
 </style>

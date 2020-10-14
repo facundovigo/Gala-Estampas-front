@@ -13,7 +13,7 @@
             <md-icon v-bind:class="{'md-i':(!isFavorite), 'favorite':(isFavorite)}">favorite</md-icon>
           </md-button>
 
-          <md-button class="md-icon-button" v-on:click="details">
+          <md-button class="md-icon-button " v-on:click="details">
             <md-icon>bookmark</md-icon>
           </md-button>
 
@@ -101,25 +101,42 @@ export default {
     vertical-align: top;
   }
   .md-button i {
+      border-radius: 100% !important;
       padding: 0.8rem;
       color:rgba(0,0,0,0.54) !important;
-      
   }
   .md-button i.favorite{
     color: red !important;
     transform: scale(1.4);
+  }:focus{
+        animation: ripple 400ms linear;
   }
   .md-button i.md-i{
+    
+    border-radius: 100% !important;
     padding: 0.8rem;
     color:rgba(0,0,0,0.54) !important;
+  }:focus{
+        animation: ripple 400ms linear;
+
   }
+
   .md-button i:hover {
         color: red !important;
         transform: scale(1.4);
         }
+
   .pepe:hover {
     transition: all .4s;
     transform: scale(1.1);
   }
+
+  @keyframes ripple {
+  to {
+    transform: scale(1.9);
+    background-color: pink;
+    opacity: 0;   
+  }
+}
 </style>
 
