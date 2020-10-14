@@ -13,44 +13,48 @@
         <div class="md-layout">
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
-              <label>Compania</label>
-              <md-input v-model="disabled" disabled></md-input>
+              <label>Nombre</label>
+              <md-input v-model="user.first_name" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
-              <label>Apodo</label>
-              <md-input v-model="facu.first_name" type="text"></md-input>
+              <label>Apellido</label>
+              <md-input v-model="user.last_name" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
               <label>Email</label>
-              <md-input v-model="facu.email" disabled></md-input>
+              <md-input v-model="user.email" disabled></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>Nombre</label>
-              <md-input v-model="facu.first_name" type="text"></md-input>
+              <label>Celular</label>
+              <md-input v-model="telephone" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Apellido</label>
-              <md-input v-model="facu.last_name" type="text"></md-input>
-            </md-field>
+            <label >Cumpleaños:</label>
+            <md-datepicker class="gala-birthdate" v-model="birthDate"/>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-100">
+          <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Direccion</label>
               <md-input v-model="address" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
+          <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Ciudad</label>
               <md-input v-model="city" type="text"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-33">
+            <md-field>
+              <label>Provincia</label>
+              <md-input v-model="state" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-33">
@@ -62,11 +66,11 @@
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
               <label>Codigo Postal</label>
-              <md-input v-model="code" type="number"></md-input>
+              <md-input v-model="zipCode" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-round  md-gala2">Actualizar Datos</md-button>
+            <md-button class="md-round  md-gala2" v-on:click="updateUser()">Actualizar Datos</md-button>
           </div>
         </div>
       </md-card-content>
@@ -88,21 +92,13 @@ export default {
     },
   data() {
     return {
-      person: "",
-      username: "" ,
-      disabled: "BBVA",
-      emailadress: "",
-      lastname: "",
-      firstname: "",
+      birthDate: "",
+      telephone: "",
       address: "",
       city: "",
+      state: "",
       country: "",
-      code: "",
-      exp: "",
-      aboutme:
-        "Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.", 
-      respuesta: "",
-      facu: "",
+      zipCode: "",
       loading: true,
       userid: localStorage.getItem("session"),
     };
@@ -111,22 +107,38 @@ export default {
       call(){
        API.get(`/api/auth/${this.userid}/`)
       .then( resp => {
-        let  r =resp
-        this.facu=r
-        this.loading=false 
+        this.user = resp
+        this.loading = false 
       })
       .catch( e => this.notifyVue('top', 'right',  e, "danger"));
       },
-        notifyVue(verticalAlign, horizontalAlign, date, level) {
-      this.$notify({
-        message:
-           date ,
-        icon: "add_alert",
-        horizontalAlign: horizontalAlign,
-        verticalAlign: verticalAlign,
-        type:level
-      })
-    },
+      notifyVue(verticalAlign, horizontalAlign, date, level) {
+        this.$notify({
+          message:
+              date ,
+          icon: "add_alert",
+          horizontalAlign: horizontalAlign,
+          verticalAlign: verticalAlign,
+          type:level
+        })
+      },
+      updateUser(){
+        let data = { 
+          user: this.user.id,
+          telephone: this.telephone,
+          birthdate: this.birthDate, 
+          address: this.address,
+          city: this.city,
+          state: this.state,
+          country: this.country,
+          zip_code: this.zipCode
+        }
+        API.post(`/api/client/`, data)
+        .then(resp =>{
+          this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success" ) 
+          this.$router.push('miscompras');
+        }).catch(e => this.notifyVue('top', 'right', "Upss algo salió mal :( ", "danger"))
+      }
   }
 };
 </script>
@@ -134,5 +146,9 @@ export default {
 .spi{
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
+}
+.gala-birthdate{
+    margin-top: -16px !important;
+    padding-bottom: 0 !important;;
 }
 </style>
