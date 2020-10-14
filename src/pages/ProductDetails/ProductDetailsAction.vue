@@ -19,7 +19,7 @@
             </md-field>
             <div>
                 <label>Fecha de entrega:</label>
-                <md-datepicker v-model="shippingDate"/>
+                <md-datepicker v-model="string"/>
             </div>
             <div class="input">
               <md-checkbox v-model="shipping">Envío a domicilio</md-checkbox>
@@ -51,6 +51,7 @@ import API from '../../service/api';
 import { extend } from 'vee-validate';
 import { localize } from 'vee-validate';
 import format from 'date-fns/format';
+
 localize({
   es: {
     messages: {
@@ -80,24 +81,27 @@ export default {
       this.$router.push('dashboard')
     },
     purchase(){
-      if (localStorage.getItem("session")){
-      const body={
-        product:this.data.id,
-        client: localStorage.getItem("session")
-      }
-      if(!this.shipping || this.hasShippimgData()){
-        API.post('/api/order/',body).then( resp =>{
-          console.log(resp);
-          this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
-          this.$router.push('miscompras');
-        }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
-      }else{
-        console.log(this.shippingDate);
-        this.$router.push('user')
-      }
-     }else{
-       this.$router.push('user')
-     }
+
+      //this.string = format(this.shippingDate, this.dateFormat)
+      console.log(this.string);
+    //   if (localStorage.getItem("session")){
+    //   const body={
+    //     product:this.data.id,
+    //     client: localStorage.getItem("session")
+    //   }
+    //   if(!this.shipping || this.hasShippimgData()){
+    //     API.post('/api/order/',body).then( resp =>{
+    //       console.log(resp);
+    //       this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
+    //       this.$router.push('miscompras');
+    //     }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
+    //   }else{
+    //     console.log(this.shippingDate);
+    //     this.$router.push('user')
+    //   }
+    //  }else{
+    //    this.$router.push('user')
+    //  }
     },
     validate(){
       this.invalid = ! (this.cant > 0)
@@ -115,7 +119,10 @@ export default {
       }
     }
   },
+
   data() {
+    let dateFormat = this.$material.locale.dateFormat || 'yyyy-MM-dd'
+let now = new Date()
     return {
       cardUserImage: this.data.category_id.icon,
       cant: 1,
@@ -124,7 +131,8 @@ export default {
       zipAmount: 0,
       zipCode: null,
       shippingDate: null,
-      dateFormat: this.$material.locale.dateFormat || 'dd-MM-yyyy'
+      //dateFormat: this.$material.locale.dateFormat || 'dd-MM-yyyy',
+      string: format(now, dateFormat),
     };
   }
 };
