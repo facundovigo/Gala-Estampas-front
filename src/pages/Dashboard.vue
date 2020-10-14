@@ -129,7 +129,7 @@ export default {
     },
     emptyProducts(){
       return  ((this.datos == 0) && ! this.loading)
-    }
+    },
   },
 }
 </script>

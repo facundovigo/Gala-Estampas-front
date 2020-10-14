@@ -1,6 +1,6 @@
 <template>
  <div >
-  <div v-on:click="toggleCard(cards)">
+  <div >
    <transition name="flip">
       <form v-bind:key="cards.flipped" v-if="!cards.flipped">
         <md-card id="md-color-back">   
@@ -38,6 +38,12 @@ export default {
       card.flipped = !card.flipped;
     },
   },
+        watch:{
+        '$store.state.cardFlap'() {
+          this.cards.flipped =  !this.cards.flipped
+        }
+    },
+    
   data() {
     return{
         name: this.data.name,
@@ -47,7 +53,7 @@ export default {
             flipped: false,
           }
     }
-  }
+  },
 };
 
 </script>
@@ -77,7 +83,7 @@ export default {
     transform: rotateY(180deg);
     opacity: 0;
   }
-  
+
 .content {
     padding: 30px 15px;
     min-height: calc(100vh - 9.30rem) !important;

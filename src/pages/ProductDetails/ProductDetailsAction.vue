@@ -67,9 +67,7 @@ export default {
   name: "user-card",
   props: ['data'],
   dataClient:{},
-  mounted(){
-    this.getShippingData()
-  },
+
   methods: {
     notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
@@ -85,7 +83,7 @@ export default {
       this.$router.push('dashboard')
     },
     purchase(){
-      console.log(localStorage.getItem("session"),"user");
+      // console.log(localStorage.getItem("session"),"user");
       if (localStorage.getItem("session")){
         const body={
           product:this.data.id,
@@ -94,12 +92,17 @@ export default {
           cant: this.cant
         }
         if(!this.shipping || this.hasShippingData){
+          console.log(this.hasShippingData)
+          console.log(this.shipping)
+          console.log(this.$store.state.cardFlap)
+          console.log((this.$store.state.client != null))
+
           API.post('/api/order/',body).then( resp =>{
             this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
             this.$router.push('miscompras');
           }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
         }else{
-          this.$router.push('user')
+          this.$store.state.cardFlap= !this.$store.state.cardFlap
         }
       }else{
         this.$router.push('user')
@@ -117,13 +120,6 @@ export default {
 
       }
     },
-    getShippingData(){
-      API.get(`/api/client/?user_id=${this.userid}`)
-      .then(resp=>{
-        console.log(resp, "cliente");
-        this.hasShippingData = resp != []
-      }).catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
-    },
   },
 
   data() {
@@ -137,7 +133,7 @@ let now = new Date()
       zipAmount: 0,
       zipCode: null,
       shippingDate: format(now, dateFormat),
-      hasShippingData: false,
+      hasShippingData: ( this.$store.state.client && this.$store.state.client != [] ),
       userid: localStorage.getItem("session"),
     };
   }

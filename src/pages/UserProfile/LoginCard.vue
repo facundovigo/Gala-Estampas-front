@@ -199,6 +199,11 @@ export default {
       back(){
       this.$router.push('dashboard')
     },
+    getShippingData(){
+      API.get(`/api/client/?user_id=${this.userid}`)
+      .then(resp=>{ this.$store.state.client = resp})
+      .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+    },
     preLogin(){
         this.prelogin= (!this.prelogin);
     },
@@ -212,6 +217,7 @@ export default {
         this.loading=false
         this.$router.push('dashboard')
         location.reload();
+        this.getShippingData()
       })
       .catch(e =>  this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger"),
       this.loading=false)      
