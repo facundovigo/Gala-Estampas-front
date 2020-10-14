@@ -77,6 +77,7 @@ export default {
     transform: rotateY(180deg);
     opacity: 0;
   }
+  
 .content {
     padding: 30px 15px;
     min-height: calc(100vh - 9.30rem) !important;
