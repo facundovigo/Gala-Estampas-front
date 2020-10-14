@@ -66,6 +66,10 @@ extend('minimo', value => {
 export default {
   name: "user-card",
   props: ['data'],
+  dataClient:{},
+  mounted(){
+    this.getShippingData()
+  },
   methods: {
     notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
@@ -81,30 +85,28 @@ export default {
       this.$router.push('dashboard')
     },
     purchase(){
+      console.log(localStorage.getItem("session"),"user");
       if (localStorage.getItem("session")){
-      const body={
-        product:this.data.id,
-        client: localStorage.getItem("session"),
-        date_delivery: this.shippingDate,
-        cant: this.cant
-      }
-      if(!this.shipping || this.hasShippimgData()){
-        API.post('/api/order/',body).then( resp =>{
-          this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
-          this.$router.push('miscompras');
-        }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
+        const body={
+          product:this.data.id,
+          client: localStorage.getItem("session"),
+          date_delivery: this.shippingDate,
+          cant: this.cant
+        }
+        if(!this.shipping || this.hasShippingData){
+          API.post('/api/order/',body).then( resp =>{
+            this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
+            this.$router.push('miscompras');
+          }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
+        }else{
+          this.$router.push('user')
+        }
       }else{
         this.$router.push('user')
       }
-     }else{
-       this.$router.push('user')
-     }
     },
     validate(){
       this.invalid = ! (this.cant > 0)
-    },
-    hasShippimgData(){
-      return false
     },
     getZipAmount(){
       if(this.zipCode.length > 3){
@@ -114,7 +116,14 @@ export default {
         }).catch(e => this.notifyVue('top', 'right', "No hacemos envios a esa ubicación =S", "warning"))
 
       }
-    }
+    },
+    getShippingData(){
+      API.get(`/api/client?user_id=${localStorage.getItem("session")}`)
+      .then(resp=>{
+        console.log(resp, "cliente");
+        this.hasShippingData = resp != []
+      }).catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+    },
   },
 
   data() {
@@ -128,6 +137,7 @@ let now = new Date()
       zipAmount: 0,
       zipCode: null,
       shippingDate: format(now, dateFormat),
+      hasShippingData: false
     };
   }
 };
