@@ -35,6 +35,7 @@ Cypress.Commands.add( 'gala_login', ()=>{
     cy.get('[data-cy=password]').type('asdasd123')
     cy.get('[data-cy=login]').click()
 })
+
 Cypress.Commands.add('gala_getAProduct',()=>{
     cy.gala_login()
     cy.get('[data-cy=card-detail]').first().click()

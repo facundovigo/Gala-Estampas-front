@@ -25,6 +25,6 @@ describe('Order',() =>{
     cy.get('[data-cy=cant-error]').should('have.text', 'Este campo es requerido')
     cy.get('[data-cy=cant]').type('0')
     cy.get('[data-cy=cant-error]').should('have.text', 'Debe ser mayor a 0')
-    //cy.get('[data-cy=orderCreate]').should('be.disabled')
+    cy.get('[data-cy=orderCreate]').click().should('be.disabled')
   })
 });
