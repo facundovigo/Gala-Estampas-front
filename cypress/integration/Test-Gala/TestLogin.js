@@ -3,35 +3,24 @@ beforeEach(()=>{
 })
 describe('Login', () => {
   it('Si el login es correcto te lleva al home', () => {
-    cy.server({ status: 200 })
-
-    cy.route('POST', '/auth/', {
-      data: {
-        username:'dami@dami.com',
-        password:'asdasd123' 
-      }
-    })
 
     cy.get('[data-cy=username]').type('dami@dami.com')
     cy.get('[data-cy=password]').type('asdasd123')
-
-    cy.get('[data-cy=login]').click()
+    cy.get('[data-cy=login]').click().should(() => {
+      //reviso que guarde el nombre y la key en el storage
+      expect(localStorage.getItem('name')).to.eq('Damian')
+      expect(localStorage.getItem('session')).not.be.null
+    })
+    //Chequeo redirección
     cy.url().should('include', '/#/dashboard')
   });
   it('If the email is not correct, the login button will be disabled', () => {
-    cy.server({ status: 400 })
-
-    cy.route('POST', '/auth/')
-
     cy.get('[data-cy=username]').type('cypress')
     cy.get('[data-cy=password]').type('cypress')
 
     cy.get('[data-cy=login]').should('be.disabled')
   });
   it('validate all register inputs', () => {
-    cy.server({ status: 200 })
-    cy.route('POST', '/auth/')
-
     //test first & last name
     cy.get('[data-cy=register]').click()
     cy.get('[data-cy=firstName]').type('asd')
