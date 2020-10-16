@@ -7,6 +7,7 @@ export const store = new Vuex.Store({
     state: {
         category: null,
         client: null,
-        cardFlap: false
+        cardFlap: false,
+        auth: false
     }
 });

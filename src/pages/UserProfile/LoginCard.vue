@@ -205,6 +205,7 @@ export default {
         this.notifyVue('top', 'right', `!!! Lindo volver a verte ${resp.user.first_name} :)` , "success")
         localStorage.session = resp.user.id
         localStorage.name = resp.user.first_name
+        this.$store.state.auth = true
         this.loading=false
         this.$router.push('dashboard')
       })
@@ -212,19 +213,17 @@ export default {
         this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger")
         this.loading=false}
       )
-      await location.reload()
       await this.getShippingData()       
     },
-    register(){
+    async register(){
       this.loading=true
-      API.post("/api/auth/register/", this.body)
+      await API.post("/api/auth/register/", this.body)
         .then( usr => {
           localStorage.session = usr.user.id
           localStorage.name = usr.user.first_name
           this.loading=false
           this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
           this.$router.push('dashboard')
-          location.reload();
         })
         .catch(e => {
           this.loading=false 

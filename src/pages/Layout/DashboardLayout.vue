@@ -7,7 +7,6 @@
       :sidebar-background-image="sidebarBackgroundImage"
       :class="{ toggled: $sidebar.showSidebar }" 
     >
-      <!-- <mobile-menu slot="content"></mobile-menu> -->
       <div v-on:click="toggleSidebar">
        <sidebar-link to="/dashboard">
          <md-icon>dashboard</md-icon>
@@ -20,22 +19,24 @@
         <p>Mi Perfil</p>
       </sidebar-link>
       </div>
-      <sidebar-link to="/miscompras" v-if="token()">
-        <md-icon>content_paste</md-icon>
-        <p>Mis Compras</p>
-      </sidebar-link>
-      <sidebar-link to="/favorites" v-if="token()">
-        <md-icon>favorite</md-icon>
-        <p>Favoritos</p>
-      </sidebar-link>
-
-      <sidebar-link to="/notifications" v-if="token()"
-        :class="{ toggled: $sidebar.showSidebar }"
-          @input="toggleSidebar"
-      >
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
-      </sidebar-link>
+      <div v-on:click="toggleSidebar">
+        <sidebar-link to="/miscompras" v-if="isAuth">
+          <md-icon>content_paste</md-icon>
+          <p>Mis Compras</p>
+        </sidebar-link>
+      </div>
+      <div v-on:click="toggleSidebar">
+        <sidebar-link to="/favorites" v-if="isAuth">
+          <md-icon>favorite</md-icon>
+          <p>Favoritos</p>
+        </sidebar-link>
+      </div>
+      <div v-on:click="toggleSidebar">
+        <sidebar-link to="/notifications" v-if="isAuth">
+          <md-icon>notifications</md-icon>
+          <p>Notifications</p>
+        </sidebar-link>
+      </div>
     </side-bar>
 
     <div class="main-panel">
@@ -54,25 +55,27 @@
 import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
-// import MobileMenu from "@/pages/Layout/MobileMenu.vue";
-// import FixedPlugin from "./Extra/FixedPlugin.vue";
 
 export default {
   components: {
     TopNavbar,
     DashboardContent,
     ContentFooter,
-    //MobileMenu,
-    //FixedPlugin
+  },
+  watch: {
+    '$store.state.auth'(){
+      this.isAuth = this.token()
+    }
   },
   data() {
     return {
       sidebarBackground: "red",
-      sidebarBackgroundImage: require("@/assets/img/portada2.jpg")
+      sidebarBackgroundImage: require("@/assets/img/portada2.jpg"),
+      isAuth: this.token()
     };
   },
   methods:{
-     token(){
+      token(){
       return localStorage.getItem("session")
     },
      logOut(){
