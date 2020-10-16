@@ -9,11 +9,12 @@
 
           <md-button class="md-icon-button"
              v-on:click="changeFavorite"
-             v-if="token()">
+             v-if="token()" 
+             data-cy="card-fav">
             <md-icon v-bind:class="{'md-i':(!isFavorite), 'favorite':(isFavorite)}">favorite</md-icon>
           </md-button>
 
-          <md-button class="md-icon-button " v-on:click="details">
+          <md-button class="md-icon-button " v-on:click="details" data-cy="card-detail">
             <md-icon>bookmark</md-icon>
           </md-button>
 
