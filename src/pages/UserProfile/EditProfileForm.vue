@@ -92,6 +92,7 @@ export default {
     },
   data() {
     return {
+      data: {
       birthDate: "",
       telephone: "",
       address: "",
@@ -99,8 +100,9 @@ export default {
       state: "",
       country: "",
       zipCode: "",
-      loading: true,
+      },
       userid: localStorage.getItem("session"),
+      loading: true,
     };
   },
     methods:{
@@ -136,8 +138,10 @@ export default {
         API.post(`/api/client/`, data)
         .then(resp =>{
           this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success" ) 
-          this.$router.push('miscompras');
-        }).catch(e => this.notifyVue('top', 'right', "Upss algo salió mal :( ", "danger"))
+          this.$store.state.cardFlap= !this.$store.state.cardFlap
+          this.$store.state.client = resp
+        })
+        .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal :( ", "danger"))
       }
   }
 };

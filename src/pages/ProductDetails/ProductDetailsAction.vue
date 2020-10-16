@@ -8,7 +8,7 @@
       <h4 class="card-title">Realizar pedido</h4>
       <div>
       <label>Precio por unidad: ${{ this.data.price }}</label>
-        <ValidationObserver >
+        <!-- <ValidationObserver v-slot="{ invalid }"> -->
           <form>
             <md-field>
               <ValidationProvider name="cant" rules="required|minimo" v-slot="{ errors }">
@@ -19,7 +19,7 @@
             </md-field>
             <div>
               <label>Fecha de entrega:</label>
-              <md-datepicker v-model="shippingDate"/>
+              <md-datepicker v-model="shippingDate" />
             </div>
             <div class="input">
               <md-checkbox v-model="shipping">Envío a domicilio</md-checkbox>
@@ -27,11 +27,13 @@
             <div v-if="shipping">
               <label>Calcular costo del envío</label>
               <md-field >
-                <ValidationProvider name="zipcode" rules="required" v-slot="{ errors }">
+                <!-- <ValidationProvider name="cant" rules="required" v-slot="{ errors }"> -->
+                <!-- <ValidationProvider name="zipcode" rules="required" v-slot="{ errors }"> -->
+
                 <label>Código Postal: </label>
                 <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
-                <span >{{ errors[0] }}</span>                
-                </ValidationProvider>
+                <!-- <span >{{ errors[0] }}</span>                
+                </ValidationProvider> -->
               </md-field>
               <label class="md-gala-separation"> Envío: ${{ this.zipAmount }}</label>
               <label> Total: ${{ this.data.price * this.cant + this.zipAmount }}</label>
@@ -41,7 +43,7 @@
               <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid" data-cy="orderCreate">Comprar</md-button> 
             </div>
           </form>
-        </ValidationObserver>
+        <!-- </ValidationObserver> -->
       </div>
     </md-card-content>
   </md-card>
@@ -60,8 +62,28 @@ localize({
     }
   }
 });
-extend('minimo', value => {
-  return value >= 1;
+
+extend('minDate', {
+params: ['target'],
+   validate(value) {
+      return  this.shippingDate.splice(0,4) != "yyyy"
+  },
+  message: 'pruebaaaaa'
+});
+
+extend('minimo', {
+params: ['target'],
+   validate(value) {
+      return value >= 1;
+  },
+});
+
+extend('password', {
+  params: ['target'],
+  validate(value, { target }) {
+    return value === target;
+  },
+  message: 'Las Contraseñas no coinciden'
 });
 export default {
   name: "user-card",
@@ -92,15 +114,14 @@ export default {
           cant: this.cant
         }
         if(!this.shipping || this.hasShippingData){
-          console.log(this.hasShippingData)
-          console.log(this.shipping)
-          console.log(this.$store.state.cardFlap)
-          console.log((this.$store.state.client != null))
-
-          API.post('/api/order/',body).then( resp =>{
+          API.post('/api/order/',body)
+          .then( resp =>{
             this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
             this.$router.push('miscompras');
-          }).catch(e => this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e, "danger"))
+          }).catch(e => {
+            this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e.error, "danger")
+            console.log(e)
+            })
         }else{
           this.$store.state.cardFlap= !this.$store.state.cardFlap
         }
@@ -108,12 +129,10 @@ export default {
         this.$router.push('user')
       }
     },
-    validate(){
-      this.invalid = ! (this.cant > 0)
-    },
+
     getZipAmount(){
       if(this.zipCode.length > 3){
-        API.get(`/api/zip_amount/get_amount_by?zip_code=${this.zipCode}`)
+        API.get(`/api/zip_amount/get_amount_by/?zip_code=${this.zipCode}`)
         .then(resp => {
           this.zipAmount = resp[0].amount
         }).catch(e => this.notifyVue('top', 'right', "No hacemos envios a esa ubicación =S", "warning"))
@@ -122,14 +141,20 @@ export default {
     },
   },
 
+        watch:{
+        '$store.state.client'() {
+            this.hasShippingData = ( this.$store.state.client && this.$store.state.client != [] )
+        }
+    },
+
+
   data() {
     let dateFormat = this.$material.locale.dateFormat || 'yyyy-MM-dd'
-let now = new Date()
+    let now = new Date()
     return {
       cardUserImage: this.data.category_id.icon,
       cant: 1,
       shipping: false,
-      invalid: false,
       zipAmount: 0,
       zipCode: null,
       shippingDate: format(now, dateFormat),
