@@ -13,8 +13,8 @@
             <md-field>
               <ValidationProvider name="cant" rules="required|minimo" v-slot="{ errors }">
               <label>Cantidad</label>
-              <md-input  v-model="cant" type="number" ></md-input>
-              <span >{{ errors[0] }}</span>                
+              <md-input  v-model="cant" type="number" v-on:change="validate()" data-cy="cant"></md-input>
+              <span data-cy="cant-error">{{ errors[0] }}</span>                
               </ValidationProvider>
             </md-field>
             <div>
@@ -28,6 +28,8 @@
               <label>Calcular costo del envío</label>
               <md-field >
                 <!-- <ValidationProvider name="cant" rules="required" v-slot="{ errors }"> -->
+                <!-- <ValidationProvider name="zipcode" rules="required" v-slot="{ errors }"> -->
+
                 <label>Código Postal: </label>
                 <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
                 <!-- <span >{{ errors[0] }}</span>                
@@ -38,7 +40,7 @@
             </div>
             <div>
               <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
-              <md-button class="md-round md-danger" v-on:click="purchase" :disabled="false">Comprar</md-button> 
+              <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid" data-cy="orderCreate">Comprar</md-button> 
             </div>
           </form>
         <!-- </ValidationObserver> -->
