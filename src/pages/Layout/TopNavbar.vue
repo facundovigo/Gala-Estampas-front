@@ -153,7 +153,6 @@ export default {
     getCategories(){
       API.get(`/api/category/`)
       .then(res => {
-        console.log(res, "categories");
         const size = res.length
         this.categoriesA = chunk(res,6)[0]
         this.categoriesB = chunk(res,6)[1]

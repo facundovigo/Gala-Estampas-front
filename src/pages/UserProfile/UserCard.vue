@@ -29,8 +29,9 @@ export default {
   methods: {
     logOut(){
       localStorage.clear();
-      this.$store.state.auth = false
+      location.reload();
       this.$router.push('dashboard');
+      
     },
     back(){
       this.$router.push('dashboard')

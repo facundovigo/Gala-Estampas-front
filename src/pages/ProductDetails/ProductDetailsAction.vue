@@ -7,13 +7,13 @@
     <md-card-content>
       <h4 class="card-title">Realizar pedido</h4>
       <div>
-      <label>Precio por unidad: ${{ this.data.price }}</label>
-        <!-- <ValidationObserver v-slot="{ invalid }"> -->
+      <label>Precio por unidad: ${{ data.price }}</label>
+        <ValidationObserver v-slot="{ invalid }">
           <form>
             <md-field>
               <ValidationProvider name="cant" rules="required|minimo" v-slot="{ errors }">
               <label>Cantidad</label>
-              <md-input  v-model="cant" type="number" v-on:change="validate()" data-cy="cant"></md-input>
+              <md-input  v-model="cant" type="number" data-cy="cant"></md-input>
               <span data-cy="cant-error">{{ errors[0] }}</span>                
               </ValidationProvider>
             </md-field>
@@ -22,36 +22,38 @@
               <md-datepicker v-model="shippingDate" />
             </div>
             <div class="input">
-              <md-checkbox v-model="shipping">Envío a domicilio</md-checkbox>
+              <p class="control">
+                <label class="checkbox">
+                    <input name="terms" type="checkbox" class="md-gala" v-model="shipping" @change="getShippingData">
+                    Envío a domicilio.
+                </label>
+              </p>
             </div>
             <div v-if="shipping">
               <label>Calcular costo del envío</label>
               <md-field >
-                <!-- <ValidationProvider name="cant" rules="required" v-slot="{ errors }"> -->
-                <!-- <ValidationProvider name="zipcode" rules="required" v-slot="{ errors }"> -->
-
-                <label>Código Postal: </label>
-                <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
-                <!-- <span >{{ errors[0] }}</span>                
-                </ValidationProvider> -->
+                <ValidationProvider name="zipcode" rules="required|zipcode" v-slot="{ errors }">
+                  <label>Código Postal: </label>
+                  <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
+                  <span >{{ errors[0] }}</span>                
+                </ValidationProvider>
               </md-field>
-              <label class="md-gala-separation"> Envío: ${{ this.zipAmount }}</label>
-              <label> Total: ${{ this.data.price * this.cant + this.zipAmount }}</label>
+              <label class="md-gala-separation"> Envío: ${{ zipAmount }}</label>
+              <label> Total: ${{ data.price * cant + zipAmount }}</label> 
             </div>
             <div>
               <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
               <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid" data-cy="orderCreate">Comprar</md-button> 
             </div>
           </form>
-        <!-- </ValidationObserver> -->
+        </ValidationObserver>
       </div>
     </md-card-content>
   </md-card>
 </template>
 <script>
 import API from '../../service/api';
-import { extend } from 'vee-validate';
-import { localize } from 'vee-validate';
+import { extend, localize } from 'vee-validate';
 import format from 'date-fns/format';
 
 localize({
@@ -70,7 +72,13 @@ params: ['target'],
   },
   message: 'pruebaaaaa'
 });
-
+extend('zipcode',{
+  params: ['target'],
+   validate(value) {
+      return  value.length > 3
+  },
+  message: 'El código postal debe tener al menos 4 digitos'
+})
 extend('minimo', {
 params: ['target'],
    validate(value) {
@@ -94,7 +102,7 @@ export default {
     notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({
         message:
-           date,
+        date,
         icon: "add_alert",
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
@@ -105,7 +113,6 @@ export default {
       this.$router.push('dashboard')
     },
     purchase(){
-      // console.log(localStorage.getItem("session"),"user");
       if (localStorage.getItem("session")){
         const body={
           product:this.data.id,
@@ -129,24 +136,25 @@ export default {
         this.$router.push('user')
       }
     },
-
+    getShippingData(){
+      this.hasShippingData = this.$store.state.client.length > 0 
+    },
     getZipAmount(){
       if(this.zipCode.length > 3){
         API.get(`/api/zip_amount/get_amount_by/?zip_code=${this.zipCode}`)
         .then(resp => {
           this.zipAmount = resp[0].amount
-        }).catch(e => this.notifyVue('top', 'right', "No hacemos envios a esa ubicación =S", "warning"))
+        }).catch(e => this.notifyVue('bottom', 'center', "No hacemos envios a esa ubicación =S", "info"))
 
       }
     },
   },
 
-        watch:{
-        '$store.state.client'() {
-            this.hasShippingData = ( this.$store.state.client && this.$store.state.client != [] )
-        }
-    },
-
+  watch:{
+    '$store.state.client'() {
+        this.hasShippingData = ( this.$store.state.client && this.$store.state.client != [] )
+    }
+  },
 
   data() {
     let dateFormat = this.$material.locale.dateFormat || 'yyyy-MM-dd'
@@ -156,7 +164,7 @@ export default {
       cant: 1,
       shipping: false,
       zipAmount: 0,
-      zipCode: null,
+      zipCode: 0,
       shippingDate: format(now, dateFormat),
       hasShippingData: ( this.$store.state.client && this.$store.state.client != [] ),
       userid: localStorage.getItem("session"),
