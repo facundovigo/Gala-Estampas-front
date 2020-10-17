@@ -6,7 +6,6 @@
     <md-card v-if="!this.loading">
       <md-card-header style="background-color: #ec407a" >
         <h4 class="title">Datos de perfil</h4>
-        <!-- <p class="category">Complete your profile</p> -->
       </md-card-header>
 
       <md-card-content>
@@ -32,43 +31,34 @@
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Celular</label>
-              <md-input v-model="telephone" type="number"></md-input>
+              <md-input v-model="data.telephone" type="phone"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <label >Cumpleaños:</label>
-            <md-datepicker class="gala-birthdate" v-model="birthDate"/>
+            <md-field>
+              <label>Codigo Postal</label>
+              <md-input v-model="data.zip_code" type="alpha"></md-input>
+            </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
+          <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
               <label>Direccion</label>
-              <md-input v-model="address" type="text"></md-input>
+              <md-input v-model="data.address" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Ciudad</label>
-              <md-input v-model="city" type="text"></md-input>
+              <md-input v-model="data.city" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
+          <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Provincia</label>
-              <md-input v-model="state" type="text"></md-input>
+              <md-input v-model="data.state" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Pais</label>
-              <md-input v-model="country" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Codigo Postal</label>
-              <md-input v-model="zipCode" type="number"></md-input>
-            </md-field>
-          </div>
+
           <div class="md-layout-item md-size-100 text-right">
             <md-button class="md-round  md-gala2" v-on:click="updateUser()">Actualizar Datos</md-button>
           </div>
@@ -78,7 +68,9 @@
   </form>
 </template>
 <script>
-import API from "../../service/api"
+import API from "../../service/api";
+import { extend, localize } from 'vee-validate';
+import format from 'date-fns/format';
 export default {
   name: "edit-profile-form",
   props: {
@@ -93,55 +85,58 @@ export default {
   data() {
     return {
       data: {
-      birthDate: "",
-      telephone: "",
-      address: "",
-      city: "",
-      state: "",
-      country: "",
-      zipCode: "",
+        user: localStorage.getItem("session"),
+        telephone: '',
+        address: '',
+        city: '',
+        state: '',
+        zip_code: '',
+        birthdate:'1978-11-08',
+        country:'arg'
       },
-      userid: localStorage.getItem("session"),
       loading: true,
+      user: null,
+      client: null,
     };
   },
     methods:{
-      call(){
-       API.get(`/api/auth/${this.userid}/`)
+      async call(){
+        await API.get(`/api/auth/${this.data.user}/`)
           .then( resp => {
             this.user = resp
             this.loading = false 
           })
           .catch( e => this.notifyVue('top', 'right',  e, "danger"));
+        
+        await API.get(`/api/client/?user_id=${this.data.user}`)
+          .then( resp => { 
+              this.$store.state.client = resp
+              this.client = resp[0]
+            })
+          .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+          if(this.client){
+            this.data = this.client
+          }
+        },
+        notifyVue(verticalAlign, horizontalAlign, date, level) {
+          this.$notify({
+            message:
+                date ,
+            icon: "add_alert",
+            horizontalAlign: horizontalAlign,
+            verticalAlign: verticalAlign,
+            type:level
+          })
       },
-      notifyVue(verticalAlign, horizontalAlign, date, level) {
-        this.$notify({
-          message:
-              date ,
-          icon: "add_alert",
-          horizontalAlign: horizontalAlign,
-          verticalAlign: verticalAlign,
-          type:level
-        })
-      },
-      updateUser(){
-        let data = { 
-          user: this.user.id,
-          telephone: this.telephone,
-          birthdate: this.birthDate, 
-          address: this.address,
-          city: this.city,
-          state: this.state,
-          country: this.country,
-          zip_code: this.zipCode
-        }
-        API.post(`/api/client/`, data)
-        .then(resp =>{
-          this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success" ) 
-          this.$store.state.cardFlap= !this.$store.state.cardFlap
-          this.$store.state.client = resp
-        })
-        .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal :( ", "danger"))
+      
+      async updateUser(){
+        const notenecesito = await API.post(`/api/client/`, this.data)
+          .then(resp =>{
+            this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success" ) 
+            this.$store.state.client = resp
+            this.$store.state.cardFlap= !this.$store.state.cardFlap
+          })
+          .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal :( ", "danger"))
       }
   }
 };

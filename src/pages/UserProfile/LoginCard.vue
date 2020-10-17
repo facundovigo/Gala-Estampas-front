@@ -180,7 +180,7 @@ export default {
       this.$router.push('dashboard')
     },
     getShippingData(){
-      let userid = localStorage.get('session')
+      let userid = localStorage.getItem('session')
       API.get(`/api/client/?user_id=${userid}`)
       .then(resp=>{ this.$store.state.client = resp})
       .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
@@ -221,6 +221,7 @@ export default {
         .then( usr => {
           localStorage.session = usr.user.id
           localStorage.name = usr.user.first_name
+          this.$store.state.auth = true
           this.loading=false
           this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
           this.$router.push('dashboard')
