@@ -114,6 +114,9 @@ export default {
               this.client = resp[0]
             })
           .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+          if(this.client){
+            this.data = this.client
+          }
         },
         notifyVue(verticalAlign, horizontalAlign, date, level) {
           this.$notify({
