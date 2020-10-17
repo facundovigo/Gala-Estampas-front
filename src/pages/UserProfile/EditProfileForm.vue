@@ -99,6 +99,7 @@ export default {
       client: null,
     };
   },
+  
     methods:{
       async call(){
         await API.get(`/api/auth/${this.data.user}/`)
