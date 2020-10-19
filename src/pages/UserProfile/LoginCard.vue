@@ -177,7 +177,8 @@ export default {
       })
     },
     back(){
-      this.$router.push('dashboard')
+      //this.$router.push('dashboard')
+      window.history.go(-1)
     },
     getShippingData(){
       let userid = localStorage.getItem('session')

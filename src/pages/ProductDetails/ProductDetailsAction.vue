@@ -41,9 +41,17 @@
               <label class="md-gala-separation"> Envío: ${{ zipAmount }}</label>
               <label> Total: ${{ data.price * cant + zipAmount }}</label> 
             </div>
-            <div>
+            <div >
               <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
-              <md-button class="md-round md-danger" v-on:click="purchase" :disabled="invalid" data-cy="orderCreate">Comprar</md-button> 
+            <transition name="flip">
+              <md-button class="md-round md-danger" v-on:click="purchase" :disabled="(invalid ) " data-cy="orderCreate" 
+              v-bind:key="!cards.flipped" v-if="!cards.flipped">Comprar
+              </md-button>
+
+              <md-button class="md-round md-danger" :disabled="(true ) " data-cy="orderCreate" 
+              v-bind:key="!cards.flipped" v-if="cards.flipped">Comprar
+              </md-button> 
+            </transition>
             </div>
           </form>
         </ValidationObserver>
@@ -148,18 +156,28 @@ export default {
 
       }
     },
+    toggleCard: function(card) {
+      card.flipped = !card.flipped;
+    },
   },
 
   watch:{
     '$store.state.client'() {
         this.hasShippingData = ( this.$store.state.client && this.$store.state.client != [] )
-    }
+    },
+     '$store.state.cardFlap'() {
+          this.cards.flipped =  !this.cards.flipped
+   }
   },
-
+  
   data() {
     let dateFormat = this.$material.locale.dateFormat || 'yyyy-MM-dd'
     let now = new Date()
     return {
+           cards: {
+            flipped: false,
+      },  
+      formState: true,
       cardUserImage: this.data.category_id.icon,
       cant: 1,
       shipping: false,
@@ -172,7 +190,7 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss" scoped>
 #separacion{
     margin-right: 15%
 }
@@ -183,4 +201,17 @@ export default {
 .md-gala-separation{
     margin-right: 50%;
 }
+.flip-enter-active {
+    transition: all 0.9s ease;
+  }
+
+.flip-leave-active {
+    display: none;
+  }
+
+.flip-enter, .flip-leave {
+    transform: rotateY(180deg);
+    opacity: 0;
+  }
+
 </style>

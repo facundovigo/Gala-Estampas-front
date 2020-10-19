@@ -49,47 +49,20 @@
 
         <div class="md-collapse">
 
-          <!-- <div class="md-autocomplete">
-            <md-autocomplete
-              class="search"
-              v-model="selectedProducts"
-              @input="prueba()"
-              :md-options="this.categoryListNames"
-            >
-              <label>Productos...</label>
-            </md-autocomplete>
-          </div> -->
           <md-list>
-            <md-list-item href="#/">
+            <md-list-item href="/" >
               <i class="material-icons">dashboard</i>
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
 
-            <!-- <md-list-item href="#/notifications" class="dropdown">
-              <drop-down>
-                <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="hidden-lg hidden-md">Notifications</p>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a href="#">Mike John responded to your email</a></li>
-                  <li><a href="#">You have 5 new tasks</a></li>
-                  <li><a href="#">You're now friend with Andrew</a></li>
-                  <li><a href="#">Another Notification</a></li>
-                  <li><a href="#">Another One</a></li>
-                </ul>
-              </drop-down>
-            </md-list-item> -->
-
             <li class="md-list-item">
               <a
-                href="#/notifications"
+                href="notifications"
                 class="md-list-item-router md-list-item-container md-button-clean dropdown"
               >
                 <div class="md-list-item-content" v-if="token()">
                   <drop-down>
-                    <md-button
+                    <md-button 
                       slot="title"
                       class="md-button md-just-icon md-simple"
                       data-toggle="dropdown"
@@ -109,10 +82,11 @@
                 </div>
               </a>
             </li>
+           
 
-            <md-list-item href="#/user">
-              <i class="material-icons">person</i>
-              <p class="hidden-lg hidden-md">Profile</p>
+            <md-list-item href="/user" >
+              <i class="material-icons" >person</i>
+              <p class="hidden-lg hidden-md" >Profile</p>
             </md-list-item>
           </md-list>
         </div>
@@ -213,9 +187,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.md-list-item-container:not(.md-list-item-default):not([disabled])>.md-list-item-content {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
 .md-field .md-input-action {
     top: 8px;
-    border-radius: 50%;
+    border-radius: 100% !important;
     background-color: red !important;
     transition: all 0.6s;
 }
@@ -228,20 +210,25 @@ export default {
 .gala-category:hover {
     transition: all .5s;
     transform: scale(1.4); 
-  }
+ }
 
 .gala-category-active{
   transform: scale(1.4);
      }:focus{
        animation: ripple 400ms linear;
-       transition: all 1s;
+       transition: all 1s; 
      }
-
+.gala-radius{
+  border-radius: 100%;
+  background-color: pink!important;
+}:hover{
+    border-radius: 100% !important;
+}
 
 @keyframes ripple {
   to {
     transform: scale(1.3);
-    opacity: 0;   
+    opacity: 0;
   }
 }
 </style>
