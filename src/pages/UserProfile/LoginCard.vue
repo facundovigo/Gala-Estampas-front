@@ -208,7 +208,8 @@ export default {
         localStorage.name = resp.user.first_name
         this.$store.state.auth = true
         this.loading=false
-        this.$router.push('dashboard')
+        //this.$router.push('dashboard')
+        window.history.go(-1)
       })
       .catch(e =>  {
         this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger")
@@ -226,6 +227,7 @@ export default {
           this.loading=false
           this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
           this.$router.push('dashboard')
+          //window.history.go(-1)
         })
         .catch(e => {
           this.loading=false 

@@ -42,7 +42,7 @@ const routes = [{
             path: 'productDetails',
             component: ProductDetails,
             name: 'productDetails',
-            props: true
+            //props: true
         },
     ],
     path: '*',

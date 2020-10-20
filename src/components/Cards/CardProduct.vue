@@ -61,7 +61,9 @@ export default {
         })
       },
       details(){
-        this.$router.push({ name: 'productDetails', params: {post: this.post}})
+        localStorage.setItem('product', this.post.id)
+        //this.$router.push({ name: 'productDetails', params: {post: this.post}})
+        this.$router.push('productDetails')
         
       },
       url(){
