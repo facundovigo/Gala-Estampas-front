@@ -10,15 +10,19 @@
       <transition name="bounce">
     <md-card-content v-if="prelogin">
       <h6 class="category text-gray">Gala Estampa</h6>
-      <p class="card-description" style="color: red" v-if="prelogin">
-           tu mejor opcion en regalos personalizados
-      </p>
+      <em class="gala-fonts"  v-if="prelogin">
+           Tu mejor opcion en regalos personalizados
+      </em>
     </md-card-content>
       </transition>        
     <div v-if="prelogin">
     <ValidationObserver v-slot="{ invalid }">  
      <form >
+         
+
         <div class="md-layout-item md-small-size-100">
+          <md-list-item>
+          <md-icon  style="color: #6BC5C8;">email</md-icon>
           <md-field>
             <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
             <label>Email</label>
@@ -26,8 +30,13 @@
             <span data-cy="error-pass">{{ errors[0] }}</span>                
             </ValidationProvider>
           </md-field>
+
+        </md-list-item>
         </div>
+
         <div class="md-layout-item md-small-size-100">
+          <md-list-item>
+          <md-icon  style="color: #6BC5C8;">lock</md-icon>
           <md-field>
             <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
             <label>Contraseña</label>
@@ -35,9 +44,11 @@
             <span>{{ errors[0] }}</span>
             </ValidationProvider>
           </md-field>
+        </md-list-item>
+
         </div>
       </form>
-        <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
+        <md-button class="md-round md-gala" id="separacion" v-on:click="back">Volver</md-button>
 
          <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
          <div >
@@ -281,4 +292,13 @@ export default {
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
 }
+.gala-fonts{
+  color:  #6BC5C8;
+  /* font-family: Verdana;
+  font-family: 'PT Sans';  */
+
+  font-family: Vegur, 'PT Sans', Verdana, sans-serif;
+
+}
+
 </style>

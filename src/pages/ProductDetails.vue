@@ -41,7 +41,6 @@ export default {
         .then( resp => {
           this.datos = resp
           this.loading=false
-          console.log(this.datos)
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
     },
