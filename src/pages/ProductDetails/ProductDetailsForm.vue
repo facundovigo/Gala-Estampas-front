@@ -1,5 +1,5 @@
 <template>
- <div >
+ <div>
   <div >
    <transition name="flip">
       <form v-bind:key="cards.flipped" v-if="!cards.flipped">
@@ -68,7 +68,7 @@ export default {
 
 #md-color-back{
     background-color: rgb(253, 192, 202);
-    margin-top: 7%;
+    margin-top: 4%;
 }
 
 .flip-enter-active {

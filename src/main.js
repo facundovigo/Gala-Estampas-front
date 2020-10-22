@@ -23,6 +23,7 @@ import * as rules from 'vee-validate/dist/rules'
 
 import Chartist from "chartist";
 
+
 // configure router
 const router = new VueRouter({
 
@@ -38,6 +39,9 @@ Object.keys(rules).forEach(rule => {
 });
 
 localize('es');
+
+
+
 
 // Install components globally
 Vue.component('ValidationObserver', ValidationObserver);
