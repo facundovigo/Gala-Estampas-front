@@ -71,6 +71,8 @@
       
   </md-card>
 </template>
+
+
 <script>
 import API from '../../service/api';
 import { extend, localize } from 'vee-validate';
@@ -226,8 +228,8 @@ export default {
 .p1{
   margin:10;
   display:inline;
-  float:left;
   margin-left: 2rem !important;
+  float:left;
 }
 .facu{
   float:left;
