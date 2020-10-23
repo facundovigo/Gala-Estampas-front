@@ -105,10 +105,7 @@ export default {
     display: inline-block;
     vertical-align: top;
   }
-.pepe{
-  //  border: pink 1px ridge;
-  
-}
+
   .pepe:hover {
     transition: all .4s;
     transform: scale(1.1);
