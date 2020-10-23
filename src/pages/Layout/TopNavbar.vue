@@ -50,7 +50,7 @@
         <div class="md-collapse">
 
           <md-list>
-            <md-list-item href="/" >
+            <md-list-item to="/" >
               <i class="material-icons">dashboard</i>
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
@@ -84,7 +84,7 @@
             </li>
            
 
-            <md-list-item href="/user" >
+            <md-list-item to="/user" >
               <i class="material-icons" >person</i>
               <p class="hidden-lg hidden-md" >Profile</p>
             </md-list-item>
