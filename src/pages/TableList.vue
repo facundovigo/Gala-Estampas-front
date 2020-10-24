@@ -30,7 +30,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .md-card{
-  background-color: beige!important;
+ // background-color: beige!important;
 
 }
 </style>
+

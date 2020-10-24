@@ -52,7 +52,7 @@
          <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
          <div >
          <h6 class="category text-description ">No tenés usuario 
-           <a class="simple-text"  v-on:click="preLogin" data-cy="register">create uno </a>
+          <em class="gala-fonts" style="cursor: pointer;" v-on:click="preLogin" data-cy="register">create uno </em>
           </h6>
          </div>
        </ValidationObserver>  

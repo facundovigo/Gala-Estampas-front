@@ -21,6 +21,22 @@
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
       </md-table-row>
     </md-table>
+    
+    <!-- <md-card-media>
+     <md-avatar class="md-large">
+      <img src="@/assets/img/flor.png" alt="Avatar">
+     </md-avatar>
+    </md-card-media>
+
+    <md-card class="md-primary" md-theme="green-card">
+        <md-card-header-text>
+          <div class="md-title">Green custom theme</div>
+          <div class="md-subhead">Subtitle here</div>
+        </md-card-header-text>
+
+        
+    </md-card> -->
+    
     </div>
     
     <div class="md-toolbar-toggle md-layout  md-alignment-top-center" >

@@ -1,68 +1,83 @@
 <template>
   <md-card class="md-card-profile" id="prueba">
-    <div class="md-card-avatar">
-      <img class="img" :src="this.cardUserImage" />
-    </div>
-
-    <md-card-content>
-      <h4 class="card-title">Realizar pedido</h4>
-      <div>
-      <label>Precio por unidad: ${{ data.price }}</label>
-        <ValidationObserver v-slot="{ invalid }">
-          <form>
-            <md-field>
-              <ValidationProvider name="cant" rules="required|minimo" v-slot="{ errors }">
-              <label>Cantidad</label>
-              <md-input  v-model="cant" type="number" data-cy="cant"></md-input>
-              <span data-cy="cant-error">{{ errors[0] }}</span>                
-              </ValidationProvider>
-            </md-field>
-            <div>
-              <label>Fecha de entrega:</label>
-              <md-datepicker v-model="shippingDate" />
-            </div>
-            <div class="input">
-              <p class="control">
-                <label class="checkbox">
-                    <input name="terms" type="checkbox" class="md-gala" v-model="shipping" @change="getShippingData">
-                    Envío a domicilio.
-                </label>
-              </p>
-            </div>
-            <div v-if="shipping">
-              <label>Calcular costo del envío</label>
-              <md-field >
-                <ValidationProvider name="zipcode" rules="required|zipcode" v-slot="{ errors }">
-                  <label>Código Postal: </label>
-                  <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
-                  <span >{{ errors[0] }}</span>                
-                </ValidationProvider>
-              </md-field>
-              <label class="md-gala-separation"> Envío: ${{ zipAmount }}</label>
-              <label> Total: ${{ data.price * cant + zipAmount }}</label> 
-            </div>
-            <div >
-              <md-button class="md-round md-primary" id="separacion" v-on:click="back">Volver</md-button>
-            <transition name="flip">
-              <md-button class="md-round md-danger" v-on:click="purchase" :disabled="(invalid ) " data-cy="orderCreate" 
-              v-bind:key="!cards.flipped" v-if="!cards.flipped">Comprar
-              </md-button>
-
-              <md-button class="md-round md-danger" :disabled="(true ) " data-cy="orderCreate" 
-              v-bind:key="!cards.flipped" v-if="cards.flipped">Comprar
-              </md-button> 
-            </transition>
-            </div>
-          </form>
-        </ValidationObserver>
+    <md-card-media>
+      <div class="md-card-avatar">
+        <img class="img" :src="this.cardUserImage" />
       </div>
-    </md-card-content>
+    </md-card-media>  
+
+      <div class="md-title">Realizar pedido</div>
+      <p></p>
+
+      <div class="gala-style" style="display:inline;" > 
+      <p class="md-subhead p1" >Precio por unidad: ${{ data.price }}<p> 
+      <p class="md-subhead p2" style="margin:0;display:inline:float:right">Fecha de Entrega:</p>   
+      </div>
+ <ValidationObserver v-slot="{ invalid }"> 
+  
+   <div class="md-layout"> 
+    <div class="md-layout-item md-small-size-100 md-size-50">
+      <md-field>
+        <ValidationProvider name="cant" rules="required|minimo" v-slot="{ errors }">
+          <label class="md-subhead" style="color: black !important;">Cantidad</label>
+          <md-input  v-model="cant" type="number" data-cy="cant"></md-input>
+          <span data-cy="cant-error">{{ errors[0] }}</span>                
+        </ValidationProvider>
+      </md-field>
+    </div>  
+     <md-datepicker class="md-layout-item md-small-size-100 md-size-50" v-model="shippingDate"></md-datepicker>
+   </div>    
+
+<md-card-content> 
+  <div >    
+    <md-checkbox v-model="shipping" @change="getShippingData" class="facu" >Envío a domicilio</md-checkbox>
+  </div>
+</md-card-content>
+
+  <md-card-content> 
+   <transition name="fade">
+    <div  v-if="shipping">
+    
+     <md-field style="margin-top: 1rem;" >
+       <ValidationProvider name="zipcode" rules="required|zipcode" v-slot="{ errors }">
+          <label class="md-subhead" style="color: black !important;">Ingrese el codigo postal para calcular el costo de envio </label>
+          <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
+          <span >{{ errors[0] }}</span>                
+        </ValidationProvider>
+     </md-field>
+     <!-- <p class="md-subhead p3" >Calcular costo del envío</p> -->
+     <div style="margin-top: 2rem;">
+     <label class="md-gala-separation gala-label"> Envío: ${{ zipAmount }}</label>
+     <label class="gala-label"> Total: ${{ data.price * cant + zipAmount }}</label> 
+     </div>
+    </div>
+   </transition>
+  </md-card-content>  
+
+ <md-card-actions md-alignment="left" style="margin-top: 6%;">
+   <md-button class="md-round md-gala-cyan" id="separacion" v-on:click="back">Volver</md-button>
+   <transition name="flip">
+    <md-button class="md-round md-gala" v-on:click="purchase" :disabled="(invalid ) " data-cy="orderCreate" 
+      v-bind:key="!cards.flipped" v-if="!cards.flipped">Comprar
+    </md-button>
+
+    <md-button class="md-round md-gala" :disabled="(true ) " data-cy="orderCreate" 
+      v-bind:key="!cards.flipped" v-if="cards.flipped">Comprar
+    </md-button> 
+    </transition>
+  </md-card-actions>
+         
+  </ValidationObserver> 
+      
   </md-card>
 </template>
+
+
 <script>
 import API from '../../service/api';
 import { extend, localize } from 'vee-validate';
 import format from 'date-fns/format';
+
 
 localize({
   es: {
@@ -93,7 +108,6 @@ params: ['target'],
       return value >= 1;
   },
 });
-
 extend('password', {
   params: ['target'],
   validate(value, { target }) {
@@ -101,7 +115,10 @@ extend('password', {
   },
   message: 'Las Contraseñas no coinciden'
 });
+
+
 export default {
+   
   name: "user-card",
   props: ['data'],
   dataClient:{},
@@ -179,10 +196,10 @@ export default {
       },  
       formState: true,
       cardUserImage: this.data.category_id.icon,
-      cant: 1,
+      cant: "",
       shipping: false,
       zipAmount: 0,
-      zipCode: 0,
+      zipCode: '',
       shippingDate: format(now, dateFormat),
       hasShippingData: ( this.$store.state.client && this.$store.state.client != [] ),
       userid: localStorage.getItem("session"),
@@ -191,11 +208,38 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
+
+.md-title{
+  color: pink !important;
+  font-style: italic ;
+}
+.gala-style{
+  
+  margin-top: 2rem !important ;
+}
+.gala-label{
+  font-style: italic !important;
+}
+.md-subhead{
+    
+    font-style: oblique;
+}
+.p1{
+  margin:10;
+  display:inline;
+  margin-left: 2rem !important;
+  float:left;
+}
+.facu{
+  float:left;
+}
 #separacion{
-    margin-right: 15%
+  margin-left: 4rem ;
+  margin-right: 15%
 }
 #prueba{
-  margin-top: 8%;
+  margin-top: 6%;
 }
 
 .md-gala-separation{
@@ -213,5 +257,18 @@ export default {
     transform: rotateY(180deg);
     opacity: 0;
   }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.6s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.md-button .md-primary .md-theme-default{
+  color: pink !important;
+  background-color: pink !important;
+}
+
 
 </style>
