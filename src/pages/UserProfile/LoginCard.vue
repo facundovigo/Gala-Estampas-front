@@ -36,16 +36,15 @@
 
         <div class="md-layout-item md-small-size-100">
           <md-list-item>
-          <md-icon  style="color: #6BC5C8;">lock</md-icon>
-          <md-field>
-            <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
-            <label>Contraseña</label>
-            <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
-            <span>{{ errors[0] }}</span>
-            </ValidationProvider>
-          </md-field>
-        </md-list-item>
-
+            <md-icon  style="color: #6BC5C8;">lock</md-icon>
+            <md-field>
+              <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
+              <label>Contraseña</label>
+              <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
+              <span>{{ errors[0] }}</span>
+              </ValidationProvider>
+            </md-field>
+          </md-list-item>
         </div>
       </form>
         <md-button class="md-round md-gala" id="separacion" v-on:click="back">Volver</md-button>

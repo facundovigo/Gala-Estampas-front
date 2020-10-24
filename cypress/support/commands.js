@@ -25,12 +25,12 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('gala_page', (mode, url)=>{ 
-    api = mode=="prod" ?'http://heroku/sarasa' :'http://localhost:8080/'
+    api = mode=="prod" ?'http://heroku/sarasa' :'http://localhost:8080'
     return cy.visit(api+url) 
 })
 
 Cypress.Commands.add( 'gala_login', ()=>{
-    cy.gala_page('test', '/#/user')
+    cy.gala_page('test', '/user')
     cy.get('[data-cy=username]').type('dami@dami.com')
     cy.get('[data-cy=password]').type('asdasd123')
     cy.get('[data-cy=login]').click()

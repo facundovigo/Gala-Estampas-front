@@ -4,7 +4,7 @@ beforeEach(()=>{
 
 describe('Order',() =>{
   it('Si no estoy logueado no puedo elegir favoritos', ()=>{
-    cy.gala_page('test','/#/dashboard')
+    cy.gala_page('test','/dashboard')
     cy.get('[data-cy=card-fav]').should('have.length', 0)
   });
 
@@ -16,7 +16,7 @@ describe('Order',() =>{
   it('Si no estoy logueado no puedo comprar', ()=>{
     cy.get('[data-cy=card-detail]').first().click()
     cy.get('[data-cy=orderCreate]').click()
-    cy.url().should('include', '/#/user')
+    cy.url().should('include', '/user')
   });
 
   it('Si la cantidad es menor que 1 se desactiva en boton de comprar', ()=>{
