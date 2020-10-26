@@ -1,7 +1,7 @@
 <template>
  <md-card>
-      <md-card-media-actions>
-        <md-card-media>
+      <md-card-media-actions >
+        <md-card-media class="p">
               <md-card-media>
               <img :src="img" alt="Producto">
               </md-card-media>
@@ -42,10 +42,18 @@ data(){
 
 <style lang="scss" scoped>
  .md-card {
-    background-color:antiquewhite!important;
+    //background-color:antiquewhite!important;
     margin: 4px;
     display: inline-block;
     vertical-align: top;
-    
+    border: pink 0.5px ridge;
   }
+  .md-subhead{
+    font-style: oblique;
+    font-style: italic ;
+}
+.p{
+  border: pink 0.5px ridge;
+}
+
 </style>

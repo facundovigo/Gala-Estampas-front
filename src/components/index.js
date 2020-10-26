@@ -4,6 +4,7 @@ import CardProduct from "./Cards/CardProduct.vue"
 import CardNoProduct from "./Cards/CardNoProduct.vue"
 import CardsMyBuy from "./Cards/CardsMyBuy.vue"
 import CardsFavorites from "./Cards/CardsFavorites.vue"
+import CardPurchases from "./Cards/CardPurchases.vue"
 
 // Tables
 import NavTabsTable from "./Tables/NavTabsTable.vue";
@@ -18,5 +19,6 @@ export {
     FavoriteTable,
     CardNoProduct,
     CardsMyBuy,
-    CardsFavorites
+    CardsFavorites,
+    CardPurchases
 };

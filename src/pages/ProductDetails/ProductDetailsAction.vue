@@ -45,7 +45,7 @@
           <span >{{ errors[0] }}</span>                
         </ValidationProvider>
      </md-field>
-     <!-- <p class="md-subhead p3" >Calcular costo del envío</p> -->
+  
      <div style="margin-top: 2rem;">
      <label class="md-gala-separation gala-label"> Envío: ${{ zipAmount }}</label>
      <label class="gala-label"> Total: ${{ data.price * cant + zipAmount }}</label> 
@@ -54,8 +54,12 @@
    </transition>
   </md-card-content>  
 
- <md-card-actions md-alignment="left" style="margin-top: 6%;">
-   <md-button class="md-round md-gala-cyan" id="separacion" v-on:click="back">Volver</md-button>
+
+
+ <p></p>  
+ <md-card-actions md-alignment="space-between"> 
+
+   <md-button class="md-round md-gala-cyan"  v-on:click="back">Volver</md-button>
    <transition name="flip">
     <md-button class="md-round md-gala" v-on:click="purchase" :disabled="(invalid ) " data-cy="orderCreate" 
       v-bind:key="!cards.flipped" v-if="!cards.flipped">Comprar

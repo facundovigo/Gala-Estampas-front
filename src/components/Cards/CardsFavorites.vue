@@ -2,7 +2,7 @@
  <md-card>
       <md-card-media-actions>
         <md-card-media>
-              <md-card-media>
+              <md-card-media class="p">
               <img :src="img" alt="Producto">
               </md-card-media>
         </md-card-media>
@@ -20,8 +20,8 @@
       </md-card-media-actions>
       <div class="text-center"> 
         <md-card-header-text>
-          <div class="md-subhead">Producto: {{ post.product_id.name }}</div>
-          <div class="md-subhead">Precio: {{ post.product_id.price }}</div>
+          <div class="md-subhead" style="color: black !important;">Producto: {{ post.product_id.name }}</div>
+          <div class="md-subhead" style="color: black !important;">Precio: {{ post.product_id.price }}</div>
         </md-card-header-text>
       </div>  
     </md-card>
@@ -55,10 +55,18 @@ data(){
 
 <style lang="scss" scoped>
  .md-card {
-    background-color:antiquewhite!important;
+    //background-color:antiquewhite!important;
     margin: 4px;
     display: inline-block;
     vertical-align: top;
+    border: pink 0.5px ridge;
     
   }
+  .md-subhead{
+    font-style: oblique;
+    font-style: italic ;
+}
+.p{
+  border: pink 0.5px ridge;
+}
 </style>
