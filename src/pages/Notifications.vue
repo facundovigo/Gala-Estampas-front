@@ -41,8 +41,9 @@ export default {
         verticalAlign: verticalAlign,
         type: this.type[color]
       });
-    }
-  }
+    },
+
+}
 };
 </script>
 

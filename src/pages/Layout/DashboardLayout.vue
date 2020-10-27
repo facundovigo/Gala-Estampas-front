@@ -89,7 +89,27 @@ export default {
 };
 </script>
 
+<style >
+body::-webkit-scrollbar {
+    background-color: white;
+  width: 4px;
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: pink;
+  border-radius: 15px;
+  /* outline: 1px solid pink;  */
+}
+
+.scroller {
+  width: 300px;
+  height: 100px;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+}
 
 
+</style>
 
 
