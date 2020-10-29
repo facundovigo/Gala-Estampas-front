@@ -9,9 +9,7 @@ import Favorites from "@/pages/Favorites.vue"
 import Notifications from "@/pages/Notifications.vue"
 
 const routes = [{
-    routes: [],
 
-    mode: "history",
     path: '/',
     component: DashboardLayout,
     redirect: "/dashboard",
@@ -44,10 +42,11 @@ const routes = [{
             path: 'productDetails',
             component: ProductDetails,
             name: 'productDetails',
-            props: true
+            //props: true
         },
-
-    ]
+    ],
+    path: '*',
+    component: DashboardLayout,
 }];
 
 export default routes;

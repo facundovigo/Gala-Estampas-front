@@ -7,7 +7,7 @@
  <div class="md-layout" >
   <md-toolbar class="md-transparent" v-if="!this.loading">
     <div class="md-toolbar-row">
-    <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
+     <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
       
       <md-table-row slot="md-table-row" slot-scope="{ item,  }">
         <md-table-cell md-label="" >
@@ -19,8 +19,10 @@
         <md-table-cell md-label="Cantidad">{{ item.cant }}</md-table-cell>
         <md-table-cell md-label="N° Orden">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
-      </md-table-row>
-    </md-table>
+        <md-table-cell md-label="Estado">Entregado</md-table-cell>
+      </md-table-row> 
+    </md-table> 
+        
     </div>
     
     <div class="md-toolbar-toggle md-layout  md-alignment-top-center" >
@@ -44,11 +46,12 @@
 import chunk from "lodash/chunk";
 import API from '../../service/api';
 import {
-  CardsMyBuy,
+  CardsMyBuy,CardPurchases
 } from "@/components";
 export default {
   components:{
-      CardsMyBuy
+      CardsMyBuy,
+    //  CardPurchases
   },
   name: "simple-table",
   props: {

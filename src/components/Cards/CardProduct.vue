@@ -1,7 +1,7 @@
 <template>
     <md-card class="pepe">
-      <md-card-media-actions >
-        <md-card-media>
+      <md-card-media-actions>
+        <md-card-media style="border: pink 0.5px ridge;">
           <img :src="this.urlImage"  v-on:click="details" alt="Cover">
         </md-card-media>
 
@@ -20,6 +20,7 @@
 
           <md-button class="md-icon-button">
             <md-icon>share</md-icon>
+
           </md-button>
 
         </md-card-actions>
@@ -61,7 +62,10 @@ export default {
         })
       },
       details(){
-        this.$router.push({ name: 'productDetails', params: {post: this.post}})
+        localStorage.setItem('product', this.post.id)
+        //this.$router.push({ name: 'productDetails', params: {post: this.post}})
+        this.$router.push('productDetails')
+        
       },
       url(){
         return this.t
@@ -95,12 +99,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
   .md-card {
     width: 20rem;
     margin: 8px;
     display: inline-block;
     vertical-align: top;
   }
+
+  .pepe:hover {
+    transition: all .4s;
+    transform: scale(1.1);
+    border: pink 2px ridge;
+  }
+
   .md-button i {
       border-radius: 100% !important;
       padding: 0.8rem;
@@ -118,7 +130,7 @@ export default {
     padding: 0.8rem;
     color:rgba(0,0,0,0.54) !important;
               }:focus{
-                       animation: ripple 400ms linear;
+                 animation: ripple 400ms linear;
 
   }
 
@@ -127,10 +139,6 @@ export default {
         transform: scale(1.4);
   }
 
-  .pepe:hover {
-    transition: all .4s;
-    transform: scale(1.1);
-  }
 
   @keyframes ripple {
   to {
@@ -139,5 +147,6 @@ export default {
     opacity: 0;   
   }
 }
+
 </style>
 
