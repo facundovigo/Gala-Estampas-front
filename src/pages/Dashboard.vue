@@ -10,7 +10,7 @@
     <div class="md-layout  md-alignment-top-center" v-else>
           <CardNoProduct></CardNoProduct>
     </div>  
-    <div class="md-layout  md-alignment-top-center block" v-if="showButtons && (! this.loading)" >
+    <div class="md-layout  md-alignment-top-center block" v-if="showButtons && (! this.loading)"  >
       <md-button class="md-raised md-gala md-round " v-on:click="this.previus">
         <span class="material-icons" >keyboard_arrow_left</span>
       </md-button>

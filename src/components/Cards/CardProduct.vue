@@ -1,7 +1,7 @@
 <template>
     <md-card class="pepe">
-      <md-card-media-actions >
-        <md-card-media>
+      <md-card-media-actions>
+        <md-card-media style="border: pink 0.5px ridge;">
           <img :src="this.urlImage"  v-on:click="details" alt="Cover">
         </md-card-media>
 
@@ -20,6 +20,7 @@
 
           <md-button class="md-icon-button">
             <md-icon>share</md-icon>
+
           </md-button>
 
         </md-card-actions>
@@ -146,5 +147,6 @@ export default {
     opacity: 0;   
   }
 }
+
 </style>
 
