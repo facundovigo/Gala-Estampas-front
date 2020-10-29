@@ -4,9 +4,8 @@ beforeEach(()=>{
 describe('Login', () => {
   it('Si el login es correcto te lleva al home', () => {
     cy.visit('http://localhost:8080/user')
-    cy.get('[data-cy=username]').type('dami@dami.com')
+    cy.get('[data-cy=username]').type('enzo@quete.com')
     cy.get('[data-cy=password]').type('asdasd123')
-    debbuger;
     cy.get('[data-cy=login]').click()//.should(() => {
       //reviso que guarde el nombre y la key en el storage
     //   expect(localStorage.getItem('name')).to.eq('Damian')

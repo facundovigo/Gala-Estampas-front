@@ -13,7 +13,6 @@ const API = {
     delete: path => axios.delete(`${server}${path}`).then(response => response.data),
 };
 
-
 axios.interceptors.request.use(
     (config) => {
         let token = localStorage.getItem('accessToken');
