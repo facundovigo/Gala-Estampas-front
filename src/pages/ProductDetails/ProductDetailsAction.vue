@@ -145,7 +145,6 @@ export default {
       if (localStorage.getItem("session")){
         const body={
           product:this.data.id,
-          client: localStorage.getItem("session"),
           date_delivery: this.shippingDate,
           cant: this.cant
         }

@@ -36,16 +36,15 @@
 
         <div class="md-layout-item md-small-size-100">
           <md-list-item>
-          <md-icon  style="color: #6BC5C8;">lock</md-icon>
-          <md-field>
-            <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
-            <label>Contraseña</label>
-            <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
-            <span>{{ errors[0] }}</span>
-            </ValidationProvider>
-          </md-field>
-        </md-list-item>
-
+            <md-icon  style="color: #6BC5C8;">lock</md-icon>
+            <md-field>
+              <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
+              <label>Contraseña</label>
+              <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
+              <span>{{ errors[0] }}</span>
+              </ValidationProvider>
+            </md-field>
+          </md-list-item>
         </div>
       </form>
         <md-button class="md-round md-gala" id="separacion" v-on:click="back">Volver</md-button>
@@ -214,12 +213,12 @@ export default {
     async loginn(){
       const data = await API.post('/api/auth/login/', this.login)
       .then( resp => {
-        this.notifyVue('top', 'right', `!!! Lindo volver a verte ${resp.user.first_name} :)` , "success")
-        localStorage.session = resp.user.id
-        localStorage.name = resp.user.first_name
+        this.notifyVue('top', 'right', `!!! Que lindo volver a verte ${resp.user.first_name} :)` , "success")
+        localStorage.setItem('session', resp.user.id)
+        localStorage.setItem('name', resp.user.first_name)
+        localStorage.setItem('accessToken', resp.key)
         this.$store.state.auth = true
         this.loading=false
-        //this.$router.push('dashboard')
         window.history.go(-1)
       })
       .catch(e =>  {
@@ -232,13 +231,14 @@ export default {
       this.loading=true
       await API.post("/api/auth/register/", this.body)
         .then( usr => {
-          localStorage.session = usr.user.id
-          localStorage.name = usr.user.first_name
-          this.$store.state.auth = true
+          localStorage.setItem('session', usr.user.id)
+          localStorage.setItem('name', usr.user.first_name)
+          localStorage.setItem('accessToken', resp.key)
+          this.$store.setItem('state.auth', true)
+          //TODO: send mail() 
           this.loading=false
-          this.notifyVue('top', 'right', ` el usuario se registro correctamente ${usr.user.first_name} :) `, "success")
-          this.$router.push('dashboard')
-          //window.history.go(-1)
+          this.notifyVue('top', 'right', ` ${usr.user.first_name} se registro correctamente  :) `, "success")
+          window.history.go(-1)
         })
         .catch(e => {
           this.loading=false 

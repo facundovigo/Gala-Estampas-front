@@ -7,7 +7,6 @@
         </md-card-media>
 
         <md-card-area >
-            <span class="md-subhead md-layout  md-alignment-top-center" style="color: pink" >No hay resultado para esta busqueda</span>
             <span class="md-subhead md-layout  md-alignment-top-center" style="color: pink">
                       Gala Estampas
                      <i class="fa fa-heart heart"></i> Regalos pensados
@@ -23,7 +22,7 @@ export default {
     name:"CardNoProduct",
     data(){
       return{
-        urlImage: require("@/assets/img/villains.png")
+        urlImage: require("@/assets/img/error_search_category.png")
       }
     },
 
