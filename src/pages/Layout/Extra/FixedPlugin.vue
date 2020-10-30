@@ -47,8 +47,8 @@ Vue.use(VueGitHubButtons, { useCache: true });
 export default {
   data() {
     return {
-      shareUrl: "http://localhost:8080/#/dashboard",
-      freeUrl: "http://localhost:8080/#/dashboard",
+      shareUrl: "http://www.galaestampas.ar/",
+      freeUrl: "http://www.galaestampas.ar/",
       isOpen: false,
     };
   },
