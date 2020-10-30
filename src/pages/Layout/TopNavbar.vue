@@ -1,20 +1,21 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
-    <div class="md-toolbar-row">
-      <div class="md-toolbar-section-start " > 
-      
-        <div class="md-collapse" v-if="(this.$route.name == 'Dashboard')">
-          <div class="sep" v-for="(category, index) in categoriesA" :key="index">
-            <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
-            v-on:click="searchByCategory(category.id)">
-              <md-avatar class="md-avatar-icon" >
-                <img :src="category.icon" alt="People">
-              </md-avatar>
-            </md-button>
-        </div>
+   <div class="md-toolbar-row">
+    <h3 class="md-title" style="color: #6BC5C8 !important; width: 80% !important;">Facundo Vigo</h3>
+     <div class="md-collapse" v-if="(this.$route.name == 'Dashboard')">
+      <div class="sep" v-for="(category, index) in categoriesA" :key="index">
+       <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
+         v-on:click="searchByCategory(category.id)">
+            <md-avatar class="md-avatar-icon" >
+              <img :src="category.icon" alt="People">
+            </md-avatar>
+          <md-tooltip md-direction="bottom" style="color: #6BC5C8 !important;">{{category.name}}</md-tooltip>
+        </md-button>
       </div>
-
-     <div class="md-autocomplete md-toolbar-toggle" style="width: 100%;">
+     </div>
+    
+    <div class="md-toolbar-section-start " >  
+     <div class="md-autocomplete md-toolbar-toggle" style="width: 80%;">
             <md-autocomplete
               class="search"
               v-model="selectedProducts"
@@ -25,17 +26,6 @@
             </md-autocomplete>
           </div>
       </div>    
-      <div class="md-toolbar-section-end">
-      <div class="md-collapse" v-if="(this.$route.name== 'Dashboard')">
-        <div class="sep" v-for="(category, index) in categoriesB" :key="index">
-          <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
-            <md-avatar class="md-avatar-icon" >
-              <img :src="category.icon" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        
-      </div>      
         
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle md-gala"
@@ -48,7 +38,6 @@
         </md-button>
 
         <div class="md-collapse">
-
           <md-list>
             <md-list-item to="/" >
               <i class="material-icons">dashboard</i>
@@ -82,15 +71,12 @@
                 </div>
               </a>
             </li>
-           
-
             <md-list-item to="/user" >
               <i class="material-icons" >person</i>
               <p class="hidden-lg hidden-md" >Profile</p>
             </md-list-item>
           </md-list>
         </div>
-      </div>
     </div>
   </md-toolbar>
 </template>
@@ -102,6 +88,7 @@ export default {
   mounted(){
     this.getCategories()
     this.call()
+
   },
   data() {
     return {
@@ -109,7 +96,7 @@ export default {
       categoryList: [],
       categoryListNames: [],
       categoriesA:[],
-      categoriesB:[],
+      //categoriesB:[],
       isFavorite: false,
     };
   },
@@ -128,8 +115,8 @@ export default {
       API.get(`/api/category/`)
       .then(res => {
         const size = res.length
-        this.categoriesA = chunk(res,6)[0]
-        this.categoriesB = chunk(res,6)[1]
+        this.categoriesA =  res 
+        
 
       }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
     },
@@ -204,6 +191,7 @@ export default {
 .sep{
   margin-right: 1rem;
 }
+
 .f{
   transition: all 0.6s;
 }
@@ -231,4 +219,12 @@ export default {
     opacity: 0;
   }
 }
+
+
+.active {
+  background: beige;
+  //margin-top: 1rem !important;
+  //width: 100% !important;
+}
+
 </style>

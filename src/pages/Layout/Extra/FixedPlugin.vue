@@ -2,7 +2,7 @@
   <div class="fixed-plugin" v-click-outside="closeDropDown">
     <div class="dropdown show-dropdown" :class="{ show: isOpen }">
       <a data-toggle="dropdown">
-        <i class="fas fa-share-alt icon-trans" @click="toggleDropDown"> </i>
+        <i class="fas fa-share-alt icon-trans" @click="toggleDropDown" style="color: red !important;"> </i>
       </a>
       <ul class="dropdown-menu" :class="{ show: isOpen }">
         <li class="header-title"> Gala Estampas</li>

@@ -12,17 +12,18 @@
              v-if="token()" 
              data-cy="card-fav">
             <md-icon v-bind:class="{'md-i':(!isFavorite), 'favorite':(isFavorite)}">favorite</md-icon>
+            <md-tooltip md-direction="right" style="color: pink !important;">Favorito</md-tooltip>
           </md-button>
 
           <md-button class="md-icon-button " v-on:click="details" data-cy="card-detail">
             <md-icon>bookmark</md-icon>
+            <md-tooltip md-direction="right" style="color: pink !important;">Detalles</md-tooltip>
           </md-button>
 
           <md-button class="md-icon-button">
             <md-icon>share</md-icon>
-
           </md-button>
-
+          
         </md-card-actions>
       </md-card-media-actions>
     </md-card>
@@ -147,6 +148,8 @@ export default {
     opacity: 0;   
   }
 }
+
+
 
 </style>
 
