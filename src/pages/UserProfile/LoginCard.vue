@@ -235,10 +235,10 @@ export default {
           localStorage.setItem('name', usr.user.first_name)
           localStorage.setItem('accessToken', resp.key)
           this.$store.setItem('state.auth', true)
+          //TODO: send mail() 
           this.loading=false
           this.notifyVue('top', 'right', ` ${usr.user.first_name} se registro correctamente  :) `, "success")
-          this.$router.push('dashboard')
-          //window.history.go(-1)
+          window.history.go(-1)
         })
         .catch(e => {
           this.loading=false 

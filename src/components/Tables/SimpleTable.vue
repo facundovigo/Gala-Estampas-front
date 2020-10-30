@@ -19,7 +19,7 @@
         <md-table-cell md-label="Cantidad">{{ item.cant }}</md-table-cell>
         <md-table-cell md-label="N° Orden">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
-        <md-table-cell md-label="Estado">Entregado</md-table-cell>
+        <md-table-cell md-label="Estado">{{ item.product_status }}</md-table-cell>
       </md-table-row> 
     </md-table> 
         
