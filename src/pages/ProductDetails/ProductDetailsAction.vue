@@ -148,6 +148,7 @@ export default {
           date_delivery: this.shippingDate,
           cant: this.cant
         }
+        this.getShippingData()
         if(!this.shipping || this.hasShippingData){
           API.post('/api/order/',body)
           .then( resp =>{
@@ -165,7 +166,8 @@ export default {
       }
     },
     getShippingData(){
-      this.hasShippingData = this.$store.state.client.length > 0 
+      this.hasShippingData = (this.$store.state.client != null)
+      console.log(this.hasShippingData, "shippingD");
     },
     getZipAmount(){
       if(this.zipCode.length > 3){
