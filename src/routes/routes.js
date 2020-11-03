@@ -6,7 +6,6 @@ import UserProfile from "@/pages/UserProfile.vue";
 import ProductDetails from "@/pages/ProductDetails.vue";
 import TableList from "@/pages/TableList.vue";
 import Favorites from "@/pages/Favorites.vue"
-import Notifications from "@/pages/Notifications.vue"
 
 const routes = [{
 
@@ -15,34 +14,28 @@ const routes = [{
     redirect: "/dashboard",
     children: [{
             path: 'dashboard',
-            name: "Dashboard",
+            name: 'Pruductos',
             component: Dashboard
         },
         {
             path: "user",
-            name: "User Profile",
+            name: "Datos del usuario",
             component: UserProfile
         },
         {
             path: "miscompras",
             component: TableList,
-            name: "miscompras",
+            name: "Mis Compras",
         },
         {
             path: 'favorites',
             component: Favorites,
-            name: 'favorites',
-        },
-        {
-            path: 'notifications',
-            component: Notifications,
-            name: 'notifications',
+            name: 'Mis Favoritos',
         },
         {
             path: 'productDetails',
             component: ProductDetails,
-            name: 'productDetails',
-            //props: true
+            name: 'Detalles del Producto',
         },
     ],
     path: '*',

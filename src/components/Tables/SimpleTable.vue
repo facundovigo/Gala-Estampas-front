@@ -19,7 +19,9 @@
         <md-table-cell md-label="Cantidad">{{ item.cant }}</md-table-cell>
         <md-table-cell md-label="N° Orden">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
-        <md-table-cell md-label="Estado">{{ item.product_status }}</md-table-cell>
+        <md-table-cell md-label="Estado">
+          <h4>{{ hola('OR') }}</h4>
+        </md-table-cell>
       </md-table-row> 
     </md-table> 
         
@@ -48,6 +50,7 @@ import API from '../../service/api';
 import {
   CardsMyBuy,CardPurchases
 } from "@/components";
+
 export default {
   components:{
       CardsMyBuy,
@@ -62,15 +65,32 @@ export default {
   },
     mounted(){
       this.call()
+
     },
   data() {
     return {
+      OR: "pedido",
+      AC: "Aceptado",
+      PR: "En proceso",
+      FN: "terminado",
+      DE: "Entregado",
+      RJ: "Rechazado",
+      CC: "cancelado",
       products: [],
       page: 1,
       info:"",
       loading: true,
       client: localStorage.getItem("session"),
-      showButtons: false
+      showButtons: false,
+      estado:[
+        { "or": "Pedido"},
+        { "AC": "Aceptado"},
+        { "PR": "En Proceso"},
+        { "FN": "Terminado"},
+        { "DE": "Entregado"},
+        { "RJ": "Rechazado"},
+        { "CC": "Cancelado"},
+      ]  
     }
   },
   methods:{
@@ -126,7 +146,11 @@ export default {
     checkShowButtons(r){
        this.showButtons = ((r > 5) );
     },
+    hola(p){
+      return  this.p
+    }
   }
+
 };
 </script>
 

@@ -59,20 +59,24 @@
  <p></p>  
  <md-card-actions md-alignment="space-between"> 
 
-   <md-button class="md-round md-gala-cyan"  v-on:click="back">Volver</md-button>
+   <md-button class="md-round md-gala-cyan gala-tam"  v-on:click="back" :disabled="(compra)">Volver</md-button>
    <transition name="flip">
-    <md-button class="md-round md-gala" v-on:click="purchase" :disabled="(invalid ) " data-cy="orderCreate" 
+    <md-button class="md-round md-gala gala-tam" v-on:click="purchase" :disabled="(invalid || compra)" data-cy="orderCreate" 
       v-bind:key="!cards.flipped" v-if="!cards.flipped">Comprar
+           <md-progress-spinner :md-diameter="10" :md-stroke="3" md-mode="indeterminate"
+       style="margin-left: 2rem; " v-if="compra"></md-progress-spinner>
     </md-button>
-
-    <md-button class="md-round md-gala" :disabled="(true ) " data-cy="orderCreate" 
+    <md-button class="md-round md-gala gala-tam" :disabled="(true)" data-cy="orderCreate" 
       v-bind:key="!cards.flipped" v-if="cards.flipped">Comprar
     </md-button> 
+
     </transition>
   </md-card-actions>
-         
-  </ValidationObserver> 
-      
+  <!-- <md-button class="md-round md-gala"  style="width: 93%;" :disabled="(false)" v-else>Realizando Compra...
+       <md-progress-spinner class="md-accent spi" :md-diameter="30" md-mode="indeterminate"
+       style="margin-left: 2rem; "></md-progress-spinner>
+      </md-button> -->
+  </ValidationObserver>       
   </md-card>
 </template>
 
@@ -150,13 +154,15 @@ export default {
         }
         this.getShippingData()
         if(!this.shipping || this.hasShippingData){
+          this.compra = true
           API.post('/api/order/',body)
           .then( resp =>{
             this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
             this.$router.push('miscompras');
+            this.compra = false
           }).catch(e => {
             this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e.error, "danger")
-            console.log(e)
+            this.compra = false
             })
         }else{
           this.$store.state.cardFlap= !this.$store.state.cardFlap
@@ -208,6 +214,7 @@ export default {
       shippingDate: format(now, dateFormat),
       hasShippingData: ( this.$store.state.client && this.$store.state.client != [] ),
       userid: localStorage.getItem("session"),
+      compra: false
     };
   }
 };
@@ -275,5 +282,8 @@ export default {
   background-color: pink !important;
 }
 
+.gala-tam{
+  height: auto;
+}
 
 </style>

@@ -54,11 +54,11 @@ export default {
       page: 1,
     }
   },
-        watch:{
-        '$store.state.category'() {
-          this.menuss()
-        }
-    },
+  watch:{
+      '$store.state.category'() {
+      this.menuss()
+    }
+  },
 
   methods:{
     menuss(){

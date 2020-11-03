@@ -1,8 +1,10 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
    <div class="md-toolbar-row">
-    <h3 class="md-title" style="color: #6BC5C8 !important; width: 80% !important;">Facundo Vigo</h3>
-     <div class="md-collapse" v-if="(this.$route.name == 'Dashboard')">
+    <div class="md-collapse f">
+    <h3 class="md-title" style="color: #6BC5C8 !important; width: 80% !important;">{{$route.name}}</h3>
+    </div>
+     <div class="md-collapse" v-if="(this.$route.name == 'Pruductos')">
       <div class="sep" v-for="(category, index) in categoriesA" :key="index">
        <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
          v-on:click="searchByCategory(category.id)">
@@ -44,33 +46,6 @@
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
 
-            <li class="md-list-item">
-              <a
-                href="notifications"
-                class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              >
-                <div class="md-list-item-content" v-if="token()">
-                  <drop-down>
-                    <md-button 
-                      slot="title"
-                      class="md-button md-just-icon md-simple"
-                      data-toggle="dropdown"
-                    >
-                      <md-icon>notifications</md-icon>
-                      <span class="notification">5</span>
-                      <p class="hidden-lg hidden-md">Notifications</p>
-                    </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Mike John responded to your email</a></li>
-                      <li><a href="#">You have 5 new tasks</a></li>
-                      <li><a href="#">You're now friend with Andrew</a></li>
-                      <li><a href="#">Another Notification</a></li>
-                      <li><a href="#">Another One</a></li>
-                    </ul>
-                  </drop-down>
-                </div>
-              </a>
-            </li>
             <md-list-item to="/user" >
               <i class="material-icons" >person</i>
               <p class="hidden-lg hidden-md" >Profile</p>
@@ -221,10 +196,10 @@ export default {
 }
 
 
-.active {
-  background: beige;
-  //margin-top: 1rem !important;
-  //width: 100% !important;
-}
+// .active {
+//   background: beige;
+//   //margin-top: 1rem !important;
+//   //width: 100% !important;
+// }
 
 </style>
