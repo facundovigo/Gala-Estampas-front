@@ -166,7 +166,7 @@ export default {
       }
     },
     getShippingData(){
-      this.hasShippingData = (this.$store.state.client != null)
+      this.hasShippingData = (this.$store.state.client != null && this.$store.state.client.length > 0 )
       console.log(this.hasShippingData, "shippingD");
     },
     getZipAmount(){
