@@ -20,7 +20,7 @@
         <md-table-cell md-label="N° Orden">{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
         <md-table-cell md-label="Estado">
-          <h4>{{ hola('OR') }}</h4>
+          <md-icon>{{ getIconByOrderStatus(item.product_status) }}</md-icon>
         </md-table-cell>
       </md-table-row> 
     </md-table> 
@@ -69,10 +69,10 @@ export default {
     },
   data() {
     return {
-      OR: "pedido",
+      OR: "Pedido",
       AC: "Aceptado",
       PR: "En proceso",
-      FN: "terminado",
+      FN: "Terminado",
       DE: "Entregado",
       RJ: "Rechazado",
       CC: "cancelado",
@@ -82,15 +82,16 @@ export default {
       loading: true,
       client: localStorage.getItem("session"),
       showButtons: false,
-      estado:[
-        { "or": "Pedido"},
-        { "AC": "Aceptado"},
-        { "PR": "En Proceso"},
-        { "FN": "Terminado"},
-        { "DE": "Entregado"},
-        { "RJ": "Rechazado"},
-        { "CC": "Cancelado"},
-      ]  
+      estado:{ 
+        OR: {desc: "Pedido", icon: "done"},
+        AC: {desc: "Aceptado", icon: "done_all"},
+        PR: {desc: "En proceso", icon: "En Proceso"},
+        FN: {desc: "Terminado", icon: "local_shipping"},
+        DE: {desc: "Entregado", icon: "stars"},
+        RJ: {desc: "Rechazado", icon: "highlight_off"},
+        CC: {desc: "cancelado", icon: "highlight_off"}
+      }
+      
     }
   },
   methods:{
@@ -129,7 +130,6 @@ export default {
       }
     },
     nextt(){
-       console.log(this.page,"next")
       if(this.info !== null) {
        this.page ++
        this.loading=true
@@ -146,8 +146,9 @@ export default {
     checkShowButtons(r){
        this.showButtons = ((r > 5) );
     },
-    hola(p){
-      return  this.p
+    getIconByOrderStatus(orderStatus){
+      var icon = this.estado[orderStatus].icon
+      return icon
     }
   }
 
