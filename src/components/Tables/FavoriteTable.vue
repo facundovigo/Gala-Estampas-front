@@ -15,9 +15,9 @@
           <img :src="item.product_id.photo" alt="Producto">
       </md-avatar>
         </md-table-cell>
-        <md-table-cell md-label="Producto">{{ item.product_id.name }}</md-table-cell>
-        <md-table-cell md-label="Precio">{{ item.product_id.price }}</md-table-cell>
-        <md-table-cell md-label="Realizar Pedido">{{ item.date_delivery }}
+        <md-table-cell class="md-subhead" md-label="Producto">{{ item.product_id.name }}</md-table-cell>
+        <md-table-cell class="md-subhead" md-label="Precio">{{ item.product_id.price }}</md-table-cell>
+        <md-table-cell  md-label="Realizar Pedido">{{ item.date_delivery }}
          <md-button class="md-round md-gala-cyan" v-on:click="details(item.product_id)">Detalles </md-button>
         </md-table-cell>
         <md-table-cell md-label="">
@@ -98,7 +98,7 @@ export default {
       })
     },
     details(item){
-      this.$router.push({ name: 'productDetails', params: {post: item}})
+      this.$router.push({ name: 'Detalles del Producto', params: {post: item}})
     },
     deleteItem(item){
       const product = item.product_id.id

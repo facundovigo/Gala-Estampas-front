@@ -71,13 +71,9 @@
     </md-button> 
 
     </transition>
-  </md-card-actions>
-  <!-- <md-button class="md-round md-gala"  style="width: 93%;" :disabled="(false)" v-else>Realizando Compra...
-       <md-progress-spinner class="md-accent spi" :md-diameter="30" md-mode="indeterminate"
-       style="margin-left: 2rem; "></md-progress-spinner>
-      </md-button> -->
+   </md-card-actions>
   </ValidationObserver>       
-  </md-card>
+ </md-card>
 </template>
 
 

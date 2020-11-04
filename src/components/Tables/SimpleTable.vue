@@ -9,18 +9,22 @@
     <div class="md-toolbar-row">
      <md-table v-model="products" :table-header-color="tableHeaderColor" class="md-collapse" >
       
-      <md-table-row slot="md-table-row" slot-scope="{ item,  }">
+      <md-table-row slot="md-table-row" slot-scope="{ item,  }"  >
         <md-table-cell md-label="" >
           <md-avatar class="md-large">
            <img :src="item.product_id.photo" alt="Producto">
           </md-avatar>
         </md-table-cell>
-        <md-table-cell md-label="Producto">{{ item.product_id.name }}</md-table-cell>
-        <md-table-cell md-label="Cantidad">{{ item.cant }}</md-table-cell>
-        <md-table-cell md-label="N° Orden">{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
+        <md-table-cell class="md-subhead" md-label="Producto">{{ item.product_id.name }}</md-table-cell>
+        <md-table-cell class="md-subhead" md-label="Cantidad">{{ item.cant }}</md-table-cell>
+        <md-table-cell class="md-subhead" md-label="N° Orden">{{ item.id }}</md-table-cell>
+        <md-table-cell class="md-subhead" md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
         <md-table-cell md-label="Estado">
-          <md-icon>{{ getIconByOrderStatus(item.product_status) }}</md-icon>
+          <!-- <label class="md-subhead gala-style" >{{getIconByOrderStatusName(item.product_status)}} -->
+          <md-icon class="gala-style-icon" >{{ getIconByOrderStatus(item.product_status) }}
+            <md-tooltip class="gala-style-pop" md-direction="right" >{{getIconByOrderStatusName(item.product_status)}}</md-tooltip>
+          </md-icon>
+          <!-- </label> -->
         </md-table-cell>
       </md-table-row> 
     </md-table> 
@@ -69,13 +73,6 @@ export default {
     },
   data() {
     return {
-      OR: "Pedido",
-      AC: "Aceptado",
-      PR: "En proceso",
-      FN: "Terminado",
-      DE: "Entregado",
-      RJ: "Rechazado",
-      CC: "cancelado",
       products: [],
       page: 1,
       info:"",
@@ -85,7 +82,7 @@ export default {
       estado:{ 
         OR: {desc: "Pedido", icon: "done"},
         AC: {desc: "Aceptado", icon: "done_all"},
-        PR: {desc: "En proceso", icon: "En Proceso"},
+        PR: {desc: "En proceso", icon: "miscellaneous_services"},
         FN: {desc: "Terminado", icon: "local_shipping"},
         DE: {desc: "Entregado", icon: "stars"},
         RJ: {desc: "Rechazado", icon: "highlight_off"},
@@ -149,6 +146,10 @@ export default {
     getIconByOrderStatus(orderStatus){
       var icon = this.estado[orderStatus].icon
       return icon
+    },
+    getIconByOrderStatusName(orderStatus){
+      var desc = this.estado[orderStatus].desc
+      return desc
     }
   }
 
@@ -160,4 +161,23 @@ export default {
   color: pink !important;
   --md-theme-default-primary: #f06292 !important;
 }
+.gala-style{
+  font-style: oblique;
+  color: #04888d;
+  font-size: 1.2rem !important;
+  
+}
+
+.gala-style-icon{
+  color: #ec407a !important;   
+  margin-left: 5px !important; 
+  margin-bottom: 5px!important;
+}
+
+.gala-style-pop{
+  font-style: oblique;
+  color: #04888d !important;
+  font-size: 1.2rem !important;
+}
 </style>
+

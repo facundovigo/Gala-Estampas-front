@@ -16,6 +16,7 @@
        
         target="_blank"
         class="simple-text logo-normal"
+        style="font-style: italic !important ;"
       >
         {{ title }}
       </a>

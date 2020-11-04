@@ -38,7 +38,7 @@ data(){
   },
   methods:{
     details(item){
-      this.$router.push({ name: 'productDetails', params: {post: item}})
+      this.$router.push({ name: 'CardsFavorites', params: {post: item}})
     },
     deleteFav(item){
       const client = localStorage.getItem("session")

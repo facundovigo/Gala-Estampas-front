@@ -2,7 +2,7 @@
   <md-toolbar md-elevation="0" class="md-transparent">
    <div class="md-toolbar-row">
     <div class="md-collapse f">
-    <h3 class="md-title" style="color: #6BC5C8 !important; width: 80% !important;">{{$route.name}}</h3>
+    <h3 class="md-title gala-style-text" style="color: #6BC5C8 !important; width: 80% !important;">{{$route.name}}</h3>
     </div>
      <div class="md-collapse" v-if="(this.$route.name == 'Pruductos')">
       <div class="sep" v-for="(category, index) in categoriesA" :key="index">
@@ -11,7 +11,7 @@
             <md-avatar class="md-avatar-icon" >
               <img :src="category.icon" alt="People">
             </md-avatar>
-          <md-tooltip md-direction="bottom" style="color: #6BC5C8 !important;">{{category.name}}</md-tooltip>
+          <md-tooltip class="gala-style-pop" md-direction="bottom" >{{category.name}}</md-tooltip>
         </md-button>
       </div>
      </div>
@@ -195,11 +195,16 @@ export default {
   }
 }
 
+.gala-style-pop{
+  font-style: oblique;
+  color: #04888d !important;
+  font-size: 1rem !important;
+}
 
-// .active {
-//   background: beige;
-//   //margin-top: 1rem !important;
-//   //width: 100% !important;
-// }
-
+.gala-style-text{
+  font-style: oblique;
+  color: #04888d !important;
+  font-size: 1.5rem !important;
+  margin-right:  15% !important;
+}
 </style>
