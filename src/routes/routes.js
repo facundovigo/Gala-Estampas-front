@@ -6,6 +6,7 @@ import UserProfile from "@/pages/UserProfile.vue";
 import ProductDetails from "@/pages/ProductDetails.vue";
 import TableList from "@/pages/TableList.vue";
 import Favorites from "@/pages/Favorites.vue"
+import RestorePass from "../pages/UserProfile/RestorePass.vue"
 
 const routes = [{
 
@@ -20,7 +21,12 @@ const routes = [{
         {
             path: "user",
             name: "Datos del usuario",
-            component: UserProfile
+            component: UserProfile,
+        },
+        {
+            path: "restorepass",
+            component: RestorePass,
+            name: "Reseteo de Contraseña"
         },
         {
             path: "miscompras",

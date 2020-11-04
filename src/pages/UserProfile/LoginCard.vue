@@ -26,8 +26,8 @@
           <md-field>
             <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
             <label>Email</label>
-            <md-input  class="md-g" type="email"  v-model="login.username" data-cy="username"></md-input>
-            <span data-cy="error-pass">{{ errors[0] }}</span>                
+            <md-input  type="email"  v-model="login.username" data-cy="username"></md-input>
+            <span class="md-gala-s" data-cy="error-pass">{{ errors[0] }}</span>                
             </ValidationProvider>
           </md-field>
 
@@ -41,18 +41,20 @@
               <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
               <label>Contraseña</label>
               <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
-              <span>{{ errors[0] }}</span>
+              <span class="md-gala-s" >{{ errors[0] }}</span>
               </ValidationProvider>
             </md-field>
           </md-list-item>
         </div>
       </form>
         <md-button class="md-round md-gala" id="separacion" v-on:click="back">Volver</md-button>
-
-         <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
-         <div >
-         <h6 class="category text-description ">No tenés usuario 
-          <em class="gala-fonts" style="cursor: pointer;" v-on:click="preLogin" data-cy="register">create uno </em>
+        <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
+        <div>
+          <h6 class="text-description" v-if="emailIsValid(login.username)">Me olvide
+           <em class="gala-fonts-t" style="cursor: pointer;" v-on:click="restorePass">La Contraseña</em>
+          </h6>
+         <h6 class="text-description" >Sos Nuevo?
+          <em class="gala-fonts-t" style="cursor: pointer; " v-on:click="preLogin" data-cy="register">Registrate</em>
           </h6>
          </div>
        </ValidationObserver>  
@@ -244,6 +246,25 @@ export default {
           this.loading=false 
           this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger")
         })
+    },
+    async  restorePass(){
+      this.loading=true
+      var body =  {
+        email: this.login.username
+      }
+      this.$store.state.recoveripass = this.login.username
+      await API.post("/api/auth/recover_password/", body)
+        .then( usr => {
+          this.loading=false
+          this.$router.push('restorepass')
+        })
+        .catch(e => {
+          this.loading=false 
+          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger")
+        })
+    },
+    emailIsValid(email) {
+      return /\S+@\S+\.\S+/.test(email)
     }
   }
 };
@@ -294,11 +315,19 @@ export default {
 }
 .gala-fonts{
   color:  #6BC5C8;
-  /* font-family: Verdana;
-  font-family: 'PT Sans';  */
-
   font-family: Vegur, 'PT Sans', Verdana, sans-serif;
-
 }
 
+.gala-fonts-t{
+  color:#04888d;
+  font-family: Vegur, 'PT Sans', Verdana, sans-serif;
+}
+
+.text-description{
+  font-style: italic ;
+}
+.md-gala-s{
+  font-style: oblique;
+  color: rgb(85, 83, 83);
+}
 </style>
