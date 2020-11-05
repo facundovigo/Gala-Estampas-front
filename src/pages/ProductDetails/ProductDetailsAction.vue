@@ -66,7 +66,7 @@
            <md-progress-spinner :md-diameter="10" :md-stroke="3" md-mode="indeterminate"
        style="margin-left: 2rem; " v-if="compra"></md-progress-spinner>
     </md-button>
-    <md-button class="md-round md-gala f" :disabled="(true)" data-cy="orderCreate" 
+    <md-button class="md-round md-gala  gala-tam f" :disabled="(true)" data-cy="orderCreate" 
       v-bind:key="!cards.flipped" v-if="cards.flipped">Comprar
     </md-button> 
 
@@ -280,10 +280,7 @@ export default {
 .gala-tam{
   height: auto;
   font-style: italic ;
-}
-
-.md-gala{
-  font-style: italic !important;
   font-size: 1rem !important;
 }
+
 </style>

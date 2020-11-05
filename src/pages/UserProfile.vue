@@ -10,7 +10,7 @@
     </div>
 
     <div class="md-layout  md-alignment-top-center" v-else>
-      <div class="md-layout-item md-medium-size-100 md-size-33">
+      <div class="md-layout-item md-medium-size-100 md-size-40">
         <login-card> </login-card>
       </div>
     </div>

@@ -47,8 +47,10 @@
           </md-list-item>
         </div>
       </form>
-        <md-button class="md-round md-gala" id="separacion" v-on:click="back">Volver</md-button>
-        <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
+      <md-card-actions md-alignment="space-between"> 
+        <md-button class="md-round md-gala f gala-tam" v-on:click="back">Volver</md-button>
+        <md-button class="md-round md-gala-cyan f gala-tam"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
+      </md-card-actions>
         <div>
           <h6 class="text-description" v-if="emailIsValid(login.username)">Me olvide
            <em class="gala-fonts-t" style="cursor: pointer;" v-on:click="restorePass">La Contraseña</em>
@@ -118,10 +120,10 @@
                   
                   </md-card-content>
                 </md-card>
-                <div >
-                    <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-                    <md-button class="md-round md-gala-cyan" v-on:click="register" :disabled="invalid" data-cy="register">Registrar</md-button>
-                </div>      
+                <md-card-actions md-alignment="space-between">
+                    <md-button class="md-round md-gala gala-tam"  v-on:click="preLogin">Volver</md-button>                
+                    <md-button class="md-round md-gala-cyan gala-tam" v-on:click="register" :disabled="invalid" data-cy="register">Registrar</md-button>
+                </md-card-actions>   
          </form>
       </ValidationObserver>
     </div>
@@ -330,5 +332,6 @@ export default {
   font-style: oblique;
   color: rgb(85, 83, 83);
 }
+
 
 </style>

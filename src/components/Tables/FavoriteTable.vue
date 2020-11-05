@@ -18,7 +18,7 @@
         <md-table-cell class="md-subhead" md-label="Producto">{{ item.product_id.name }}</md-table-cell>
         <md-table-cell class="md-subhead" md-label="Precio">{{ item.product_id.price }}</md-table-cell>
         <md-table-cell  md-label="Realizar Pedido">{{ item.date_delivery }}
-         <md-button class="md-round md-gala-cyan" v-on:click="details(item.product_id)">Detalles </md-button>
+         <md-button class="md-round md-gala-cyan gala-tam" v-on:click="details(item.product_id)">Detalles </md-button>
         </md-table-cell>
         <md-table-cell md-label="">
          <md-button class="md-icon-button" v-on:click="deleteItem(item)">
@@ -165,4 +165,9 @@ export default {
           color: red($color: pink) ;
         }
 
+.gala-tam{
+  height: auto;
+  font-style: italic ;
+  font-size: 1rem !important;
+}
 </style>

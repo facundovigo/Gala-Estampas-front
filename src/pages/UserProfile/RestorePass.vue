@@ -31,7 +31,7 @@
           </md-field>
         </md-list-item>
         </div>
-        <div class="md-layout-item md-small-size-50" v-if="estado">
+        <div class="md-layout-item md-small-size-100" v-if="estado">
         <ValidationObserver >
          <md-field>
           <ValidationProvider name="password" rules="required|mimimo|password:@confirm" v-slot="{ errors }">
@@ -50,9 +50,9 @@
         </ValidationObserver>
      </div>
       </form>
-        <md-button class="md-round md-gala" id="separacion" v-on:click="back">Volver</md-button>
-        <md-button class="md-round md-gala-cyan"  v-on:click="confirm" :disabled="invalid" v-if="!estado">Confirmar</md-button>
-        <md-button class="md-round md-gala-cyan"  v-on:click="newpass" :disabled="invalid" v-else>Cambiar</md-button>
+        <md-button class="md-round md-gala gala-tam" id="separacion" v-on:click="back">Volver</md-button>
+        <md-button class="md-round md-gala-cyan gala-tam"  v-on:click="confirm" :disabled="invalid" v-if="!estado">Confirmar</md-button>
+        <md-button class="md-round md-gala-cyan gala-tam"  v-on:click="newpass" :disabled="invalid" v-else>Cambiar</md-button>
          <h6 class="category text-gray">Gala Estampa</h6>
      </ValidationObserver>  
     </div>

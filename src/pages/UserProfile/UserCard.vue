@@ -12,8 +12,12 @@
         foundation in truth And I love you like Kanye loves Kanye I love Rick
         Owens’ bed design but the back is...
       </p>
-      <md-button class="md-round md-gala-cyan" id="separacion" v-on:click="back">Volver</md-button>
-      <md-button class="md-round md-gala2" v-on:click="logOut">salir</md-button> 
+      <div>
+      <md-card-actions md-alignment="space-between">
+        <md-button class="md-round md-gala-cyan gala-tam"  v-on:click="back">Volver</md-button>
+        <md-button class="md-round md-gala2" v-on:click="logOut">salir</md-button> 
+      </md-card-actions>
+      </div>
     </md-card-content>
   </md-card>
 </template>
@@ -49,8 +53,9 @@ export default {
     margin-right: 15%
 }
 
-.md-gala-cyan{
-  font-style: italic !important;
+.gala-tam{
+  height: auto;
+  font-style: italic ;
   font-size: 1rem !important;
 }
 </style>
