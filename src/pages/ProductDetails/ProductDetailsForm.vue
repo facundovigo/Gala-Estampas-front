@@ -5,8 +5,8 @@
       <form v-bind:key="cards.flipped" v-if="!cards.flipped">
         <md-card id="md-color-back">   
           <md-card-header :data-background-color="color">
-            <h4 class="title">{{name}}</h4>
-            <p class="category">{{cabecera}}</p>
+            <h4 class="md-title">{{name}}</h4>
+            <p class="md-subhead">{{cabecera}}</p>
           </md-card-header>
 
           <md-card-content class="md-gala-container">
@@ -83,7 +83,15 @@ export default {
     transform: rotateY(180deg);
     opacity: 0;
   }
+.md-title{
+  color: white !important;
+  font-style: italic ;
+}
 
+.md-subhead{
+  font-style: oblique;
+  font-size: 1rem !important;
+}
 .content {
     padding: 30px 15px;
     min-height: calc(100vh - 9.30rem) !important;

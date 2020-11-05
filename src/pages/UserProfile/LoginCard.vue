@@ -330,4 +330,5 @@ export default {
   font-style: oblique;
   color: rgb(85, 83, 83);
 }
+
 </style>

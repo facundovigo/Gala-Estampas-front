@@ -44,7 +44,13 @@ export default {
 };
 </script>
 <style>
+
 #separacion{
     margin-right: 15%
+}
+
+.md-gala-cyan{
+  font-style: italic !important;
+  font-size: 1rem !important;
 }
 </style>

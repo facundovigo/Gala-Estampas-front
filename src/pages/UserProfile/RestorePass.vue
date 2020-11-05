@@ -164,10 +164,10 @@ export default {
 
 .content {
     padding: 30px 15px;
-    min-height: calc(100vh - 9.40rem) !important;
+    min-height: calc(100vh - 12.40rem) !important;
   }  
-
-.md-field.md-input-action.md-button-content i{
-    color: red !important;
+.content{
+  margin-top: 3rem !important;
 }
+
 </style>

@@ -5,7 +5,7 @@
     </div>  
     <md-card v-if="!this.loading">
       <md-card-header style="background-color: #ec407a" >
-        <h4 class="title">Datos de perfil</h4>
+        <h4 class="title ">Datos de perfil</h4>
       </md-card-header>
 
       <md-card-content>
@@ -60,7 +60,7 @@
           </div>
 
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-round  md-gala2" v-on:click="updateUser()">Actualizar Datos</md-button>
+            <md-button class="md-round md-gala2" v-on:click="updateUser()">Actualizar Datos</md-button>
           </div>
         </div>
       </md-card-content>
@@ -151,4 +151,15 @@ export default {
     margin-top: -16px !important;
     padding-bottom: 0 !important;;
 }
+.title{
+  color: white !important;
+  font-style: italic ;
+  font-size: 1.5rem !important;
+}
+
+.md-gala2{
+  font-style: italic !important;
+  font-size: 1rem !important;
+}
+
 </style>
