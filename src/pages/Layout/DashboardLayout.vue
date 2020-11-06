@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }" style="background-color: #ebf9f9 !important;"> 
+    <notifications></notifications>
     <side-bar
       :sidebar-item-color="sidebarBackground"
       :sidebar-background-image="sidebarBackgroundImage"

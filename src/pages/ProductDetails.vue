@@ -60,5 +60,7 @@ export default {
 
 <style lang="css" scoped>
 
-
+.content{
+  width: 97% !important;
+}
 </style>

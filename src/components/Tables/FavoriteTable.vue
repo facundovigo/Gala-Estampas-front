@@ -85,17 +85,18 @@ export default {
         this.checkShowButtons(resp.count)
         this.loading = false
       })
-      .catch( e => this.notifyVue('top', 'right',  e, "danger"));
+      .catch( e => this.notifyVue('top', 'right',  e, "danger", "sentiment_very_dissatisfied", 3000));
       },
-      notifyVue(verticalAlign, horizontalAlign, date, level) {
-      this.$notify({
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+        this.$notify({
         message:
-           date ,
-        icon: "add_alert",
+            date ,
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
-      })
+        type:level,
+        timeout: 2500
+        })
     },
     details(item){
       this.$router.push({ name: 'Detalles del Producto', params: {post: item}})
@@ -106,7 +107,7 @@ export default {
       API.delete('/api/favorite/?user_id='+client+'&product_id='+product)
       .then( resp => {
         this.products = this.products.filter(elem => elem.id !== item.id )
-      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
+      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger", "sentiment_very_dissatisfied", 3000));
       },
      
     previus(){
@@ -120,7 +121,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       }
     },
     nextt(){
@@ -135,7 +136,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       } 
     },
     checkShowButtons(r){

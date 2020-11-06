@@ -76,7 +76,6 @@ data(){
 
 <style lang="scss" scoped>
  .md-card {
-    //background-color:antiquewhite!important;
     margin: 4px;
     display: inline-block;
     vertical-align: top;
@@ -84,7 +83,6 @@ data(){
   }
   .md-subhead{
     font-style: oblique;
-    //font-style: italic ;
     color: black;
 }
 .p{
@@ -93,7 +91,6 @@ data(){
 
 .gala-style{
   float: right;
-  //margin-bottom: 1rem !important;
 }
 .gala-style-icon{
   color: #ec407a !important;   

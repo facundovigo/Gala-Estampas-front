@@ -76,15 +76,16 @@ export default {
     };
   },
   methods: {
-    notifyVue(verticalAlign, horizontalAlign, date, level) {
-      this.$notify({
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+        this.$notify({
         message:
-           date ,
-        icon: "add_alert",
+            date ,
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
-      })
+        type:level,
+        timeout: 2500
+        })
     },
     getCategories(){
       API.get(`/api/category/`)
@@ -93,7 +94,7 @@ export default {
         this.categoriesA =  res 
         
 
-      }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
     },
     call(){
         API.get('/api/category/')
@@ -101,7 +102,7 @@ export default {
         this.categoryList = resp
         this.categoryListName(resp)
       })
-      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger")
+      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000)
       )},
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
@@ -129,11 +130,6 @@ export default {
        this.categoryListNames  = resp.map( e => e.name)
     },
     searchByCategory(categoryId){
-        // this.$store.state.category = categoryId
-        // this.isFavorite = !this.isFavorite
-        // if(!this.isFavorite){
-        // this.$store.state.category = null
-        // }
         if(this.$store.state.category == categoryId){
             this.$store.state.category = null
         }else{

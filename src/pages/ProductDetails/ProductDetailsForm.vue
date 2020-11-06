@@ -6,7 +6,7 @@
         <md-card id="md-color-back">   
           <md-card-header :data-background-color="color">
             <h4 class="md-title">{{name}}</h4>
-            <p class="md-subhead">{{cabecera}}</p>
+            <p class="md-subhead gala-style-font-form">{{cabecera}}</p>
           </md-card-header>
 
           <md-card-content class="md-gala-container">
@@ -69,6 +69,7 @@ export default {
 #md-color-back{
     background-color: rgb(253, 192, 202);
     margin-top: 4%;
+
 }
 
 .flip-enter-active {
@@ -87,11 +88,11 @@ export default {
   color: white !important;
   font-style: italic ;
 }
-
-.md-subhead{
-  font-style: oblique;
+.gala-style-font-form{
+    font-style: oblique;
   font-size: 1rem !important;
 }
+
 .content {
     padding: 30px 15px;
     min-height: calc(100vh - 9.30rem) !important;

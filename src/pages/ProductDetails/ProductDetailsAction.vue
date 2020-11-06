@@ -40,7 +40,7 @@
     
      <md-field style="margin-top: 1rem;" >
        <ValidationProvider name="zipcode" rules="required|zipcode" v-slot="{ errors }">
-          <label class="md-subhead" style="color: black !important;">Ingrese el codigo postal para calcular el costo de envio </label>
+          <label class="md-subhead gala-style-font" style="color: black !important;">Ingrese el codigo postal para calcular el costo de envio </label>
           <md-input  v-model="zipCode" type="number" v-on:keyup="getZipAmount()"></md-input>
           <span >{{ errors[0] }}</span>                
         </ValidationProvider>
@@ -63,8 +63,9 @@
    <transition name="flip">
     <md-button class="md-round md-gala gala-tam" v-on:click="purchase" :disabled="(invalid || compra)" data-cy="orderCreate" 
       v-bind:key="!cards.flipped" v-if="!cards.flipped">Comprar
-           <md-progress-spinner :md-diameter="10" :md-stroke="3" md-mode="indeterminate"
-       style="margin-left: 2rem; " v-if="compra"></md-progress-spinner>
+        <md-progress-spinner :md-diameter="10" :md-stroke="3" md-mode="indeterminate"
+          style="margin-left: 2rem; " v-if="compra">
+        </md-progress-spinner>
     </md-button>
     <md-button class="md-round md-gala  gala-tam f" :disabled="(true)" data-cy="orderCreate" 
       v-bind:key="!cards.flipped" v-if="cards.flipped">Comprar
@@ -128,14 +129,15 @@ export default {
   dataClient:{},
 
   methods: {
-    notifyVue(verticalAlign, horizontalAlign, date, level) {
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
       this.$notify({
         message:
-        date,
-        icon: "add_alert",
+            date ,
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type: level
+        type:level,
+        timeout: 9000
       })
     },
     back(){
@@ -153,15 +155,16 @@ export default {
           this.compra = true
           API.post('/api/order/',body)
           .then( resp =>{
-            this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success" ) 
+            this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success", "done", 5000 ) 
             this.$router.push('miscompras');
             this.compra = false
           }).catch(e => {
-            this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e.error, "danger")
+            this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e.error, "danger", "sentiment_very_dissatisfied", 5000)
             this.compra = false
             })
         }else{
           this.$store.state.cardFlap= !this.$store.state.cardFlap
+          this.notifyVue('top', 'center', " ¡Ya Casi Es Tuyo! ", "info", "card_giftcard", 150000 ) 
         }
       }else{
         this.$router.push('user')
@@ -247,6 +250,7 @@ export default {
 }
 #prueba{
   margin-top: 6%;
+  
 }
 
 .md-gala-separation{
@@ -280,7 +284,11 @@ export default {
 .gala-tam{
   height: auto;
   font-style: italic ;
-  font-size: 1rem !important;
+  font-size: 0.8rem !important;
 }
 
+.gala-style-font{
+  
+  font-size: 0.75rem !important;
+}
 </style>

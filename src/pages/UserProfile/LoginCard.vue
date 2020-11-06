@@ -180,14 +180,15 @@ export default {
     };
   },
   methods:{
-    notifyVue(verticalAlign, horizontalAlign, date, level) {
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon) {
       this.$notify({
         message:
             date ,
-        icon: "add_alert",
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
+        type:level,
+        timeout: 5000
       })
     },
     back(){
@@ -198,7 +199,7 @@ export default {
       let userid = localStorage.getItem('session')
       API.get(`/api/client/?user_id=${userid}`)
       .then(resp=>{ this.$store.state.client = resp})
-      .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+      .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger",  "add_alert"))
     },
     preLogin(){
         this.prelogin= (!this.prelogin);
@@ -210,14 +211,15 @@ export default {
         this.callback(resp)
       })
       .catch(e =>  {
-        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger")
+        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger",  "add_alert")
         this.loading=false}
       )      
     },
     async loginn(){
+      localStorage.clear();
       const data = await API.post('/api/auth/login/', this.login)
       .then( resp => {
-        this.notifyVue('top', 'right', `!!! Que lindo volver a verte ${resp.user.first_name} :)` , "success")
+        this.notifyVue('top', 'right', `!!! Que lindo volver a verte ${resp.user.first_name} :)` , "success", "done")
         localStorage.setItem('session', resp.user.id)
         localStorage.setItem('name', resp.user.first_name)
         localStorage.setItem('accessToken', resp.key)
@@ -226,13 +228,14 @@ export default {
         window.history.go(-1)
       })
       .catch(e =>  {
-        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger")
+        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger", "add_alert")
         this.loading=false}
       )
       await this.getShippingData()       
     },
     async register(){
       this.loading=true
+      localStorage.clear();
       await API.post("/api/auth/register/", this.body)
         .then( usr => {
           localStorage.setItem('session', usr.user.id)
@@ -241,15 +244,16 @@ export default {
           this.$store.state.auth = true
           //TODO: send mail() 
           this.loading=false
-          this.notifyVue('top', 'right', ` ${usr.user.first_name} se registro correctamente  :) `, "success")
+          this.notifyVue('top', 'right', ` ${usr.user.first_name} se registro correctamente  :) `, "success", "done")
           this.$router.push('/')
         })
         .catch(e => {
           this.loading=false 
-          this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger")
+          this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger", "add_alert")
         })
     },
     async  restorePass(){
+      localStorage.clear();
       this.loading=true
       var body =  {
         email: this.login.username
@@ -262,12 +266,12 @@ export default {
         })
         .catch(e => {
           this.loading=false 
-          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger")
+          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger", "add_alert")
         })
     },
     emailIsValid(email) {
       return /\S+@\S+\.\S+/.test(email)
-    }
+    },
   }
 };
 </script>

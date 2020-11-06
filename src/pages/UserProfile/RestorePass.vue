@@ -1,9 +1,9 @@
 <template>
-  <div class="content">
-   <div class="md-layout  md-alignment-top-center spi" v-if="this.loading" style="padding: 10rem">
+ <div class="content">  
+  <div class="md-layout  md-alignment-top-center spi" style="padding: 10rem"  v-if="this.loading">
      <md-progress-spinner :md-diameter="150" :md-stroke="15" md-mode="indeterminate" ></md-progress-spinner>
-    </div>  
-   <div class="md-layout  md-alignment-top-center" v-if="!this.loading">
+  </div>  
+  <div class="md-layout  md-alignment-top-center" v-if="!this.loading">
      <div class="md-layout-item md-medium-size-100 md-size-33">   
        <md-card class="md-card-profile"> 
          <div class="md-card-avatar">
@@ -17,11 +17,10 @@
             </em>
         </md-card-content>    
     <div >
-    <ValidationObserver v-slot="{ invalid }">  
+    <ValidationObserver v-slot="{ invalid }" v-if="!this.loading">  
      <form >
-        <div class="md-layout-item md-small-size-100" v-if="!estado">
+        <div class="md-layout-item md-small-size-100" v-if="!estado" >
           <md-list-item>
-   
           <md-field>
           <ValidationProvider name="Name" rules="required|mimimo" v-slot="{ errors }">
             <label>Confirmar Código</label>
@@ -58,8 +57,9 @@
     </div>
        </md-card>
      </div>
-   </div>
-  </div> 
+   
+  </div>
+ </div>
 </template>
 
 <script>
@@ -108,14 +108,15 @@ export default {
     };
   },
   methods:{
-    notifyVue(verticalAlign, horizontalAlign, date, level) {
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon) {
       this.$notify({
         message:
             date ,
-        icon: "add_alert",
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
+        type:level,
+        timeout: 6000
       })
     },
     async confirm(){
@@ -126,35 +127,41 @@ export default {
           console.log(usr, "confirmar");
           localStorage.setItem('accessToken', usr.key)
           this.loading=false
-          this.estado=true
+          this.estado= !this.estado
         })
         .catch(e => {
           localStorage.clear();
           this.loading=false 
-          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger")
+          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger", "add_alert")
         })
     },
     async newpass(){
       this.loading=true
       await API.post("/api/auth/set_password/", this.body)
-        .then( usr => {
-          console.log(usr, "newpass");
-          localStorage.setItem('accessToken', usr.key)
+        .then( resp => {
+          console.log(resp, "newpass")
+          this.notifyVue('top', 'right', `!!! La Contraseña se Cambio Correctamente  :)` , "success", "done")
+          localStorage.setItem('session', resp.user.id)
+          localStorage.setItem('name', resp.user.first_name)
+          localStorage.setItem('accessToken', resp.key)
+          this.$store.state.auth = true
           this.loading=false
-          this.$router.push('/')
+          this.$router.push('dashboard')
         })
         .catch(e => {
           this.loading=false 
           localStorage.clear();
-          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger")
+          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger", "add_alert")
         })
     },
     back(){
       //this.$router.push('dashboard')
       window.history.go(-1)
-    }, 
-  }
-};
+    },
+
+  } 
+}
+
 </script>
 
 <style lang="css" scoped>
@@ -166,10 +173,7 @@ export default {
 
 .content {
     padding: 30px 15px;
-    min-height: calc(100vh - 12.40rem) !important;
+    min-height: calc(100vh - 09.40rem) !important;
   }  
-.content{
-  margin-top: 3rem !important;
-}
 
 </style>

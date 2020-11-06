@@ -35,7 +35,6 @@ export default {
   font-style: italic !important ;
 }
 .category{
-  //color: white !important;
   font-style: italic !important ;
 }
 </style>

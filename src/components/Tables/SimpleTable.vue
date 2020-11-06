@@ -20,11 +20,9 @@
         <md-table-cell class="md-subhead" md-label="N° Orden">{{ item.id }}</md-table-cell>
         <md-table-cell class="md-subhead" md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
         <md-table-cell md-label="Estado">
-          <!-- <label class="md-subhead gala-style" >{{getIconByOrderStatusName(item.product_status)}} -->
           <md-icon class="gala-style-icon" >{{ getIconByOrderStatus(item.product_status) }}
             <md-tooltip class="gala-style-pop" md-direction="right" >{{getIconByOrderStatusName(item.product_status)}}</md-tooltip>
           </md-icon>
-          <!-- </label> -->
         </md-table-cell>
       </md-table-row> 
     </md-table> 
@@ -99,18 +97,19 @@ export default {
         this.checkShowButtons(resp.count)
         this.loading = false
       })
-      .catch( e => this.notifyVue('top', 'right',  e, "danger")
+      .catch( e => this.notifyVue('top', 'right',  e, "danger","sentiment_very_dissatisfied", 3000)
       );
       },
-        notifyVue(verticalAlign, horizontalAlign, date, level) {
-      this.$notify({
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+        this.$notify({
         message:
-           date ,
-        icon: "add_alert",
+            date ,
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
-      })
+        type:level,
+        timeout: 2500
+        })
     },
     previus(){
       if ( this.page  > 1) {
@@ -123,7 +122,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       }
     },
     nextt(){
@@ -137,7 +136,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       } 
     },
     checkShowButtons(r){
@@ -150,7 +149,7 @@ export default {
     getIconByOrderStatusName(orderStatus){
       var desc = this.estado[orderStatus].desc
       return desc
-    }
+    },
   }
 
 };

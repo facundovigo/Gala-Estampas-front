@@ -36,20 +36,5 @@ export default {
     display: inline-block;
     vertical-align: top;
   }
-
-  
-//     .md-button i {
-//       padding: 0.8rem;
-//     color: rgba(0,0,0,0.54) !important;
-//   }
-//   .md-button i:hover {
-        
-//         color: red !important;
-//             transform: scale(1.4);
-//         }:focus{
-//           color: red($color: pink);
-//         }
-
-
 </style>
 

@@ -5,7 +5,11 @@
     </div>  
     <md-card v-if="!this.loading">
       <md-card-header style="background-color: #ec407a" >
-        <h4 class="title ">Datos de perfil</h4>
+        <h4 class="title"  v-if="(this.$route.name == 'Detalles del Producto')" style="text-align: center !important;"> 
+           Ya casi es tuyo completa los datos para el Envío..
+          <md-icon class="gala-icon">local_shipping</md-icon>
+          </h4>
+        <h4 class="title" v-else>Datos de perfil</h4>
       </md-card-header>
 
       <md-card-content>
@@ -160,6 +164,9 @@ export default {
 .md-gala2{
   font-style: italic !important;
   font-size: 1rem !important;
+  
 }
-
+.gala-icon{
+  margin-left: 1rem !important;
+}
 </style>
