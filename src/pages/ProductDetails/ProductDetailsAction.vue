@@ -164,7 +164,7 @@ export default {
             })
         }else{
           this.$store.state.cardFlap= !this.$store.state.cardFlap
-          this.notifyVue('top', 'center', " ¡Ya Casi Es Tuyo! ", "info", "card_giftcard", 150000 ) 
+          //this.notifyVue('top', 'center', " ¡Ya Casi Es Tuyo! ", "info", "card_giftcard", 150000 ) 
         }
       }else{
         this.$router.push('user')
@@ -179,7 +179,7 @@ export default {
         API.get(`/api/zip_amount/get_amount_by/?zip_code=${this.zipCode}`)
         .then(resp => {
           this.zipAmount = resp[0].amount
-        }).catch(e => this.notifyVue('bottom', 'center', "No hacemos envios a esa ubicación =S", "info"))
+        }).catch(e => this.notifyVue('bottom', 'center', "No hacemos envios a esa ubicación =S", "info", "local_shipping", 2500))
 
       }
     },
