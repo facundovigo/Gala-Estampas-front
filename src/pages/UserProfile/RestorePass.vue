@@ -13,7 +13,7 @@
         <md-card-content >
 
             <em class="gala-fonts" style="color: rgb(85, 83, 83);" >
-            Ingresa el Codigo que se te mando al correo
+            Ingresa el Código que te mandamos por correo
             </em>
         </md-card-content>    
     <div >
@@ -24,7 +24,7 @@
    
           <md-field>
           <ValidationProvider name="Name" rules="required|mimimo" v-slot="{ errors }">
-            <label>Confirmar Codigo</label>
+            <label>Confirmar Código</label>
             <md-input  type="password"  v-model="login.code"></md-input>
             <span >{{ errors[0] }}</span>                
             </ValidationProvider>
@@ -123,6 +123,7 @@ export default {
        localStorage.clear();
        await API.post("/api/auth/check_code/", this.login)
         .then( usr => {
+          console.log(usr, "confirmar");
           localStorage.setItem('accessToken', usr.key)
           this.loading=false
           this.estado=true
@@ -137,6 +138,7 @@ export default {
       this.loading=true
       await API.post("/api/auth/set_password/", this.body)
         .then( usr => {
+          console.log(usr, "newpass");
           localStorage.setItem('accessToken', usr.key)
           this.loading=false
           this.$router.push('/')

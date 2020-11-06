@@ -52,7 +52,7 @@
         <md-button class="md-round md-gala-cyan f gala-tam"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
       </md-card-actions>
         <div>
-          <h6 class="text-description" v-if="emailIsValid(login.username)">Me olvide
+          <h6 class="text-description" v-if="emailIsValid(login.username)">Me olvidé
            <em class="gala-fonts-t" style="cursor: pointer;" v-on:click="restorePass">La Contraseña</em>
           </h6>
          <h6 class="text-description" >Sos Nuevo?
