@@ -19,7 +19,13 @@ import { ProductDetailsAction, ProductDetailsForm } from "@/pages";
 import API from "../service/api";
 
 export default {
-  //props:['post'],
+  props:{
+    post: {
+
+      default: null
+    },
+  },
+
   components: {
     ProductDetailsForm,
     ProductDetailsAction
@@ -35,6 +41,8 @@ export default {
   },
   methods:{
       call(){
+        console.log(this.post)
+        if(this.post == null){
         this.loading = true
         let productId = localStorage.getItem('product')
         API.get(`/api/product/${productId}/`)
@@ -43,6 +51,10 @@ export default {
           this.loading=false
         })
         .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        }else{
+          this.loading=false
+          this.datos= this.post
+        }
     },
     notifyVue(verticalAlign, horizontalAlign, date, level) {
       this.$notify({

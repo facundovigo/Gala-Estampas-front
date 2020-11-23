@@ -111,33 +111,34 @@ export default {
             this.user = resp
             this.loading = false 
           })
-          .catch( e => this.notifyVue('top', 'right',  e, "danger"));
+          .catch( e => this.notifyVue('top', 'right', "Upss algo salió mal :( " + e.error, "danger", "sentiment_very_dissatisfied", 5000));
         
         await API.get(`/api/client/?user_id=${this.data.user}`)
           .then( resp => { 
               this.$store.state.client = resp
               this.client = resp[0]
             })
-          .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+          .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal :( " + e.error, "danger", "sentiment_very_dissatisfied", 5000))
           if(this.client){
             this.data = this.client
           }
         },
-        notifyVue(verticalAlign, horizontalAlign, date, level) {
-          this.$notify({
-            message:
-                date ,
-            icon: "add_alert",
-            horizontalAlign: horizontalAlign,
-            verticalAlign: verticalAlign,
-            type:level
-          })
-      },
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+      this.$notify({
+        message:
+            date ,
+        icon: icon,
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level,
+        timeout: 9000
+      })
+    },
       
       async updateUser(){
         const notenecesito = await API.post(`/api/client/`, this.data)
           .then(resp =>{
-            this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success" ) 
+            this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success", "done", 5000 ) 
             this.$store.state.client = resp
             this.$store.state.cardFlap= !this.$store.state.cardFlap
           })
