@@ -46,12 +46,13 @@
         </ValidationProvider>
      </md-field>
   
-     <div style="margin-top: 2rem;">
-     <label class="md-gala-separation gala-label"> Envío: ${{ zipAmount }}</label>
-     <label class="gala-label"> Total: ${{ data.price * cant + zipAmount }}</label> 
      </div>
-    </div>
    </transition>
+    <div style="margin-top: 2rem;">
+     <label class="md-gala-separation gala-label" v-bind:class="{'gala-style-off':(!shipping), 'gala-style-on':(shipping)}">
+        Envío: ${{ zipAmount }}</label>
+     <label class="gala-label"> Total: ${{ data.price * cant + zipAmount }}</label> 
+    </div>
   </md-card-content>  
 
 
@@ -62,13 +63,13 @@
    <md-button class="md-round md-gala-cyan gala-tam"  v-on:click="back" :disabled="(compra)">Volver</md-button>
    <transition name="flip">
     <md-button class="md-round md-gala gala-tam" v-on:click="purchase" :disabled="(invalid || compra)" data-cy="orderCreate" 
-      v-bind:key="!cards.flipped" v-if="!cards.flipped">Comprar
+      v-bind:key="!cards.flipped" v-if="!cards.flipped">Realizar Pedido
         <md-progress-spinner :md-diameter="10" :md-stroke="3" md-mode="indeterminate"
           style="margin-left: 2rem; " v-if="compra">
         </md-progress-spinner>
     </md-button>
     <md-button class="md-round md-gala  gala-tam f" :disabled="(true)" data-cy="orderCreate" 
-      v-bind:key="!cards.flipped" v-if="cards.flipped">Comprar
+      v-bind:key="!cards.flipped" v-if="cards.flipped">Realizar Pedido
     </md-button> 
 
     </transition>
@@ -156,7 +157,7 @@ export default {
           API.post('/api/order/',body)
           .then( resp =>{
             this.notifyVue('top', 'right', "La compra se realizó con exito. - Fecha de entrega: " + resp.date_order, "success", "done", 5000 ) 
-            this.$router.push('miscompras');
+            this.$router.push('mispedidos');
             this.compra = false
           }).catch(e => {
             this.notifyVue('top', 'right', " !!No se pudo realizar la compra :( " + e.error, "danger", "sentiment_very_dissatisfied", 5000)
@@ -289,5 +290,13 @@ export default {
 .gala-style-font{
   
   font-size: 0.75rem !important;
+}
+
+.gala-style-off{
+  color: white !important;
+}
+
+.gala-style-on{
+  color: black !important;
 }
 </style>

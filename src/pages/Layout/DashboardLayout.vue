@@ -19,9 +19,9 @@
        </sidebar-link>
       </div>
       <div v-on:click="toggleSidebar">
-        <sidebar-link to="/miscompras" v-if="isAuth">
+        <sidebar-link to="/mispedidos" v-if="isAuth">
          <md-icon>content_paste</md-icon>
-         <p>Mis Compras</p>
+         <p>Mis Pedidos</p>
         </sidebar-link>
       </div>
       <div v-on:click="toggleSidebar">

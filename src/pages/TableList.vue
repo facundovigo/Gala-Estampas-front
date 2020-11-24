@@ -7,7 +7,7 @@
       >
         <md-card >
           <md-card-header style="background-color: #6BC5C8!important;">
-            <h4 class="md-title ">Mis Compras</h4>
+            <h4 class="md-title ">Mis Pedidos</h4>
             <p class="category">Gala Estampas</p>
           </md-card-header>
           <md-card-content>

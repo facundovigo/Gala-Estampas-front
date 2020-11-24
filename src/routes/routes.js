@@ -29,9 +29,9 @@ const routes = [{
             name: "Reseteo de Contraseña"
         },
         {
-            path: "miscompras",
+            path: "mispedidos",
             component: TableList,
-            name: "Mis Compras",
+            name: "Mis Pedidos",
         },
         {
             path: 'favorites',

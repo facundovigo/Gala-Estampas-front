@@ -216,7 +216,9 @@ export default {
       )      
     },
     async loginn(){
+      var productID= localStorage.getItem('product')
       localStorage.clear();
+      localStorage.setItem('product', productID)
       const data = await API.post('/api/auth/login/', this.login)
       .then( resp => {
         this.notifyVue('top', 'right', `!!! Que lindo volver a verte ${resp.user.first_name} :)` , "success", "done")
