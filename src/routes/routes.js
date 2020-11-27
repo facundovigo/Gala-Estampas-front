@@ -12,9 +12,9 @@ const routes = [{
 
     path: '/',
     component: DashboardLayout,
-    redirect: "/dashboard",
+    redirect: "/productos",
     children: [{
-            path: 'dashboard',
+            path: 'productos',
             name: 'Pruductos',
             component: Dashboard
         },

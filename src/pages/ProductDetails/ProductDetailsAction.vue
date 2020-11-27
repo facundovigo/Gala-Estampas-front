@@ -142,7 +142,7 @@ export default {
       })
     },
     back(){
-      this.$router.push('dashboard')
+      this.$router.push('productos')
     },
     purchase(){
       if (localStorage.getItem("session")){
@@ -171,7 +171,7 @@ export default {
       }
     },
     getShippingData(){
-      this.hasShippingData = (this.$store.state.client != null) //&& this.$store.state.client.length > 0 )
+      this.hasShippingData = (this.$store.state.client != null && this.$store.state.client.length != 0 ) //&& this.$store.state.client.length > 0 )
       console.log(this.hasShippingData, "shippingD");
     },
     getZipAmount(){

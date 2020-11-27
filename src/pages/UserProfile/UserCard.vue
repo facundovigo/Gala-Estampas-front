@@ -34,11 +34,11 @@ export default {
     logOut(){
       localStorage.clear();
       location.reload();
-      this.$router.push('dashboard');
+      this.$router.push('productos');
       
     },
     back(){
-      this.$router.push('dashboard')
+      this.$router.push('productos')
     },
   },
   data() {

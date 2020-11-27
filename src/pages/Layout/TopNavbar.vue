@@ -2,7 +2,7 @@
   <md-toolbar md-elevation="0" class="md-transparent">
    <div class="md-toolbar-row">
     <div class="md-collapse f">
-    <h3 class="md-title gala-style-text" style="color: #6BC5C8 !important; width: 80% !important;">{{$route.name}}</h3>
+    <h3 class=" gala-style-text" style="color: #6BC5C8 !important; width: 80% !important;">{{$route.name}}</h3>
     </div>
      <div class="md-collapse" v-if="(this.$route.name == 'Pruductos')">
       <div class="sep" v-for="(category, index) in categoriesA" :key="index">

@@ -146,7 +146,7 @@ export default {
           localStorage.setItem('accessToken', resp.key)
           this.$store.state.auth = true
           this.loading=false
-          this.$router.push('dashboard')
+          this.$router.push('productos')
         })
         .catch(e => {
           this.loading=false 
@@ -155,7 +155,6 @@ export default {
         })
     },
     back(){
-      //this.$router.push('dashboard')
       window.history.go(-1)
     },
 

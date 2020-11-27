@@ -47,5 +47,4 @@ export default {
     min-height: calc(100vh - 12.40rem) !important;
   }  
   //0 6 * * *       /usr/bin/php /usr/local/nagiosxi/html/includes/components/scheduledreporting/sendreport.php --report=FLOrIu --username="nagiosadmin" > /dev/null 2>&1
-
 </style>
