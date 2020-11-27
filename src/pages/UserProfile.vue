@@ -10,7 +10,7 @@
     </div>
 
     <div class="md-layout  md-alignment-top-center" v-else>
-      <div class="md-layout-item md-medium-size-100 md-size-33">
+      <div class="md-layout-item md-medium-size-100 md-size-40">
         <login-card> </login-card>
       </div>
     </div>
@@ -46,4 +46,5 @@ export default {
     padding: 30px 15px;
     min-height: calc(100vh - 12.40rem) !important;
   }  
+  //0 6 * * *       /usr/bin/php /usr/local/nagiosxi/html/includes/components/scheduledreporting/sendreport.php --report=FLOrIu --username="nagiosadmin" > /dev/null 2>&1
 </style>

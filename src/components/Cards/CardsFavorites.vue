@@ -37,8 +37,19 @@ data(){
     }
   },
   methods:{
+        notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+        this.$notify({
+        message:
+            date ,
+        icon: icon,
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level,
+        timeout: 2500
+        })
+    },
     details(item){
-      this.$router.push({ name: 'productDetails', params: {post: item}})
+      this.$router.push({ name: 'CardsFavorites', params: {post: item}})
     },
     deleteFav(item){
       const client = localStorage.getItem("session")
@@ -47,7 +58,7 @@ data(){
       API.delete('/api/favorite/?user_id='+client+'&product_id='+product)
       .then( resp => {
         location.reload()
-      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
+      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger", "sentiment_very_dissatisfied", 3000));
     }
   }
 }
@@ -55,7 +66,6 @@ data(){
 
 <style lang="scss" scoped>
  .md-card {
-    //background-color:antiquewhite!important;
     margin: 4px;
     display: inline-block;
     vertical-align: top;

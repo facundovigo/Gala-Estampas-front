@@ -26,8 +26,8 @@
           <md-field>
             <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
             <label>Email</label>
-            <md-input  class="md-g" type="email"  v-model="login.username" data-cy="username"></md-input>
-            <span data-cy="error-pass">{{ errors[0] }}</span>                
+            <md-input  type="email"  v-model="login.username" data-cy="username"></md-input>
+            <span class="md-gala-s" data-cy="error-pass">{{ errors[0] }}</span>                
             </ValidationProvider>
           </md-field>
 
@@ -41,18 +41,22 @@
               <ValidationProvider name="password" rules="required|mimimo" v-slot="{ errors }">
               <label>Contraseña</label>
               <md-input  type="password" v-model="login.password" data-cy="password"></md-input>
-              <span>{{ errors[0] }}</span>
+              <span class="md-gala-s" >{{ errors[0] }}</span>
               </ValidationProvider>
             </md-field>
           </md-list-item>
         </div>
       </form>
-        <md-button class="md-round md-gala" id="separacion" v-on:click="back">Volver</md-button>
-
-         <md-button class="md-round md-gala-cyan"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
-         <div >
-         <h6 class="category text-description ">No tenés usuario 
-          <em class="gala-fonts" style="cursor: pointer;" v-on:click="preLogin" data-cy="register">create uno </em>
+      <md-card-actions md-alignment="space-between"> 
+        <md-button class="md-round md-gala f gala-tam" v-on:click="back">Volver</md-button>
+        <md-button class="md-round md-gala-cyan f gala-tam"  v-on:click="loginn" :disabled="invalid" data-cy="login">Ingresar</md-button>
+      </md-card-actions>
+        <div>
+          <h6 class="text-description" v-if="emailIsValid(login.username)">Me olvidé
+           <em class="gala-fonts-t" style="cursor: pointer;" v-on:click="restorePass">La Contraseña</em>
+          </h6>
+         <h6 class="text-description" >Sos Nuevo?
+          <em class="gala-fonts-t" style="cursor: pointer; " v-on:click="preLogin" data-cy="register">Registrate</em>
           </h6>
          </div>
        </ValidationObserver>  
@@ -116,10 +120,10 @@
                   
                   </md-card-content>
                 </md-card>
-                <div >
-                    <md-button class="md-round md-primary" id="separacion" v-on:click="preLogin">Volver</md-button>                
-                    <md-button class="md-round md-gala-cyan" v-on:click="register" :disabled="invalid" data-cy="register">Registrar</md-button>
-                </div>      
+                <md-card-actions md-alignment="space-between">
+                    <md-button class="md-round md-gala gala-tam"  v-on:click="preLogin">Volver</md-button>                
+                    <md-button class="md-round md-gala-cyan gala-tam" v-on:click="register" :disabled="invalid" data-cy="register">Registrar</md-button>
+                </md-card-actions>   
          </form>
       </ValidationObserver>
     </div>
@@ -176,25 +180,25 @@ export default {
     };
   },
   methods:{
-    notifyVue(verticalAlign, horizontalAlign, date, level) {
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon) {
       this.$notify({
         message:
             date ,
-        icon: "add_alert",
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
+        type:level,
+        timeout: 5000
       })
     },
     back(){
-      //this.$router.push('dashboard')
       window.history.go(-1)
     },
     getShippingData(){
       let userid = localStorage.getItem('session')
       API.get(`/api/client/?user_id=${userid}`)
       .then(resp=>{ this.$store.state.client = resp})
-      .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+      .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger",  "add_alert"))
     },
     preLogin(){
         this.prelogin= (!this.prelogin);
@@ -206,14 +210,17 @@ export default {
         this.callback(resp)
       })
       .catch(e =>  {
-        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger")
+        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger",  "add_alert")
         this.loading=false}
       )      
     },
     async loginn(){
+      var productID= localStorage.getItem('product')
+      localStorage.clear();
+      localStorage.setItem('product', productID)
       const data = await API.post('/api/auth/login/', this.login)
       .then( resp => {
-        this.notifyVue('top', 'right', `!!! Que lindo volver a verte ${resp.user.first_name} :)` , "success")
+        this.notifyVue('top', 'right', `!!! Que lindo volver a verte ${resp.user.first_name} :)` , "success", "done")
         localStorage.setItem('session', resp.user.id)
         localStorage.setItem('name', resp.user.first_name)
         localStorage.setItem('accessToken', resp.key)
@@ -222,29 +229,50 @@ export default {
         window.history.go(-1)
       })
       .catch(e =>  {
-        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger")
+        this.notifyVue('top', 'right', "Usuaro o clave Incorrecto" , "danger", "add_alert")
         this.loading=false}
       )
       await this.getShippingData()       
     },
     async register(){
       this.loading=true
+      localStorage.clear();
       await API.post("/api/auth/register/", this.body)
         .then( usr => {
           localStorage.setItem('session', usr.user.id)
           localStorage.setItem('name', usr.user.first_name)
-          localStorage.setItem('accessToken', resp.key)
-          this.$store.setItem('state.auth', true)
+          localStorage.setItem('accessToken', usr.key)
+          this.$store.state.auth = true
+          //TODO: send mail() 
           this.loading=false
-          this.notifyVue('top', 'right', ` ${usr.user.first_name} se registro correctamente  :) `, "success")
-          this.$router.push('dashboard')
-          //window.history.go(-1)
+          this.notifyVue('top', 'right', ` ${usr.user.first_name} se registro correctamente  :) `, "success", "done")
+          this.$router.push('/')
         })
         .catch(e => {
           this.loading=false 
-          this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger")
+          this.notifyVue('top', 'right', " :( No se Pudro registrar el usaurio ", "danger", "add_alert")
         })
-    }
+    },
+    async  restorePass(){
+      localStorage.clear();
+      this.loading=true
+      var body =  {
+        email: this.login.username
+      }
+      this.$store.state.recoveripass = this.login.username
+      await API.post("/api/auth/recover_password/", body)
+        .then( usr => {
+          this.loading=false
+          this.$router.push('restorepass')
+        })
+        .catch(e => {
+          this.loading=false 
+          this.notifyVue('top', 'right', " :( Upss algo salio mal", "danger", "add_alert")
+        })
+    },
+    emailIsValid(email) {
+      return /\S+@\S+\.\S+/.test(email)
+    },
   }
 };
 </script>
@@ -294,11 +322,21 @@ export default {
 }
 .gala-fonts{
   color:  #6BC5C8;
-  /* font-family: Verdana;
-  font-family: 'PT Sans';  */
-
   font-family: Vegur, 'PT Sans', Verdana, sans-serif;
-
 }
+
+.gala-fonts-t{
+  color:#04888d;
+  font-family: Vegur, 'PT Sans', Verdana, sans-serif;
+}
+
+.text-description{
+  font-style: italic ;
+}
+.md-gala-s{
+  font-style: oblique;
+  color: rgb(85, 83, 83);
+}
+
 
 </style>

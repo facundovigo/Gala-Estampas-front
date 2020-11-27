@@ -15,10 +15,10 @@
           <img :src="item.product_id.photo" alt="Producto">
       </md-avatar>
         </md-table-cell>
-        <md-table-cell md-label="Producto">{{ item.product_id.name }}</md-table-cell>
-        <md-table-cell md-label="Precio">{{ item.product_id.price }}</md-table-cell>
-        <md-table-cell md-label="Realizar Pedido">{{ item.date_delivery }}
-         <md-button class="md-round md-gala-cyan" v-on:click="details(item.product_id)">Detalles </md-button>
+        <md-table-cell class="md-subhead" md-label="Producto">{{ item.product_id.name }}</md-table-cell>
+        <md-table-cell class="md-subhead" md-label="Precio">{{ item.product_id.price }}</md-table-cell>
+        <md-table-cell  md-label="Realizar Pedido">{{ item.date_delivery }}
+         <md-button class="md-round md-gala-cyan gala-tam" v-on:click="details(item.product_id)">Detalles </md-button>
         </md-table-cell>
         <md-table-cell md-label="">
          <md-button class="md-icon-button" v-on:click="deleteItem(item)">
@@ -85,20 +85,21 @@ export default {
         this.checkShowButtons(resp.count)
         this.loading = false
       })
-      .catch( e => this.notifyVue('top', 'right',  e, "danger"));
+      .catch( e => this.notifyVue('top', 'right',  e, "danger", "sentiment_very_dissatisfied", 3000));
       },
-      notifyVue(verticalAlign, horizontalAlign, date, level) {
-      this.$notify({
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+        this.$notify({
         message:
-           date ,
-        icon: "add_alert",
+            date ,
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
-      })
+        type:level,
+        timeout: 2500
+        })
     },
     details(item){
-      this.$router.push({ name: 'productDetails', params: {post: item}})
+      this.$router.push({ name: 'Detalles del Producto', params: {post: item}})
     },
     deleteItem(item){
       const product = item.product_id.id
@@ -106,7 +107,7 @@ export default {
       API.delete('/api/favorite/?user_id='+client+'&product_id='+product)
       .then( resp => {
         this.products = this.products.filter(elem => elem.id !== item.id )
-      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger"));
+      }).catch( e => this.notifyVue('top', 'right', ":( Uuupss algo salio mal", "danger", "sentiment_very_dissatisfied", 3000));
       },
      
     previus(){
@@ -120,7 +121,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       }
     },
     nextt(){
@@ -135,7 +136,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       } 
     },
     checkShowButtons(r){
@@ -165,4 +166,9 @@ export default {
           color: red($color: pink) ;
         }
 
+.gala-tam{
+  height: auto;
+  font-style: italic ;
+  font-size: 1rem !important;
+}
 </style>

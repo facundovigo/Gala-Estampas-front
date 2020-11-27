@@ -24,6 +24,7 @@ import * as rules from 'vee-validate/dist/rules'
 import Chartist from "chartist";
 
 
+
 // configure router
 const router = new VueRouter({
 
@@ -48,7 +49,6 @@ Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider)
 
 Vue.prototype.$Chartist = Chartist;
-
 Vue.use(VueRouter);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);

@@ -12,17 +12,19 @@
              v-if="token()" 
              data-cy="card-fav">
             <md-icon v-bind:class="{'md-i':(!isFavorite), 'favorite':(isFavorite)}">favorite</md-icon>
+            <md-tooltip class="gala-style-pop" md-direction="right" >Favorito</md-tooltip>
           </md-button>
 
           <md-button class="md-icon-button " v-on:click="details" data-cy="card-detail">
             <md-icon>bookmark</md-icon>
+            <md-tooltip class="gala-style-pop" md-direction="right" >Detalles</md-tooltip>
           </md-button>
 
           <md-button class="md-icon-button">
             <md-icon>share</md-icon>
-
+            <md-tooltip class="gala-style-pop" md-direction="right" >gala</md-tooltip>
           </md-button>
-
+          
         </md-card-actions>
       </md-card-media-actions>
     </md-card>
@@ -51,19 +53,19 @@ export default {
       }
     },
     methods:{
-      notifyVue(verticalAlign, horizontalAlign, date, level) {
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
         this.$notify({
-          message:
-          date ,
-          icon: "add_alert",
-          horizontalAlign: horizontalAlign,
-          verticalAlign: verticalAlign,
-          type:level
+        message:
+            date ,
+        icon: icon,
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level,
+        timeout: 2500
         })
-      },
+    },
       details(){
         localStorage.setItem('product', this.post.id)
-        //this.$router.push({ name: 'productDetails', params: {post: this.post}})
         this.$router.push('productDetails')
         
       },
@@ -81,15 +83,15 @@ export default {
         this.isFavorite = !this.isFavorite 
         API.post('/api/favorite/', body)
         .then( resp => {
-         this.notifyVue('top', 'right', ` Guardaste el producto que te gusto! :) `, "success")
-        }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+         this.notifyVue('top', 'right', ` Guardaste el producto que te gusto! :) `, "success", "done", 4000)
+        }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger", "sentiment_very_dissatisfied", 4000))
       },
       quitFavorite(body){
         this.isFavorite = !this.isFavorite 
         API.delete('/api/favorite/?user_id='+body.client+'&product_id='+body.product)
         .then( resp => {
-         this.notifyVue('top', 'right', `Ya volveremos a conquistar tu corazón con otro producto ;) `, "success")
-        }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger"))
+         this.notifyVue('top', 'right', `Ya volveremos a conquistar tu corazón con otro producto ;) `, "success", "done", 4000)
+        }).catch(e => this.notifyVue('top', 'right', " :( UuupS Intenta nuevamente ", "danger", "sentiment_very_dissatisfied", 4000))
       },
       token(){
         return localStorage.getItem("session")
@@ -148,5 +150,10 @@ export default {
   }
 }
 
+.gala-style-pop{
+  font-style: oblique;
+  color: #04888d !important;
+  font-size: 1rem !important;
+}
 </style>
 

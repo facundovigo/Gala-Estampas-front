@@ -1,52 +1,41 @@
 <template>
   <div class="wrapper " :class="{ 'nav-open': $sidebar.showSidebar }" style="background-color: #ebf9f9 !important;"> 
     <notifications></notifications>
-
     <side-bar
       :sidebar-item-color="sidebarBackground"
       :sidebar-background-image="sidebarBackgroundImage"
       :class="{ toggled: $sidebar.showSidebar }" 
-    >
+      >
       <div v-on:click="toggleSidebar">
        <sidebar-link to="/dashboard">
-         <md-icon>dashboard</md-icon>
-         <p>Inicio</p>
+        <md-icon>dashboard</md-icon>
+        <p>Inicio</p>
        </sidebar-link>
       </div> 
       <div v-on:click="toggleSidebar">
-      <sidebar-link to="/user">
+       <sidebar-link to="/user">
         <md-icon>person</md-icon>
         <p>Mi Perfil</p>
-      </sidebar-link>
+       </sidebar-link>
       </div>
       <div v-on:click="toggleSidebar">
-        <sidebar-link to="/miscompras" v-if="isAuth">
-          <md-icon>content_paste</md-icon>
-          <p>Mis Compras</p>
+        <sidebar-link to="/mispedidos" v-if="isAuth">
+         <md-icon>content_paste</md-icon>
+         <p>Mis Pedidos</p>
         </sidebar-link>
       </div>
       <div v-on:click="toggleSidebar">
         <sidebar-link to="/favorites" v-if="isAuth">
-          <md-icon>favorite</md-icon>
-          <p>Favoritos</p>
-        </sidebar-link>
-      </div>
-      <div v-on:click="toggleSidebar">
-        <sidebar-link to="/notifications" v-if="isAuth">
-          <md-icon>notifications</md-icon>
-          <p>Notifications</p>
+         <md-icon>favorite</md-icon>
+         <p>Favoritos</p>
         </sidebar-link>
       </div>
     </side-bar>
 
     <div class="main-panel">
       <top-navbar></top-navbar>
-
-
       <dashboard-content></dashboard-content>
-  
-    <content-footer ></content-footer>
-  
+      <content-footer ></content-footer>
     </div>
   </div>
 </template>

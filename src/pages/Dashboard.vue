@@ -54,11 +54,11 @@ export default {
       page: 1,
     }
   },
-        watch:{
-        '$store.state.category'() {
-          this.menuss()
-        }
-    },
+  watch:{
+      '$store.state.category'() {
+      this.menuss()
+    }
+  },
 
   methods:{
     menuss(){
@@ -71,7 +71,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       }else{
         this.page=1
         this.loading = true
@@ -82,19 +82,20 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading = false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
        }
       
     },
-    notifyVue(verticalAlign, horizontalAlign, date, level) {
-      this.$notify({
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+        this.$notify({
         message:
-           date ,
-        icon: "add_alert",
+            date ,
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
-      })
+        type:level,
+        timeout: 2500
+        })
     },
     previus(){
       if ( this.page  > 1) {
@@ -107,7 +108,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       }
     },
     nextt(){
@@ -121,7 +122,7 @@ export default {
           this.checkShowButtons(resp.count)
           this.loading=false
         })
-        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+        .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
       } 
     },
     checkShowButtons(r){

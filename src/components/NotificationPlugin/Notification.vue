@@ -2,23 +2,24 @@
   <div
     @click="close()"
     data-notify="container"
-    class="alert open alert-with-icon"
+    class="alert open alert-with-icon gala-container"
     role="alert"
     :class="[verticalAlign, horizontalAlign, alertType]"
     :style="customPosition"
     data-notify-position="top-center"
   >
     <button
+      style="color: rgb(85, 83, 83);"
       type="button"
       aria-hidden="true"
       class="close"
       data-notify="dismiss"
       @click="close"
     >
-      ×
+     <md-icon>cancel</md-icon>
     </button>
-    <i data-notify="icon" class="material-icons">{{ icon }}</i>
-    <span data-notify="message" v-html="message"></span>
+    <i data-notify="icon" class="material-icons gala-style-icons">{{ icon }}</i>
+    <span class="gala-style" data-notify="message" v-html="message"></span>
   </div>
 </template>
 <script>
@@ -41,7 +42,7 @@ export default {
     },
     timeout: {
       type: Number,
-      default: 2500
+      default: 3000
     },
     timestamp: {
       type: Date,
@@ -73,9 +74,9 @@ export default {
       let pixels = (sameAlertsCount - 1) * alertHeight + initialMargin;
       let styles = {};
       if (this.verticalAlign === "top") {
-        styles.top = `${pixels}px`;
+        styles.top = `${pixels +45 }px`;
       } else {
-        styles.bottom = `${pixels}px`;
+        styles.bottom = `${pixels + 85}px`;
       }
       return styles;
     }
@@ -107,6 +108,7 @@ export default {
     }
     &.center {
       margin: 0 10px !important;
+
     }
   }
 }
@@ -131,4 +133,18 @@ export default {
     right: 20px;
   }
 }
+
+.gala-style{
+  font-style: oblique !important;
+  text-align: center !important;
+  font-size: 1.5rem !important;
+  color: rgb(85, 83, 83);
+
+}
+
+.gala-style-icons{
+ color: rgb(85, 83, 83);
+
+}
+
 </style>

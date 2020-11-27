@@ -8,6 +8,8 @@ export const store = new Vuex.Store({
         category: null,
         client: null,
         cardFlap: false,
-        auth: false
+        auth: false,
+        recoveripass: null
+
     }
 });

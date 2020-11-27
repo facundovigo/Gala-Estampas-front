@@ -1,20 +1,23 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
-    <div class="md-toolbar-row">
-      <div class="md-toolbar-section-start " > 
-      
-        <div class="md-collapse" v-if="(this.$route.name == 'Dashboard')">
-          <div class="sep" v-for="(category, index) in categoriesA" :key="index">
-            <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
-            v-on:click="searchByCategory(category.id)">
-              <md-avatar class="md-avatar-icon" >
-                <img :src="category.icon" alt="People">
-              </md-avatar>
-            </md-button>
-        </div>
+   <div class="md-toolbar-row">
+    <div class="md-collapse f">
+    <h3 class=" gala-style-text" style="color: #6BC5C8 !important; width: 80% !important;">{{$route.name}}</h3>
+    </div>
+     <div class="md-collapse" v-if="(this.$route.name == 'Pruductos')">
+      <div class="sep" v-for="(category, index) in categoriesA" :key="index">
+       <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
+         v-on:click="searchByCategory(category.id)">
+            <md-avatar class="md-avatar-icon" >
+              <img :src="category.icon" alt="People">
+            </md-avatar>
+          <md-tooltip class="gala-style-pop" md-direction="bottom" >{{category.name}}</md-tooltip>
+        </md-button>
       </div>
-
-     <div class="md-autocomplete md-toolbar-toggle" style="width: 100%;">
+     </div>
+    
+    <div class="md-toolbar-section-start " >  
+     <div class="md-autocomplete md-toolbar-toggle" style="width: 80%;">
             <md-autocomplete
               class="search"
               v-model="selectedProducts"
@@ -25,17 +28,6 @@
             </md-autocomplete>
           </div>
       </div>    
-      <div class="md-toolbar-section-end">
-      <div class="md-collapse" v-if="(this.$route.name== 'Dashboard')">
-        <div class="sep" v-for="(category, index) in categoriesB" :key="index">
-          <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" v-on:click="searchByCategory(category.id)">
-            <md-avatar class="md-avatar-icon" >
-              <img :src="category.icon" alt="People">
-            </md-avatar>
-          </md-button>
-        </div>
-        
-      </div>      
         
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle md-gala"
@@ -48,41 +40,11 @@
         </md-button>
 
         <div class="md-collapse">
-
           <md-list>
             <md-list-item to="/" >
               <i class="material-icons">dashboard</i>
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
-
-            <li class="md-list-item">
-              <a
-                href="notifications"
-                class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              >
-                <div class="md-list-item-content" v-if="token()">
-                  <drop-down>
-                    <md-button 
-                      slot="title"
-                      class="md-button md-just-icon md-simple"
-                      data-toggle="dropdown"
-                    >
-                      <md-icon>notifications</md-icon>
-                      <span class="notification">5</span>
-                      <p class="hidden-lg hidden-md">Notifications</p>
-                    </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Mike John responded to your email</a></li>
-                      <li><a href="#">You have 5 new tasks</a></li>
-                      <li><a href="#">You're now friend with Andrew</a></li>
-                      <li><a href="#">Another Notification</a></li>
-                      <li><a href="#">Another One</a></li>
-                    </ul>
-                  </drop-down>
-                </div>
-              </a>
-            </li>
-           
 
             <md-list-item to="/user" >
               <i class="material-icons" >person</i>
@@ -90,7 +52,6 @@
             </md-list-item>
           </md-list>
         </div>
-      </div>
     </div>
   </md-toolbar>
 </template>
@@ -102,6 +63,7 @@ export default {
   mounted(){
     this.getCategories()
     this.call()
+
   },
   data() {
     return {
@@ -109,29 +71,30 @@ export default {
       categoryList: [],
       categoryListNames: [],
       categoriesA:[],
-      categoriesB:[],
+      //categoriesB:[],
       isFavorite: false,
     };
   },
   methods: {
-    notifyVue(verticalAlign, horizontalAlign, date, level) {
-      this.$notify({
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+        this.$notify({
         message:
-           date ,
-        icon: "add_alert",
+            date ,
+        icon: icon,
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
-        type:level
-      })
+        type:level,
+        timeout: 2500
+        })
     },
     getCategories(){
       API.get(`/api/category/`)
       .then(res => {
         const size = res.length
-        this.categoriesA = chunk(res,6)[0]
-        this.categoriesB = chunk(res,6)[1]
+        this.categoriesA =  res 
+        
 
-      }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger"))
+      }).catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000))
     },
     call(){
         API.get('/api/category/')
@@ -139,7 +102,7 @@ export default {
         this.categoryList = resp
         this.categoryListName(resp)
       })
-      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger")
+      .catch(e => this.notifyVue('top', 'right', " :( " + e, "danger", "sentiment_very_dissatisfied", 3000)
       )},
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
@@ -167,11 +130,6 @@ export default {
        this.categoryListNames  = resp.map( e => e.name)
     },
     searchByCategory(categoryId){
-        // this.$store.state.category = categoryId
-        // this.isFavorite = !this.isFavorite
-        // if(!this.isFavorite){
-        // this.$store.state.category = null
-        // }
         if(this.$store.state.category == categoryId){
             this.$store.state.category = null
         }else{
@@ -204,6 +162,7 @@ export default {
 .sep{
   margin-right: 1rem;
 }
+
 .f{
   transition: all 0.6s;
 }
@@ -230,5 +189,18 @@ export default {
     transform: scale(1.3);
     opacity: 0;
   }
+}
+
+.gala-style-pop{
+  font-style: oblique;
+  color: #04888d !important;
+  font-size: 1rem !important;
+}
+
+.gala-style-text{
+  font-style: oblique;
+  color: #04888d !important;
+  font-size: 1.5rem !important;
+  margin-right:  15% !important;
 }
 </style>

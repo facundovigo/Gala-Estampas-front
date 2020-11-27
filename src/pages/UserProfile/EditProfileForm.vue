@@ -5,7 +5,11 @@
     </div>  
     <md-card v-if="!this.loading">
       <md-card-header style="background-color: #ec407a" >
-        <h4 class="title">Datos de perfil</h4>
+        <h4 class="title"  v-if="(this.$route.name == 'Detalles del Producto')" style="text-align: center !important;"> 
+           Ya casi es tuyo completa los datos para el Envío..
+          <md-icon class="gala-icon">local_shipping</md-icon>
+          </h4>
+        <h4 class="title" v-else>Datos de perfil</h4>
       </md-card-header>
 
       <md-card-content>
@@ -60,7 +64,7 @@
           </div>
 
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-round  md-gala2" v-on:click="updateUser()">Actualizar Datos</md-button>
+            <md-button class="md-round md-gala2" v-on:click="updateUser()">Actualizar Datos</md-button>
           </div>
         </div>
       </md-card-content>
@@ -107,33 +111,34 @@ export default {
             this.user = resp
             this.loading = false 
           })
-          .catch( e => this.notifyVue('top', 'right',  e, "danger"));
+          .catch( e => this.notifyVue('top', 'right', "Upss algo salió mal :( " + e.error, "danger", "sentiment_very_dissatisfied", 5000));
         
         await API.get(`/api/client/?user_id=${this.data.user}`)
           .then( resp => { 
               this.$store.state.client = resp
               this.client = resp[0]
             })
-          .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal =(", "danger"))
+          .catch(e => this.notifyVue('top', 'right', "Upss algo salió mal :( " + e.error, "danger", "sentiment_very_dissatisfied", 5000))
           if(this.client){
             this.data = this.client
           }
         },
-        notifyVue(verticalAlign, horizontalAlign, date, level) {
-          this.$notify({
-            message:
-                date ,
-            icon: "add_alert",
-            horizontalAlign: horizontalAlign,
-            verticalAlign: verticalAlign,
-            type:level
-          })
-      },
+    notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
+      this.$notify({
+        message:
+            date ,
+        icon: icon,
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type:level,
+        timeout: 9000
+      })
+    },
       
       async updateUser(){
         const notenecesito = await API.post(`/api/client/`, this.data)
           .then(resp =>{
-            this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success" ) 
+            this.notifyVue('top', 'right', "Se han actualizado los datos correctamente", "success", "done", 5000 ) 
             this.$store.state.client = resp
             this.$store.state.cardFlap= !this.$store.state.cardFlap
           })
@@ -150,5 +155,19 @@ export default {
 .gala-birthdate{
     margin-top: -16px !important;
     padding-bottom: 0 !important;;
+}
+.title{
+  color: white !important;
+  font-style: italic ;
+  font-size: 1.5rem !important;
+}
+
+.md-gala2{
+  font-style: italic !important;
+  font-size: 1rem !important;
+  
+}
+.gala-icon{
+  margin-left: 1rem !important;
 }
 </style>

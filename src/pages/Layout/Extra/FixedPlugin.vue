@@ -2,7 +2,7 @@
   <div class="fixed-plugin" v-click-outside="closeDropDown">
     <div class="dropdown show-dropdown" :class="{ show: isOpen }">
       <a data-toggle="dropdown">
-        <i class="fas fa-share-alt icon-trans" @click="toggleDropDown"> </i>
+        <i class="fas fa-share-alt icon-trans" @click="toggleDropDown" style="color: red !important;"> </i>
       </a>
       <ul class="dropdown-menu" :class="{ show: isOpen }">
         <li class="header-title"> Gala Estampas</li>
@@ -47,8 +47,8 @@ Vue.use(VueGitHubButtons, { useCache: true });
 export default {
   data() {
     return {
-      shareUrl: "http://localhost:8080/#/dashboard",
-      freeUrl: "http://localhost:8080/#/dashboard",
+      shareUrl: "http://www.galaestampas.ar/",
+      freeUrl: "http://www.galaestampas.ar/",
       isOpen: false,
     };
   },
