@@ -17,6 +17,7 @@
         </md-table-cell>
         <md-table-cell class="md-subhead" md-label="Producto">{{ item.product_id.name }}</md-table-cell>
         <md-table-cell class="md-subhead" md-label="Cantidad">{{ item.cant }}</md-table-cell>
+        <md-table-cell class="md-subhead" md-label="Precio">{{ item.ticket }}</md-table-cell>
         <md-table-cell class="md-subhead" md-label="N° Orden">{{ item.id }}</md-table-cell>
         <md-table-cell class="md-subhead" md-label="Fecha de entrega">{{ item.date_delivery }}</md-table-cell>
         <md-table-cell md-label="Estado">
