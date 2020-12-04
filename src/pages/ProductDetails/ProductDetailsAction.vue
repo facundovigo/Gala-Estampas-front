@@ -25,8 +25,8 @@
         </ValidationProvider>
       </md-field>
     </div>  
-     <md-datepicker class="md-layout-item md-small-size-100 md-size-50" v-model="shippingDate"></md-datepicker>
-   </div>    
+      <md-datepicker class="md-layout-item md-small-size-100 md-size-50" v-model="shippingDate" md-immediately :md-disabled-dates="disabledDates"></md-datepicker>
+    </div>    
 
 <md-card-content> 
   <div >    
@@ -84,7 +84,6 @@ import API from '../../service/api';
 import { extend, localize } from 'vee-validate';
 import format from 'date-fns/format';
 
-
 localize({
   es: {
     messages: {
@@ -96,8 +95,8 @@ localize({
 
 extend('minDate', {
 params: ['target'],
-   validate(value) {
-      return  this.shippingDate.splice(0,4) != "yyyy"
+  validate(value) {
+    return  this.shippingDate.splice(0,4) != "yyyy"
   },
   message: 'pruebaaaaa'
 });
@@ -124,11 +123,9 @@ extend('password', {
 
 
 export default {
-   
   name: "user-card",
   props: ['data'],
   dataClient:{},
-
   methods: {
     notifyVue(verticalAlign, horizontalAlign, date, level, icon, time) {
       this.$notify({
@@ -186,6 +183,17 @@ export default {
     toggleCard: function(card) {
       card.flipped = !card.flipped;
     },
+    disabledDates: date => {
+        var today = Date.now();        
+        var date1 = new Date(today);
+        var date2 = new Date(date);
+        var diffDays = date2.getDate() - date1.getDate(); 
+
+        const day = date.getDay()
+
+        return day === 0 || diffDays < 6
+      },
+
   },
 
   watch:{
@@ -200,6 +208,7 @@ export default {
   data() {
     let dateFormat = this.$material.locale.dateFormat || 'yyyy-MM-dd'
     let now = new Date()
+
     return {
            cards: {
             flipped: false,
@@ -298,5 +307,10 @@ export default {
 
 .gala-style-on{
   color: black !important;
+}
+
+.md-datepicker-dialog .md-theme-default .md-datepicker-header{
+  color: pink !important;
+  background-color: #f06292 !important;
 }
 </style>
