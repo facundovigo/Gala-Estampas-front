@@ -4,7 +4,7 @@
     <div class="md-collapse f">
     <h3 class=" gala-style-text" style="color: #6BC5C8 !important; width: 80% !important;">{{$route.name}}</h3>
     </div>
-     <div class="md-collapse" v-if="(this.$route.name == 'Pruductos')">
+     <div class="md-collapse" v-if="(this.$route.name == 'Productos')">
       <div class="sep" v-for="(category, index) in categoriesA" :key="index">
        <md-button class="md-just-icon md-simple f" v-bind:class="{'gala-category':(!isActive(category.id)), 'gala-category-active':(isActive(category.id))}" 
          v-on:click="searchByCategory(category.id)">
